@@ -1374,8 +1374,14 @@ function applyLanguage(lang) {
     link.classList.toggle('active', link.dataset.lang === lang);
   });
 
-  localStorage.setItem('museumLang', lang);
+  safeStorage.setItem('museumLang', lang);
 }
+
+const safeStorage = {
+  getItem: (key) => { try { return window.localStorage.getItem(key); } catch (e) { return null; } },
+  setItem: (key, val) => { try { window.localStorage.setItem(key, val); } catch (e) {} },
+  removeItem: (key) => { try { window.localStorage.removeItem(key); } catch (e) {} }
+};
 
 function initLanguage() {
   const langLinks = document.querySelectorAll('.lang-switch a');
@@ -1387,7 +1393,7 @@ function initLanguage() {
     });
   });
 
-  const savedLang = localStorage.getItem('museumLang') || 'ru';
+  const savedLang = safeStorage.getItem('museumLang') || 'ru';
   applyLanguage(savedLang);
 }
 
@@ -1395,21 +1401,20 @@ function initLanguage() {
 function initPreloader() {
   const preloader = document.getElementById('preloader');
   if (preloader) {
-    window.addEventListener('load', () => {
+    const hide = () => {
       preloader.style.opacity = '0';
       preloader.style.visibility = 'hidden';
       setTimeout(() => {
         preloader.style.display = 'none';
-      }, 500);
-    });
-    // Safety fallback: dismiss preloader after 2.5 seconds if load event stalls
-    setTimeout(() => {
-      if (preloader.style.display !== 'none') {
-        preloader.style.opacity = '0';
-        preloader.style.visibility = 'hidden';
-        setTimeout(() => { preloader.style.display = 'none'; }, 400);
-      }
-    }, 2500);
+      }, 350);
+    };
+
+    if (document.readyState === 'complete') {
+      hide();
+    } else {
+      window.addEventListener('load', hide);
+      setTimeout(hide, 700);
+    }
   }
 }
 
@@ -1432,17 +1437,17 @@ function initAudio() {
 
   const saveCurrentPosition = () => {
     if (!bgMusic.paused && bgMusic.currentTime > 0) {
-      localStorage.setItem('museumAudioTime', bgMusic.currentTime.toFixed(2));
-      localStorage.setItem('museumAudioTimestamp', Date.now().toString());
+      safeStorage.setItem('museumAudioTime', bgMusic.currentTime.toFixed(2));
+      safeStorage.setItem('museumAudioTimestamp', Date.now().toString());
     }
   };
 
   const restorePosition = () => {
-    const savedTimeStr = localStorage.getItem('museumAudioTime');
+    const savedTimeStr = safeStorage.getItem('museumAudioTime');
     if (!savedTimeStr) return;
     const savedTime = parseFloat(savedTimeStr);
     if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
-      const lastTs = parseInt(localStorage.getItem('museumAudioTimestamp') || '0', 10);
+      const lastTs = parseInt(safeStorage.getItem('museumAudioTimestamp') || '0', 10);
       let targetTime = savedTime;
       if (lastTs > 0) {
         const elapsedSec = (Date.now() - lastTs) / 1000;
@@ -1472,8 +1477,8 @@ function initAudio() {
   // Continuously track playback time
   bgMusic.addEventListener('timeupdate', () => {
     if (!bgMusic.paused && bgMusic.currentTime > 0) {
-      localStorage.setItem('museumAudioTime', bgMusic.currentTime.toFixed(2));
-      localStorage.setItem('museumAudioTimestamp', Date.now().toString());
+      safeStorage.setItem('museumAudioTime', bgMusic.currentTime.toFixed(2));
+      safeStorage.setItem('museumAudioTimestamp', Date.now().toString());
     }
   });
 
@@ -1484,7 +1489,7 @@ function initAudio() {
   const playAudio = () => {
     restorePosition();
     bgMusic.play().then(() => {
-      localStorage.setItem('museumAudio', 'true');
+      safeStorage.setItem('museumAudio', 'true');
       updateUI(true);
     }).catch(() => {
       // Autoplay blocked by browser policy without gesture
@@ -1495,16 +1500,16 @@ function initAudio() {
   const pauseAudio = () => {
     saveCurrentPosition();
     bgMusic.pause();
-    localStorage.setItem('museumAudio', 'false');
+    safeStorage.setItem('museumAudio', 'false');
     updateUI(false);
   };
 
-  const saved = localStorage.getItem('museumAudio');
+  const saved = safeStorage.getItem('museumAudio');
   if (saved === 'true') {
     playAudio();
     // One-time listener to resume if browser blocked initial autoplay
     const onFirstUserAction = () => {
-      if (localStorage.getItem('museumAudio') === 'true' && bgMusic.paused) {
+      if (safeStorage.getItem('museumAudio') === 'true' && bgMusic.paused) {
         playAudio();
       }
       document.removeEventListener('click', onFirstUserAction);
@@ -1563,16 +1568,6 @@ function initHamburger() {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && navLinks.classList.contains('open')) {
         closeMenu();
-      }
-    });
-  }
-}
-
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!hamburger.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('open')) {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('open');
       }
     });
   }
@@ -1717,12 +1712,12 @@ function initContactForm() {
         }
       });
       if (valid) {
-        const currentLang = localStorage.getItem('museumLang') || 'ru';
+        const currentLang = safeStorage.getItem('museumLang') || 'ru';
         const t = translations[currentLang] || translations.ru;
         alert(t['alert.form_sent'] || 'Спасибо! Ваше сообщение успешно отправлено.');
         contactForm.reset();
       } else {
-        const currentLang = localStorage.getItem('museumLang') || 'ru';
+        const currentLang = safeStorage.getItem('museumLang') || 'ru';
         const t = translations[currentLang] || translations.ru;
         alert(t['alert.form_error'] || 'Пожалуйста, заполните все обязательные поля.');
       }
@@ -2315,7 +2310,7 @@ function initAudioGuideDock() {
       if (agPlayBtn) agPlayBtn.textContent = '▶';
       // Only resume background music if the site was UNMUTED before
       const bgMusic = document.getElementById('bgMusic');
-      const isSiteAudioAllowed = localStorage.getItem('museumAudio') === 'true';
+      const isSiteAudioAllowed = safeStorage.getItem('museumAudio') === 'true';
       if (bgMusic && bgMusicWasPlayingBefore && isSiteAudioAllowed) {
         bgMusic.play().catch(() => {});
       }
@@ -2325,7 +2320,7 @@ function initAudioGuideDock() {
     const playNarration = (trackId) => {
       currentTrackId = trackId || currentTrackId;
       const bgMusic = document.getElementById('bgMusic');
-      const isSiteAudioAllowed = localStorage.getItem('museumAudio') === 'true';
+      const isSiteAudioAllowed = safeStorage.getItem('museumAudio') === 'true';
 
       // If bgMusic was currently playing, pause it for clear voiceover
       if (bgMusic && !bgMusic.paused) {
