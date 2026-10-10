@@ -767,7 +767,19 @@
         updateUIEpoch(eraIdx);
         if (scrollTriggerInstance && scrollTriggerInstance.end > scrollTriggerInstance.start) {
           const targetY = scrollTriggerInstance.start + (eraIdx / (EPOCHS.length - 1)) * (scrollTriggerInstance.end - scrollTriggerInstance.start);
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          if (typeof gsap !== 'undefined') {
+            const scrollObj = { y: window.scrollY || window.pageYOffset || document.documentElement.scrollTop };
+            gsap.to(scrollObj, {
+              y: targetY,
+              duration: 1.0,
+              ease: "power2.inOut",
+              onUpdate: () => {
+                window.scrollTo(0, scrollObj.y);
+              }
+            });
+          } else {
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
         }
       }, { passive: true });
     });
@@ -786,7 +798,7 @@
       start: 'top top',
       end: '+=400vh',
       pin: true,
-      scrub: 1.0,
+      scrub: 1.2,
       anticipatePin: 1,
       onUpdate: (self) => {
         targetScrollProgress = self.progress;
@@ -800,6 +812,8 @@
   // Scrubs videos/flythrough-epochs.mp4 smoothly across the 4 historical epochs
   // ---------------------------------------------------------------------------
   let videoEl = null;
+  let targetVideoProgress = 0;
+  let currentVideoProgress = 0;
   let isVideoSeeking = false;
   let pendingVideoTime = null;
 
@@ -809,6 +823,8 @@
 
     videoEl.muted = true;
     videoEl.playsInline = true;
+    videoEl.setAttribute('muted', '');
+    videoEl.setAttribute('playsinline', '');
 
     videoEl.addEventListener('seeking', () => { isVideoSeeking = true; }, { passive: true });
     videoEl.addEventListener('seeked', () => {
@@ -832,25 +848,16 @@
   function applyVideoTime(time) {
     if (!videoEl || isNaN(videoEl.duration) || videoEl.duration <= 0) return;
     const clamped = Math.max(0, Math.min(videoEl.duration, time));
-    if (isVideoSeeking) {
-      pendingVideoTime = clamped;
-    } else {
-      try {
-        if ('fastSeek' in videoEl) {
-          videoEl.fastSeek(clamped);
-        } else {
-          videoEl.currentTime = clamped;
-        }
-      } catch (e) {
-        videoEl.currentTime = clamped;
-      }
+    try {
+      videoEl.currentTime = clamped;
+    } catch (e) {
+      // fallback
     }
   }
 
   function syncVideo(progress) {
     if (!videoEl || isNaN(videoEl.duration) || videoEl.duration <= 0) return;
-    const targetTime = progress * videoEl.duration;
-    applyVideoTime(targetTime);
+    targetVideoProgress = Math.max(0, Math.min(1, progress));
   }
 
   function onFallbackScroll() {
@@ -949,25 +956,42 @@
     currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.12;
     updateCameraForProgress(currentScrollProgress);
 
-    // Procedural ambient animations
-    if (animatedWater) {
-      animatedWater.position.y = -0.4 + Math.sin(elapsedTime * 1.5) * 0.08;
+    // Smooth video scrubber interpolation (60 FPS fluid flyover)
+    if (videoEl && !isNaN(videoEl.duration) && videoEl.duration > 0) {
+      const vDiff = targetVideoProgress - currentVideoProgress;
+      if (Math.abs(vDiff) > 0.0001) {
+        currentVideoProgress += vDiff * 0.18;
+      } else {
+        currentVideoProgress = targetVideoProgress;
+      }
+      const targetTime = currentVideoProgress * videoEl.duration;
+      if (Math.abs(videoEl.currentTime - targetTime) > 0.012) {
+        applyVideoTime(targetTime);
+      }
     }
 
-    if (animatedParticles) {
-      animatedParticles.rotation.y = elapsedTime * 0.02;
+    // Render WebGL procedural world when canvas is displayed
+    if (canvas && canvas.style.display !== 'none') {
+      // Procedural ambient animations
+      if (animatedWater) {
+        animatedWater.position.y = -0.4 + Math.sin(elapsedTime * 1.5) * 0.08;
+      }
+
+      if (animatedParticles) {
+        animatedParticles.rotation.y = elapsedTime * 0.02;
+      }
+
+      animatedTorches.forEach((fire, idx) => {
+        const flicker = 1.0 + Math.sin(elapsedTime * 10 + idx * 2) * 0.18;
+        fire.scale.set(flicker, flicker * 1.15, flicker);
+      });
+
+      animatedArtifacts.forEach((artifact, idx) => {
+        artifact.rotation.y = elapsedTime * (0.4 + idx * 0.1);
+      });
+
+      renderer.render(scene, camera);
     }
-
-    animatedTorches.forEach((fire, idx) => {
-      const flicker = 1.0 + Math.sin(elapsedTime * 10 + idx * 2) * 0.18;
-      fire.scale.set(flicker, flicker * 1.15, flicker);
-    });
-
-    animatedArtifacts.forEach((artifact, idx) => {
-      artifact.rotation.y = elapsedTime * (0.4 + idx * 0.1);
-    });
-
-    renderer.render(scene, camera);
   }
 
   // ---------------------------------------------------------------------------

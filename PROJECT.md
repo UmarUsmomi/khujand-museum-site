@@ -64,6 +64,11 @@
 - Class: `.clay-icon-3d` with inline `<img src="..." class="clay-icon-3d" alt="...">` or CSS custom component.
 - i18n convention: Text elements carry `data-i18n` on companion `<span>` tags, NOT on containers enclosing `.clay-icon-3d`.
 
+### Audio Guide & ElevenLabs AI Voice Engine (`voices/` ↔ `js/main.js`)
+- Voice files: `voices/rus.mp3` (RU, ~230s), `voices/taj.mp3` (TJ, ~286s), `voices/eng.mp3` (EN, ~257s).
+- Seamless Transition: Switching language maintains fractional playback progress (`currentTime / duration`) with volume crossfade.
+- Attribution & Compliance: Voiced by ElevenLabs Studio AI; documented in `VOICES_ATTRIBUTION.md`.
+
 ### Auto-Improve Tool (`scripts/auto_improve.py`)
 - CLI signature: `python scripts/auto_improve.py [--task descriptions|3d-prompts|all] [--rounds N] [--threshold FLOAT] [--report PATH]`
 - Input data: JSON dictionaries of exhibit texts and 3D prompts.

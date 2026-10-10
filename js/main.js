@@ -266,6 +266,9 @@ const translations = {
     "footer.contacts": "Контакты",
     "footer.link_excursions": "Экскурсии",
     "footer.link_audioguide": "Аудиогид",
+    "audioguide.dock_title": "АУДИОГИД ПО МУЗЕЮ",
+    "audioguide.modal_title": "Аудиогид «Эхо Худжанда»",
+    "audioguide.attr_text": "Озвучка сгенерирована нейросетью ElevenLabs Studio в просветительских целях для Исторического музея Согдийской области.",
     "footer.link_rules": "Правила посещения",
     "footer.copyright": "© 2026 Исторический музей Согдийской области (Худжандская крепость)",
     "footer.disclaimer": "Неофициальный культурно-образовательный портал. Исторические материалы и экспонаты представлены в некоммерческих просветительских целях.",
@@ -696,6 +699,9 @@ const translations = {
     "footer.contacts": "Тамос",
     "footer.link_excursions": "Экскурсияҳо",
     "footer.link_audioguide": "Роҳнамои савтӣ",
+    "audioguide.dock_title": "РОҲНАМОИ АУДИОӢ",
+    "audioguide.modal_title": "Роҳнамои савтии «Садои Хуҷанд»",
+    "audioguide.attr_text": "Садо бо истифода аз зеҳни сунъии ElevenLabs Studio барои ҳадафҳои омӯзишии Осорхонаи таърихии вилояти Суғд таҳия шудааст.",
     "footer.link_rules": "Қоидаҳои ташриф",
     "footer.copyright": "© 2026 Осорхонаи таърихии вилояти Суғд (Қалъаи Хуҷанд)",
     "footer.disclaimer": "Сомонаи ғайрирасмии фарҳангию омӯзишӣ ва сайёҳӣ. Маводҳои таърихӣ бо ҳадафҳои маърифатӣ пешниҳод шудаанд.",
@@ -1126,6 +1132,9 @@ const translations = {
     "footer.contacts": "Contacts",
     "footer.link_excursions": "Guided Tours",
     "footer.link_audioguide": "Audio Guide",
+    "audioguide.dock_title": "MUSEUM AUDIO GUIDE",
+    "audioguide.modal_title": "Audio Guide «Echo of Khujand»",
+    "audioguide.attr_text": "Voiceover generated with ElevenLabs Studio AI for educational purposes for the Historical Museum of Sughd Region.",
     "footer.link_rules": "Visiting Rules",
     "footer.copyright": "© 2026 Historical Museum of Sughd Region (Khujand Fortress)",
     "footer.disclaimer": "Unofficial cultural, educational and heritage portal. All historical materials and exhibits are presented for non-commercial educational purposes.",
@@ -1375,6 +1384,11 @@ function applyLanguage(lang) {
   });
 
   safeStorage.setItem('museumLang', lang);
+
+  // Notify audio guide of language switch for seamless voiceover transition
+  if (typeof window.onMuseumLanguageChange === 'function') {
+    window.onMuseumLanguageChange(lang);
+  }
 }
 
 const safeStorage = {
@@ -2220,21 +2234,306 @@ function initInteractiveTimeline() {
   });
 }
 
-// ===== MULTI-HALL AUDIO GUIDE WIDGET =====
+// ===== MULTI-HALL AUDIO GUIDE WIDGET (ELEVENLABS VOICES & SEAMLESS PROGRESSION) =====
 function initAudioGuideDock() {
   const isSub = window.location.pathname.includes('/pages/');
   const base = isSub ? '../' : '';
+
+  const voiceSources = {
+    ru: `${base}voices/rus.mp3`,
+    tj: `${base}voices/taj.mp3`,
+    tg: `${base}voices/taj.mp3`,
+    en: `${base}voices/eng.mp3`
+  };
+
+  const chapters = [
+    {
+      id: '1',
+      startFrac: 0.0,
+      title: {
+        ru: '1. Вводная панорама Худжандской крепости',
+        tj: '1. Намоиши муқаддимавии Қалъаи Хуҷанд',
+        en: '1. Khujand Fortress Overview'
+      },
+      desc: {
+        ru: 'Архитектура цитадели, стены VII века и река Сырдарья',
+        tj: 'Меъмории диж, деворҳои асри VII ва дарёи Сир',
+        en: 'Citadel architecture, 7th century walls & Syr Darya'
+      }
+    },
+    {
+      id: '2',
+      startFrac: 0.20,
+      title: {
+        ru: '2. Зал Александра Македонского',
+        tj: '2. Толори Искандари Мақдунӣ',
+        en: '2. Hall of Alexander the Great'
+      },
+      desc: {
+        ru: 'Основание Александрии Эсхаты и мраморные мозаики',
+        tj: 'Бунёди Искандарияи Эсхата ва мозаикаҳои мармарӣ',
+        en: 'Founding of Alexandria Eschate & Hellenistic mosaics'
+      }
+    },
+    {
+      id: '3',
+      startFrac: 0.40,
+      title: {
+        ru: '3. Подвиг Тимурмалика — Оборона 1220 г.',
+        tj: '3. Қаҳрамонии Темурмалик — Мудофиаи 1220',
+        en: '3. Feat of Timur Malik — Defense of 1220'
+      },
+      desc: {
+        ru: 'Бронзовая статуя 3,5 м и сопротивление войскам Чингисхана',
+        tj: 'Муҷассамаи биринҷии 3,5 м ва муқовимат ба лашкари Чингизхон',
+        en: 'Bronze statue & resistance against Mongol forces'
+      }
+    },
+    {
+      id: '4',
+      startFrac: 0.65,
+      title: {
+        ru: '4. Сакский золотой шлем и сокровища Согда',
+        tj: '4. Кулоҳхуди тиллоии сакҳо ва хазинаи Суғд',
+        en: '4. Saka Golden Helmet & Sogdian Treasures'
+      },
+      desc: {
+        ru: 'Звериный стиль V–IV вв. до н.э. и ювелирное искусство',
+        tj: 'Услуби ҳайвонии асрҳои V–IV п.м. ва ҳунари заргарӣ',
+        en: 'Animal style of 5th-4th c. BC & exquisite jewelry'
+      }
+    },
+    {
+      id: '5',
+      startFrac: 0.82,
+      title: {
+        ru: '5. Этнография и мастера худжандского шёлка',
+        tj: '5. Мардумшиносӣ ва устодони абрешими Хуҷанд',
+        en: '5. Ethnography & Masters of Khujand Silk'
+      },
+      desc: {
+        ru: 'Традиционное сюзане, ковры ручной работы и керамика',
+        tj: 'Сӯзаниҳои қадимӣ, қолинҳои дастбоф ва сафолгарӣ',
+        en: 'Traditional suzani, handmade carpets & pottery'
+      }
+    }
+  ];
+
+  const agLabels = {
+    ru: {
+      dockTitle: 'АУДИОГИД ПО МУЗЕЮ',
+      modalTitle: 'Аудиогид «Эхо Худжанда»',
+      attrText: 'Озвучка сгенерирована с использованием технологий студии ElevenLabs Studio в просветительских целях для Исторического музея Согдийской области.'
+    },
+    tj: {
+      dockTitle: 'РОҲНАМОИ АУДИОӢ',
+      modalTitle: 'Роҳнамои савтии «Садои Хуҷанд»',
+      attrText: 'Садо бо истифода аз технологияҳои студияи ElevenLabs Studio барои ҳадафҳои маърифатии Осорхонаи таърихии вилояти Суғд сабт шудааст.'
+    },
+    en: {
+      dockTitle: 'MUSEUM AUDIO GUIDE',
+      modalTitle: 'Audio Guide «Echo of Khujand»',
+      attrText: 'Voiceover generated with ElevenLabs Studio AI voice technology for the Historical Museum of Sughd Region.'
+    }
+  };
+
+  let currentLang = safeStorage.getItem('museumLang') || 'ru';
+  if (currentLang === 'tg') currentLang = 'tj';
+  let isPlaying = false;
+  let bgMusicWasPlayingBefore = false;
+  let isUserScrubbing = false;
+
+  const guideAudio = new Audio();
+  guideAudio.preload = 'metadata';
+  guideAudio.src = voiceSources[currentLang] || voiceSources.ru;
+
+  function formatSeconds(sec) {
+    if (isNaN(sec) || sec < 0) return '00:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+  }
+
+  function updatePlayState(playing) {
+    isPlaying = playing;
+    const agPlayBtn = document.getElementById('agPlayBtn');
+    const agModalPlayBtn = document.getElementById('agModalPlayBtn');
+    if (agPlayBtn) agPlayBtn.textContent = playing ? '⏸' : '▶';
+    if (agModalPlayBtn) agModalPlayBtn.textContent = playing ? '⏸' : '▶';
+    const dock = document.getElementById('audioguideDock');
+    if (dock) dock.classList.toggle('playing', playing);
+  }
+
+  function playGuide() {
+    const bgMusic = document.getElementById('bgMusic');
+    if (bgMusic && !bgMusic.paused) {
+      bgMusicWasPlayingBefore = true;
+      bgMusic.pause();
+    }
+    if (!guideAudio.src || !guideAudio.src.includes('.mp3')) {
+      guideAudio.src = voiceSources[currentLang] || voiceSources.ru;
+    }
+    guideAudio.play().then(() => {
+      updatePlayState(true);
+    }).catch((err) => {
+      console.warn('Audio play request:', err);
+    });
+  }
+
+  function pauseGuide() {
+    guideAudio.pause();
+    updatePlayState(false);
+    const bgMusic = document.getElementById('bgMusic');
+    const isSiteAudioAllowed = safeStorage.getItem('museumAudio') === 'true';
+    if (bgMusic && bgMusicWasPlayingBefore && isSiteAudioAllowed) {
+      bgMusic.play().catch(() => {});
+    }
+    bgMusicWasPlayingBefore = false;
+  }
+
+  function updateTimelineUI() {
+    const curTime = guideAudio.currentTime || 0;
+    const durTime = guideAudio.duration || 0;
+    const curEl = document.getElementById('agTimeCurrent');
+    const durEl = document.getElementById('agTimeDuration');
+    const seekSlider = document.getElementById('agSeekBar');
+
+    if (curEl) curEl.textContent = formatSeconds(curTime);
+    if (durEl && durTime > 0) durEl.textContent = formatSeconds(durTime);
+
+    if (seekSlider && !isUserScrubbing && durTime > 0) {
+      seekSlider.value = ((curTime / durTime) * 100).toFixed(1);
+    }
+
+    const frac = durTime > 0 ? (curTime / durTime) : 0;
+    let activeChap = chapters[0];
+    for (let i = chapters.length - 1; i >= 0; i--) {
+      if (frac >= chapters[i].startFrac - 0.02) {
+        activeChap = chapters[i];
+        break;
+      }
+    }
+
+    document.querySelectorAll('.audioguide-track-card').forEach(card => {
+      card.classList.toggle('active', card.dataset.track === activeChap.id);
+    });
+
+    const agTrackName = document.getElementById('agTrackName');
+    if (agTrackName) {
+      agTrackName.textContent = activeChap.title[currentLang] || activeChap.title.ru;
+    }
+  }
+
+  function updateLabelsForLanguage() {
+    const labels = agLabels[currentLang] || agLabels.ru;
+    const dockTitle = document.querySelector('.audioguide-title');
+    if (dockTitle) dockTitle.textContent = labels.dockTitle;
+    const headerTitle = document.getElementById('agModalHeaderTitle');
+    if (headerTitle) headerTitle.textContent = labels.modalTitle;
+    const attrText = document.getElementById('agAttrText');
+    if (attrText) attrText.innerHTML = `<span class="ag-attr-strong">ElevenLabs Studio AI</span> • ${labels.attrText}`;
+
+    document.querySelectorAll('.ag-lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === currentLang);
+    });
+
+    chapters.forEach(chap => {
+      const card = document.querySelector(`.audioguide-track-card[data-track="${chap.id}"]`);
+      if (card) {
+        const h4 = card.querySelector('h4');
+        const p = card.querySelector('p');
+        if (h4) h4.textContent = chap.title[currentLang] || chap.title.ru;
+        if (p) p.textContent = chap.desc[currentLang] || chap.desc.ru;
+      }
+    });
+
+    updateTimelineUI();
+  }
+
+  // Seamless voiceover language transition
+  function switchVoiceLanguage(newLang) {
+    const normLang = (newLang === 'tg' || newLang === 'tj') ? 'tj' : (newLang === 'en' ? 'en' : 'ru');
+    if (normLang === currentLang && guideAudio.src && guideAudio.src.includes(`${normLang}.mp3`)) {
+      return;
+    }
+
+    let currentFrac = 0;
+    if (guideAudio.duration && !isNaN(guideAudio.duration) && guideAudio.duration > 0) {
+      currentFrac = Math.max(0, Math.min(1, guideAudio.currentTime / guideAudio.duration));
+    } else {
+      const saved = parseFloat(safeStorage.getItem('museumAgProgress') || '0');
+      if (!isNaN(saved)) currentFrac = Math.max(0, Math.min(1, saved));
+    }
+
+    const wasPlaying = !guideAudio.paused && isPlaying;
+    currentLang = normLang;
+    const targetSrc = voiceSources[currentLang] || voiceSources.ru;
+
+    if (wasPlaying) {
+      // Smooth crossfade: fade out volume, swap source, restore relative time, fade in volume
+      let fadeVol = guideAudio.volume;
+      const fadeStep = 0.2;
+      const fadeOut = setInterval(() => {
+        fadeVol -= fadeStep;
+        if (fadeVol <= 0.05) {
+          clearInterval(fadeOut);
+          guideAudio.volume = 0;
+          guideAudio.src = targetSrc;
+          guideAudio.load();
+
+          const onReady = () => {
+            guideAudio.removeEventListener('loadedmetadata', onReady);
+            guideAudio.removeEventListener('canplay', onReady);
+            if (guideAudio.duration && !isNaN(guideAudio.duration)) {
+              guideAudio.currentTime = currentFrac * guideAudio.duration;
+            }
+            guideAudio.play().then(() => {
+              updatePlayState(true);
+              let inVol = 0;
+              const fadeIn = setInterval(() => {
+                inVol += 0.2;
+                if (inVol >= 1.0) {
+                  guideAudio.volume = 1.0;
+                  clearInterval(fadeIn);
+                } else {
+                  guideAudio.volume = inVol;
+                }
+              }, 30);
+            }).catch(() => {});
+          };
+
+          guideAudio.addEventListener('canplay', onReady, { once: true });
+        } else {
+          guideAudio.volume = Math.max(0, fadeVol);
+        }
+      }, 20);
+    } else {
+      guideAudio.src = targetSrc;
+      guideAudio.load();
+      guideAudio.addEventListener('loadedmetadata', () => {
+        if (guideAudio.duration && !isNaN(guideAudio.duration)) {
+          guideAudio.currentTime = currentFrac * guideAudio.duration;
+          updateTimelineUI();
+        }
+      }, { once: true });
+    }
+
+    updateLabelsForLanguage();
+  }
+
+  // Create dock widget if not present
   if (!document.getElementById('audioguideDock')) {
     const dock = document.createElement('div');
     dock.id = 'audioguideDock';
     dock.className = 'audioguide-dock';
+    const initLabels = agLabels[currentLang] || agLabels.ru;
     dock.innerHTML = `
       <div class="audioguide-icon"><img src="${base}images/icons/icon-audioguide-3d.webp" class="clay-icon-3d" alt="Аудиогид" width="24" height="24"></div>
       <div class="audioguide-info">
-        <span class="audioguide-title">АУДИОГИД ПО МУЗЕЮ</span>
-        <span class="audioguide-track" id="agTrackName">1. Худжандская цитадель</span>
+        <span class="audioguide-title">${initLabels.dockTitle}</span>
+        <span class="audioguide-track" id="agTrackName">${chapters[0].title[currentLang]}</span>
       </div>
-      <button class="audioguide-play-btn" id="agPlayBtn" title="Слушать аудиогид">▶</button>
+      <button class="audioguide-play-btn" id="agPlayBtn" title="${initLabels.btnListen}">▶</button>
     `;
     document.body.appendChild(dock);
 
@@ -2245,145 +2544,178 @@ function initAudioGuideDock() {
     modal.innerHTML = `
       <div class="audioguide-box">
         <div class="audioguide-box-header">
-          <h3><img src="${base}images/icons/icon-audioguide-3d.webp" class="clay-icon-3d" alt="Аудиогид" width="22" height="22"> Аудиогид «Эхо Худжанда»</h3>
+          <h3><img src="${base}images/icons/icon-audioguide-3d.webp" class="clay-icon-3d" alt="Аудиогид" width="22" height="22"> <span id="agModalHeaderTitle">${initLabels.modalTitle}</span></h3>
           <button style="background:none; border:none; color:#fff; font-size:1.3rem; cursor:pointer;" id="closeAgModal">✕</button>
         </div>
+
+        <div class="audioguide-player-container">
+          <div class="ag-lang-switch">
+            <button class="ag-lang-btn ${currentLang === 'ru' ? 'active' : ''}" data-lang="ru">🇷🇺 Русский</button>
+            <button class="ag-lang-btn ${currentLang === 'tj' ? 'active' : ''}" data-lang="tj">🇹🇯 Тоҷикӣ</button>
+            <button class="ag-lang-btn ${currentLang === 'en' ? 'active' : ''}" data-lang="en">🇬🇧 English</button>
+          </div>
+
+          <div class="ag-seek-row">
+            <span class="ag-time" id="agTimeCurrent">00:00</span>
+            <input type="range" class="ag-seek-slider" id="agSeekBar" min="0" max="100" step="0.1" value="0" aria-label="Прокрутка аудиогида">
+            <span class="ag-time" id="agTimeDuration">03:50</span>
+          </div>
+
+          <div class="ag-controls-row">
+            <button class="ag-skip-btn" id="agSkipBack" title="Назад на 10 секунд">-10с</button>
+            <button class="ag-modal-play-btn" id="agModalPlayBtn" title="Воспроизвести / Пауза">▶</button>
+            <button class="ag-skip-btn" id="agSkipForward" title="Вперёд на 10 секунд">+10с</button>
+          </div>
+        </div>
+
         <div class="audioguide-tracks-list">
-          <div class="audioguide-track-card active" data-track="1" data-title="1. Вводная панорама Худжандской крепости (03:45)">
-            <div class="audioguide-track-num">1</div>
-            <div class="audioguide-track-text">
-              <h4>Вводная панорама Худжандской крепости</h4>
-              <p>Архитектура цитадели, стены VII века и река Сырдарья</p>
+          ${chapters.map((chap, idx) => `
+            <div class="audioguide-track-card ${idx === 0 ? 'active' : ''}" data-track="${chap.id}">
+              <div class="audioguide-track-num">${chap.id}</div>
+              <div class="audioguide-track-text">
+                <h4>${chap.title[currentLang]}</h4>
+                <p>${chap.desc[currentLang]}</p>
+              </div>
             </div>
-          </div>
-          <div class="audioguide-track-card" data-track="2" data-title="2. Зал Александра Македонского (04:12)">
-            <div class="audioguide-track-num">2</div>
-            <div class="audioguide-track-text">
-              <h4>Зал Александра Македонского</h4>
-              <p>Основание Александрии Эсхаты и мраморные мозаики</p>
-            </div>
-          </div>
-          <div class="audioguide-track-card" data-track="3" data-title="3. Подвиг Тимурмалика — Оборона 1220 г. (05:20)">
-            <div class="audioguide-track-num">3</div>
-            <div class="audioguide-track-text">
-              <h4>Подвиг Тимурмалика — Оборона Худжанда</h4>
-              <p>Бронзовая статуя 3,5 м и сопротивление войскам Чингисхана</p>
-            </div>
-          </div>
-          <div class="audioguide-track-card" data-track="4" data-title="4. Сакский золотой шлем и сокровища Согда (03:55)">
-            <div class="audioguide-track-num">4</div>
-            <div class="audioguide-track-text">
-              <h4>Сакский золотой шлем и золото Согда</h4>
-              <p>Звериный стиль V–IV вв. до н.э. и ювелирное искусство</p>
-            </div>
-          </div>
-          <div class="audioguide-track-card" data-track="5" data-title="5. Этнография и мастера худжандского шёлка (04:30)">
-            <div class="audioguide-track-num">5</div>
-            <div class="audioguide-track-text">
-              <h4>Этнография и мастера худжандского шёлка</h4>
-              <p>Традиционное сюзане, ковры ручной работы и керамика</p>
-            </div>
-          </div>
+          `).join('')}
+        </div>
+
+        <div class="ag-attribution-box">
+          <span class="ag-attr-icon">🎙️</span>
+          <p class="ag-attr-text" id="agAttrText">
+            <span class="ag-attr-strong">ElevenLabs Studio AI</span> • ${initLabels.attrText}
+          </p>
         </div>
       </div>
     `;
     document.body.appendChild(modal);
 
-    const trackNarrations = {
-      '1': 'Добро пожаловать в Исторический музей Согдийской области. Перед вами возвышается Худжандская крепость — один из древнейших фортификационных узлов Центральной Азии. Стены цитадели хранят более двух с половиной тысяч лет непрерывной истории.',
-      '2': 'Зал Александра Македонского. В 329 году до нашей эры на берегу реки Яксарт, ныне Сырдарья, Александр Великий заложил город-форпост Александрию Эсхату. Здесь представлены монументальные мраморные мозаики и оружие эпохи эллинизма.',
-      '3': 'Подвиг народного героя Тимурмалика. В 1220 году защитники Худжандской крепости проявили беспримерное мужество при осаде монгольскими туменами. В центре зала установлена грандиозная бронзовая скульптура полководца.',
-      '4': 'Сакский золотой шлем и сокровища Согда. В этом зале экспонируются шедевры ювелирного искусства пятого и четвёртого веков до нашей эры, выполненные в знаменитом скифо-сакском зверином стиле.',
-      '5': 'Зал этнографии и худжандского шёлка. Здесь вы увидите подлинные старинные вышивки сюзане, образцы знаменитого согдийского атласа и традиционные гончарные изделия народных мастеров.'
-    };
-
-    let currentTrackId = '1';
-    let isPlaying = false;
-    let bgMusicWasPlayingBefore = false;
-
-    const stopNarration = () => {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
+    // Audio element event listeners
+    guideAudio.addEventListener('timeupdate', () => {
+      if (guideAudio.duration && !isNaN(guideAudio.duration) && guideAudio.duration > 0) {
+        const progress = guideAudio.currentTime / guideAudio.duration;
+        safeStorage.setItem('museumAgProgress', progress.toFixed(4));
       }
-      isPlaying = false;
-      const agPlayBtn = document.getElementById('agPlayBtn');
-      if (agPlayBtn) agPlayBtn.textContent = '▶';
-      // Only resume background music if the site was UNMUTED before
-      const bgMusic = document.getElementById('bgMusic');
-      const isSiteAudioAllowed = safeStorage.getItem('museumAudio') === 'true';
-      if (bgMusic && bgMusicWasPlayingBefore && isSiteAudioAllowed) {
-        bgMusic.play().catch(() => {});
-      }
-      bgMusicWasPlayingBefore = false;
-    };
+      updateTimelineUI();
+    });
 
-    const playNarration = (trackId) => {
-      currentTrackId = trackId || currentTrackId;
-      const bgMusic = document.getElementById('bgMusic');
-      const isSiteAudioAllowed = safeStorage.getItem('museumAudio') === 'true';
+    guideAudio.addEventListener('ended', () => {
+      pauseGuide();
+      guideAudio.currentTime = 0;
+      updateTimelineUI();
+    });
 
-      // If bgMusic was currently playing, pause it for clear voiceover
-      if (bgMusic && !bgMusic.paused) {
-        bgMusicWasPlayingBefore = true;
-        bgMusic.pause();
-      } else {
-        bgMusicWasPlayingBefore = false;
-      }
+    guideAudio.addEventListener('loadedmetadata', () => {
+      updateTimelineUI();
+    });
 
-      // STRICT RULE: If the site is MUTED, bgMusic MUST NEVER play!
-      if (!isSiteAudioAllowed && bgMusic) {
-        bgMusic.pause();
-      }
+    // Wire up scrubber slider
+    const seekBar = document.getElementById('agSeekBar');
+    if (seekBar) {
+      seekBar.addEventListener('input', () => {
+        isUserScrubbing = true;
+        if (guideAudio.duration && !isNaN(guideAudio.duration)) {
+          const targetTime = (parseFloat(seekBar.value) / 100) * guideAudio.duration;
+          const curEl = document.getElementById('agTimeCurrent');
+          if (curEl) curEl.textContent = formatSeconds(targetTime);
+        }
+      });
+      seekBar.addEventListener('change', () => {
+        if (guideAudio.duration && !isNaN(guideAudio.duration)) {
+          guideAudio.currentTime = (parseFloat(seekBar.value) / 100) * guideAudio.duration;
+        }
+        isUserScrubbing = false;
+      });
+    }
 
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const text = trackNarrations[currentTrackId] || trackNarrations['1'];
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'ru-RU';
-        utterance.rate = 0.95;
-        utterance.pitch = 1.0;
-        utterance.onend = () => {
-          stopNarration();
-        };
-        utterance.onerror = () => {
-          stopNarration();
-        };
-        window.speechSynthesis.speak(utterance);
-      }
+    // Skip buttons
+    const skipBack = document.getElementById('agSkipBack');
+    if (skipBack) {
+      skipBack.addEventListener('click', () => {
+        guideAudio.currentTime = Math.max(0, guideAudio.currentTime - 10);
+        updateTimelineUI();
+      });
+    }
+    const skipForward = document.getElementById('agSkipForward');
+    if (skipForward) {
+      skipForward.addEventListener('click', () => {
+        if (guideAudio.duration) {
+          guideAudio.currentTime = Math.min(guideAudio.duration, guideAudio.currentTime + 10);
+        }
+        updateTimelineUI();
+      });
+    }
 
-      isPlaying = true;
-      const agPlayBtn = document.getElementById('agPlayBtn');
-      if (agPlayBtn) agPlayBtn.textContent = '⏸';
-    };
+    // Modal play button
+    const modalPlayBtn = document.getElementById('agModalPlayBtn');
+    if (modalPlayBtn) {
+      modalPlayBtn.addEventListener('click', () => {
+        if (isPlaying) {
+          pauseGuide();
+        } else {
+          playGuide();
+        }
+      });
+    }
 
-    const agPlayBtn = document.getElementById('agPlayBtn');
-    const closeAgModal = document.getElementById('closeAgModal');
-    const agTrackName = document.getElementById('agTrackName');
-
+    // Dock click
     dock.addEventListener('click', (e) => {
       if (e.target.id === 'agPlayBtn') {
         if (isPlaying) {
-          stopNarration();
+          pauseGuide();
         } else {
-          playNarration(currentTrackId);
+          playGuide();
         }
       } else {
         modal.classList.add('active');
       }
     });
 
+    // Close modal
+    const closeAgModal = document.getElementById('closeAgModal');
     if (closeAgModal) closeAgModal.addEventListener('click', () => modal.classList.remove('active'));
 
+    // Modal backdrop click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+
+    // Chapter cards click
     document.querySelectorAll('.audioguide-track-card').forEach(card => {
       card.addEventListener('click', () => {
-        document.querySelectorAll('.audioguide-track-card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        const title = card.dataset.title;
-        const trackNum = card.dataset.track || '1';
-        if (agTrackName) agTrackName.textContent = title;
-        currentTrackId = trackNum;
-        playNarration(trackNum);
-        modal.classList.remove('active');
+        const trackId = card.dataset.track;
+        const chap = chapters.find(c => c.id === trackId);
+        if (chap && guideAudio.duration) {
+          guideAudio.currentTime = chap.startFrac * guideAudio.duration;
+        }
+        playGuide();
+      });
+    });
+
+    // Language pills inside modal
+    document.querySelectorAll('.ag-lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetLang = btn.dataset.lang;
+        applyLanguage(targetLang);
+      });
+    });
+
+    // Listen to site language changes for seamless continuation
+    window.onMuseumLanguageChange = (lang) => {
+      switchVoiceLanguage(lang);
+    };
+
+    // Global opener
+    window.openAudioGuide = () => {
+      modal.classList.add('active');
+      playGuide();
+    };
+
+    // Wire any audioguide triggers on the page
+    document.querySelectorAll('a[data-i18n="common.audioguide_btn"], a[data-i18n="footer.link_audioguide"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.openAudioGuide();
       });
     });
   }
