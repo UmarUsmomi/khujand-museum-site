@@ -1,0 +1,93 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Terracotta Clay Gradients -->
+    <linearGradient id="clay-grad" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#F4956D"/>
+      <stop offset="40%" stop-color="#DE6E44"/>
+      <stop offset="85%" stop-color="#B84E25"/>
+      <stop offset="100%" stop-color="#883312"/>
+    </linearGradient>
+    <radialGradient id="clay-sphere" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFB391"/>
+      <stop offset="35%" stop-color="#DE6E44"/>
+      <stop offset="80%" stop-color="#A54019"/>
+      <stop offset="100%" stop-color="#6F260C"/>
+    </radialGradient>
+    <linearGradient id="clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FAF1E6"/>
+      <stop offset="60%" stop-color="#E8CEB5"/>
+      <stop offset="100%" stop-color="#C29A78"/>
+    </linearGradient>
+    <linearGradient id="clay-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#883312"/>
+      <stop offset="100%" stop-color="#4E1A08"/>
+    </linearGradient>
+
+    <!-- 24K Burnished Gold Gradients -->
+    <linearGradient id="gold-grad" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#FFF8D1"/>
+      <stop offset="25%" stop-color="#FFDA44"/>
+      <stop offset="60%" stop-color="#E2A619"/>
+      <stop offset="88%" stop-color="#AD7408"/>
+      <stop offset="100%" stop-color="#734700"/>
+    </linearGradient>
+    <radialGradient id="gold-sphere" cx="32%" cy="28%" r="68%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="25%" stop-color="#FFE875"/>
+      <stop offset="65%" stop-color="#E5A91D"/>
+      <stop offset="90%" stop-color="#9A6202"/>
+      <stop offset="100%" stop-color="#613B00"/>
+    </radialGradient>
+    <linearGradient id="gold-rim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#FFE066" stop-opacity="0.8"/>
+      <stop offset="80%" stop-color="#C68910" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#553000" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="gold-shine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFE066" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FFE066" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Ambient & Contact Drop Shadows -->
+    <filter id="clay-shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4.5" flood-color="#4E1A08" flood-opacity="0.28"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="9" flood-color="#9A6202" flood-opacity="0.18"/>
+    </filter>
+    <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#clay-shadow)">
+    <!-- Arch Headband -->
+    <path d="M28 70 C28 32 100 32 100 70" stroke="url(#clay-grad)" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <!-- Headband Top Gold Trim -->
+    <path d="M36 58 C42 36 86 36 92 58" stroke="url(#gold-grad)" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <!-- Headband Cushion Pads -->
+    <path d="M44 40 C52 35 76 35 84 40" stroke="url(#clay-light)" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+    <!-- Headphone Extender Sliders -->
+    <rect x="22" y="66" width="8" height="14" rx="3" fill="url(#gold-sphere)"/>
+    <rect x="98" y="66" width="8" height="14" rx="3" fill="url(#gold-sphere)"/>
+
+    <!-- Left Ear Cup -->
+    <rect x="14" y="74" width="24" height="34" rx="12" fill="url(#clay-sphere)"/>
+    <rect x="16" y="76" width="20" height="30" rx="10" stroke="url(#gold-grad)" stroke-width="3" fill="none"/>
+    <circle cx="26" cy="91" r="5" fill="url(#gold-sphere)"/>
+
+    <!-- Right Ear Cup -->
+    <rect x="90" y="74" width="24" height="34" rx="12" fill="url(#clay-sphere)"/>
+    <rect x="92" y="76" width="20" height="30" rx="10" stroke="url(#gold-grad)" stroke-width="3" fill="none"/>
+    <circle cx="102" cy="91" r="5" fill="url(#gold-sphere)"/>
+
+    <!-- Sound Wave Radiations from Headset Center -->
+    <circle cx="64" cy="85" r="9" fill="url(#gold-sphere)"/>
+    <polygon points="61,80 69,85 61,90" fill="url(#clay-dark)"/>
+    <path d="M50 85 C50 78 54 73 54 73" stroke="url(#gold-grad)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M78 85 C78 78 74 73 74 73" stroke="url(#gold-grad)" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,86 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Terracotta Clay Gradients -->
+    <linearGradient id="clay-grad" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#F4956D"/>
+      <stop offset="40%" stop-color="#DE6E44"/>
+      <stop offset="85%" stop-color="#B84E25"/>
+      <stop offset="100%" stop-color="#883312"/>
+    </linearGradient>
+    <radialGradient id="clay-sphere" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFB391"/>
+      <stop offset="35%" stop-color="#DE6E44"/>
+      <stop offset="80%" stop-color="#A54019"/>
+      <stop offset="100%" stop-color="#6F260C"/>
+    </radialGradient>
+    <linearGradient id="clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FAF1E6"/>
+      <stop offset="60%" stop-color="#E8CEB5"/>
+      <stop offset="100%" stop-color="#C29A78"/>
+    </linearGradient>
+    <linearGradient id="clay-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#883312"/>
+      <stop offset="100%" stop-color="#4E1A08"/>
+    </linearGradient>
+
+    <!-- 24K Burnished Gold Gradients -->
+    <linearGradient id="gold-grad" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#FFF8D1"/>
+      <stop offset="25%" stop-color="#FFDA44"/>
+      <stop offset="60%" stop-color="#E2A619"/>
+      <stop offset="88%" stop-color="#AD7408"/>
+      <stop offset="100%" stop-color="#734700"/>
+    </linearGradient>
+    <radialGradient id="gold-sphere" cx="32%" cy="28%" r="68%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="25%" stop-color="#FFE875"/>
+      <stop offset="65%" stop-color="#E5A91D"/>
+      <stop offset="90%" stop-color="#9A6202"/>
+      <stop offset="100%" stop-color="#613B00"/>
+    </radialGradient>
+    <linearGradient id="gold-rim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#FFE066" stop-opacity="0.8"/>
+      <stop offset="80%" stop-color="#C68910" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#553000" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="gold-shine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFE066" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FFE066" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Ambient & Contact Drop Shadows -->
+    <filter id="clay-shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4.5" flood-color="#4E1A08" flood-opacity="0.28"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="9" flood-color="#9A6202" flood-opacity="0.18"/>
+    </filter>
+    <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#clay-shadow)">
+    <!-- Shutter Button & Flash on Top -->
+    <rect x="34" y="28" width="14" height="8" rx="3" fill="url(#gold-sphere)"/>
+    <rect x="80" y="24" width="18" height="12" rx="4" fill="url(#clay-dark)"/>
+    <circle cx="89" cy="30" r="3.5" fill="url(#gold-sphere)"/>
+
+    <!-- Camera Body (Terracotta Squircle) -->
+    <rect x="18" y="34" width="92" height="66" rx="18" fill="url(#clay-sphere)"/>
+    <rect x="18" y="34" width="92" height="66" rx="18" stroke="url(#gold-grad)" stroke-width="2.5" fill="none"/>
+
+    <!-- Leather Grip Inset -->
+    <rect x="24" y="44" width="22" height="46" rx="6" fill="url(#clay-dark)"/>
+
+    <!-- 24K Gold Large Lens Barrel -->
+    <circle cx="68" cy="68" r="26" fill="url(#gold-sphere)"/>
+    <circle cx="68" cy="68" r="21" fill="url(#clay-dark)"/>
+    <circle cx="68" cy="68" r="14" fill="url(#clay-sphere)"/>
+    <!-- Glass Specular Reflection -->
+    <circle cx="68" cy="68" r="9" fill="url(#gold-sphere)"/>
+    <circle cx="64" cy="64" r="3" fill="#FFFFFF"/>
+  </g>
+</svg>

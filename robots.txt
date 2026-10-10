@@ -1,0 +1,6 @@
+# Robots.txt for Khujand Regional Historical Museum
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://khujand-museum.vercel.app/sitemap.xml

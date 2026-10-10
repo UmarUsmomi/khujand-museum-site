@@ -1,0 +1,20 @@
+# Temporary & build archives
+khujand-museum-site.zip
+*.zip
+*.tar.gz
+
+# Python & testing
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Agent logs & scratch
+.agents/
+scratch/

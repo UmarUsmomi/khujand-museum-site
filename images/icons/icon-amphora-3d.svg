@@ -1,0 +1,97 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Terracotta Clay Gradients -->
+    <linearGradient id="clay-grad" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#F4956D"/>
+      <stop offset="40%" stop-color="#DE6E44"/>
+      <stop offset="85%" stop-color="#B84E25"/>
+      <stop offset="100%" stop-color="#883312"/>
+    </linearGradient>
+    <radialGradient id="clay-sphere" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFB391"/>
+      <stop offset="35%" stop-color="#DE6E44"/>
+      <stop offset="80%" stop-color="#A54019"/>
+      <stop offset="100%" stop-color="#6F260C"/>
+    </radialGradient>
+    <linearGradient id="clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FAF1E6"/>
+      <stop offset="60%" stop-color="#E8CEB5"/>
+      <stop offset="100%" stop-color="#C29A78"/>
+    </linearGradient>
+    <linearGradient id="clay-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#883312"/>
+      <stop offset="100%" stop-color="#4E1A08"/>
+    </linearGradient>
+
+    <!-- 24K Burnished Gold Gradients -->
+    <linearGradient id="gold-grad" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#FFF8D1"/>
+      <stop offset="25%" stop-color="#FFDA44"/>
+      <stop offset="60%" stop-color="#E2A619"/>
+      <stop offset="88%" stop-color="#AD7408"/>
+      <stop offset="100%" stop-color="#734700"/>
+    </linearGradient>
+    <radialGradient id="gold-sphere" cx="32%" cy="28%" r="68%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="25%" stop-color="#FFE875"/>
+      <stop offset="65%" stop-color="#E5A91D"/>
+      <stop offset="90%" stop-color="#9A6202"/>
+      <stop offset="100%" stop-color="#613B00"/>
+    </radialGradient>
+    <linearGradient id="gold-rim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#FFE066" stop-opacity="0.8"/>
+      <stop offset="80%" stop-color="#C68910" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#553000" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="gold-shine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFE066" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FFE066" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Ambient & Contact Drop Shadows -->
+    <filter id="clay-shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4.5" flood-color="#4E1A08" flood-opacity="0.28"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="9" flood-color="#9A6202" flood-opacity="0.18"/>
+    </filter>
+    <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#clay-shadow)">
+    <!-- Base Pedestal -->
+    <ellipse cx="64" cy="110" rx="22" ry="7" fill="url(#clay-dark)"/>
+    <ellipse cx="64" cy="107" rx="20" ry="5.5" fill="url(#clay-grad)"/>
+    <ellipse cx="64" cy="107" rx="18" ry="3.5" stroke="url(#gold-grad)" stroke-width="1.5" fill="none"/>
+
+    <!-- Handles Left & Right -->
+    <path d="M42 42 C20 42 18 78 44 86" stroke="url(#clay-grad)" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M42 42 C22 42 20 78 44 86" stroke="url(#gold-rim)" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M86 42 C108 42 110 78 84 86" stroke="url(#clay-grad)" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M86 42 C106 42 108 78 84 86" stroke="url(#gold-rim)" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+    <!-- Khum Body -->
+    <path d="M44 32 C44 26 48 22 64 22 C80 22 84 26 84 32 C84 46 98 62 98 80 C98 98 80 106 64 106 C48 106 30 98 30 80 C30 62 44 46 44 32 Z" fill="url(#clay-sphere)"/>
+
+    <!-- Flared Neck & Rim -->
+    <ellipse cx="64" cy="22" rx="19" ry="6" fill="url(#clay-grad)"/>
+    <ellipse cx="64" cy="19" rx="21" ry="6.5" fill="url(#gold-grad)"/>
+    <ellipse cx="64" cy="19" rx="16" ry="4.5" fill="url(#clay-dark)"/>
+
+    <!-- 24K Gold Ornament Bands on Amphora Belly -->
+    <!-- Upper Band -->
+    <path d="M34 68 C44 74 84 74 94 68" stroke="url(#gold-grad)" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+    <!-- Sogdian Wave Meander Accent -->
+    <path d="M37 78 Q43 73 50 78 Q57 83 64 78 Q71 73 78 78 Q85 83 91 78" stroke="url(#gold-grad)" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <!-- Lower Band -->
+    <path d="M40 88 C50 93 78 93 88 88" stroke="url(#gold-grad)" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+    <!-- Golden Museum Medallion on Vessel Chest -->
+    <circle cx="64" cy="50" r="7.5" fill="url(#gold-sphere)"/>
+    <circle cx="64" cy="50" r="4.5" fill="url(#clay-grad)"/>
+  </g>
+</svg>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Экспозиции — Исторический музей Согдийской области</title>
+<meta content="Официальный сайт Исторического музея Согдийской области в Худжанде. Более 28 000 экспонатов, охватывающих историю от древних согдийцев до наших дней." name="description"/>
+<link href="../favicon.png" rel="icon" type="image/png"/>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+</head>
+<body data-page="expositions">
+<div id="preloader">
+<div class="preloader-spinner"><img src="../images/icons/icon-museum-3d.webp" class="clay-icon-3d" alt="Музей" width="48" height="48"></div>
+</div>
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+<div class="container">
+<div class="top-bar-left">
+<span><img src="../images/icons/icon-pin-3d.webp" class="clay-icon-3d" alt="Адрес" width="16" height="16"> <span data-i18n="top.address">ул. Раджабовых, 55-59, Худжанд</span></span>
+<span><img src="../images/icons/icon-phone-3d.webp" class="clay-icon-3d" alt="Телефон" width="16" height="16"> <a href="tel:+992342264218"><span data-i18n="top.phone">+992 (34) 226-42-18</span></a></span>
+<span><img src="../images/icons/icon-clock-3d.webp" class="clay-icon-3d" alt="Режим работы" width="16" height="16"> <span data-i18n="top.hours">Пн–Вс: 08:00 — 17:00</span></span>
+</div>
+<div class="top-bar-right">
+<div class="lang-switch">
+<a class="active" data-lang="ru" href="#">РУ</a>
+<a data-lang="tj" href="#">TJ</a>
+<a data-lang="en" href="#">EN</a>
+</div>
+<a href="mailto:info@muzey-sugd.tj"><img src="../images/icons/icon-email-3d.webp" class="clay-icon-3d" alt="Email" width="16" height="16"> <span data-i18n="top.email">info@muzey-sugd.tj</span></a>
+</div>
+</div>
+</div>
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+<div class="container">
+<a class="logo" href="../index.html">
+<div class="logo-icon"><img src="../images/icons/icon-museum-3d.webp" class="clay-icon-3d" alt="Музей" width="36" height="36"></div>
+<div class="logo-text">
+<h2 data-i18n="logo.title">Музей Согдийской области</h2>
+<span data-i18n="logo.sub">Худжанд • Таджикистан</span>
+</div>
+</a>
+<nav class="nav-links" id="navLinks">
+<a data-i18n="nav.home" href="../index.html">Главная</a>
+<a class="active" data-i18n="nav.expositions" href="expositions.html">Экспозиции</a>
+<a data-i18n="nav.history" href="history.html">История</a>
+<a data-i18n="nav.events" href="events.html">События</a>
+<a data-i18n="nav.gallery" href="gallery.html">Галерея</a>
+<a data-i18n="nav.contacts" href="contacts.html">Контакты</a>
+<a class="btn btn-primary nav-ticket" href="contacts.html#ticket-booking"><img src="../images/icons/icon-ticket-3d.webp" class="clay-icon-3d" alt="Билеты" width="18" height="18"> <span data-i18n="nav.tickets">Билеты</span></a>
+</nav>
+<button aria-label="Меню" class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+</header>
+<!-- PAGE HERO -->
+<section class="page-hero">
+<div class="container">
+<div class="breadcrumbs">
+<a data-i18n="nav.home" href="../index.html">Главная</a>
+<span>/</span>
+<span data-i18n="nav.expositions">Экспозиции</span>
+</div>
+<h1 data-i18n="page.expo_title">Экспозиции музея</h1>
+<p data-i18n="page.expo_sub">Двенадцать тематических залов ведут посетителей сквозь тысячелетия истории Согдийской области</p>
+</div>
+</section>
+<!-- MAIN CONTENT -->
+<section class="exhibitions" style="background: var(--warm-white); padding: 80px 0;">
+<div class="container">
+
+<!-- Facet Search & Tag Filter Bar -->
+<div class="facet-search-container reveal">
+  <div class="search-input-wrapper">
+    <span class="search-icon-btn"><img src="../images/icons/icon-search-3d.webp" class="clay-icon-3d" alt="Поиск" width="18" height="18"></span>
+    <input type="text" id="expoSearchInput" placeholder="Поиск по залам, эпохам и экспонатам..." data-i18n-placeholder="search.expo_placeholder">
+  </div>
+  <div class="facet-filter-chips" id="expoFilterChips">
+    <button class="filter-chip active" data-filter="all" data-i18n="filter.all_halls">Все залы (12)</button>
+    <button class="filter-chip" data-filter="ancient" data-i18n="filter.ancient">Древняя Согдиана</button>
+    <button class="filter-chip" data-filter="alexander" data-i18n="filter.alexander">Александр Македонский</button>
+    <button class="filter-chip" data-filter="temurmalik" data-i18n="filter.temurmalik">Тимурмалик</button>
+    <button class="filter-chip" data-filter="silkroad" data-i18n="filter.silkroad">Шёлковый путь</button>
+    <button class="filter-chip" data-filter="gold" data-i18n="filter.gold">Золото саков</button>
+    <button class="filter-chip" data-filter="crafts" data-i18n="filter.crafts">Этнография и ремёсла</button>
+  </div>
+</div>
+
+<div class="expositions-list" id="expositionsList">
+<!-- Exposition 1 -->
+<div class="exhibit-card responsive-card reveal" data-category="ancient">
+<div class="exhibit-card-img">
+<img alt="Глиняные кувшины и ритуальные сосуды эпохи Согдианы" class="museum-img" loading="lazy" src="../images/exhibits/sogdian-khum-ceramics.webp"/>
+<span class="exhibit-card-badge" data-i18n="badge.permanent">Постоянная</span>
+</div>
+<div class="exhibit-card-content">
+<span class="exhibit-card-era" data-i18n="expo1.era">VI – IV вв. до н.э.</span>
+<h3 data-i18n="expo1.title">Зал Древней Согдианы</h3>
+<p data-i18n="expo1.full_p1">Экспозиция посвящена одной из самых блестящих цивилизаций Центральной Азии — Согдиане. Здесь представлены археологические находки из раскопок на территории Худжанда и Согдийской области: расписная керамика, терракотовые фигурки, бронзовые зеркала, украшения из золота и серебра, орудия труда и предметы быта.</p>
+<p data-i18n="expo1.full_p2" style="margin-top: 12px; font-size: 0.95rem;">Особое место занимают образцы настенной живописи и оссуарии — погребальные ящики зороастрийцев, украшенные рельефными изображениями божеств и мифологических сцен.</p>
+<div class="exhibit-card-footer" style="margin-top: 24px;">
+<span class="exhibit-card-items" data-i18n="expo1.full_footer">3 200+ предметов в коллекции</span>
+<button type="button" class="btn btn-outline deepzoom-trigger-btn" style="padding: 8px 18px; font-size: 0.85rem;"
+  data-img="../images/exhibits/sogdian-khum-ceramics.webp"
+  data-title="Расписная керамика Древней Согдианы"
+  data-era="VI — IV вв. до н.э."
+  data-mat="Обожженная глина, минеральная охра"
+  data-inv="ИНВ-СМ-4821"
+  data-hall="Зал 1 (Древняя Согдиана)"
+  data-desc="Ритуальный согдийский сосуд с орнаментальной росписью в виде солнечных лучей. Обнаружен при раскопках цитадели Худжанда экспедицией акад. Н. Негматова.">
+  <img src="../images/icons/icon-search-3d.webp" class="clay-icon-3d" alt="Исследовать" width="16" height="16"> <span>Исследовать в 4K</span>
+</button>
+</div>
+</div>
+</div>
+
+<!-- Exposition 2 -->
+<div class="exhibit-card responsive-card reveal" data-category="alexander">
+<div class="exhibit-card-img">
+<img alt="Античное мозаичное панно эпохи Александрии Эсхаты" class="museum-img" loading="lazy" src="../images/exhibits/alexander-mosaics.webp"/>
+<span class="exhibit-card-badge" data-i18n="badge.popular">Популярная</span>
+</div>
+<div class="exhibit-card-content">
+<span class="exhibit-card-era" data-i18n="expo2.era">IV век до н.э.</span>
+<h3 data-i18n="expo2.title">Зал Александра Македонского</h3>
+<p data-i18n="expo2.full_p1">Один из самых впечатляющих залов музея рассказывает о завоевании Центральной Азии армией Александра Великого и основании Александрии Эсхаты — самого восточного города его империи. Стены украшены монументальными мраморными мозаиками, изображающими эпизоды походов.</p>
+<p data-i18n="expo2.full_p2" style="margin-top: 12px; font-size: 0.95rem;">Среди экспонатов — реконструкции эллинистической керамики, монеты греко-бактрийского царства, фрагменты скульптур и интерактивная карта, позволяющая проследить маршрут великого полководца.</p>
+<div class="exhibit-card-footer" style="margin-top: 24px;">
+<span class="exhibit-card-items" data-i18n="expo2.full_footer">Мозаики, карты, монеты</span>
+<button type="button" class="btn btn-outline deepzoom-trigger-btn" style="padding: 8px 18px; font-size: 0.85rem;"
+  data-img="../images/exhibits/alexander-mosaics.webp"
+  data-title="Мраморная мозаика походов Александра Македонского"
+  data-era="IV в. до н.э."
+  data-mat="Природный мрамор, смальта"
+  data-inv="ИНВ-АМ-1092"
+  data-hall="Зал 2 (Александрия Эсхата)"
+  data-desc="Монументальное мозаичное панно, воссоздающее основание форпоста на реке Сырдарья и встречу эллинской и согдийской культур.">
+  <img src="../images/icons/icon-search-3d.webp" class="clay-icon-3d" alt="Исследовать" width="16" height="16"> <span>Исследовать в 4K</span>
+</button>
+</div>
+</div>
+</div>
+
+<!-- Exposition 3 -->
+<div class="exhibit-card responsive-card reveal" data-category="temurmalik">
+<div class="exhibit-card-img">
+<img alt="Бронзовая скульптура Тимурмалика и реликвии обороны Худжанда" class="museum-img" loading="lazy" src="../images/exhibits/timur-malik-statue.webp"/>
+<span class="exhibit-card-badge" data-i18n="badge.unique">Уникальная</span>
+</div>
+<div class="exhibit-card-content">
+<span class="exhibit-card-era" data-i18n="expo3.era">XIII век</span>
+<h3 data-i18n="expo3.title">Тимурмалик — герой Худжанда</h3>
+<p data-i18n="expo3.full_p1">Центральный зал музея посвящён легендарному таджикскому полководцу Тимурмалику, который в 1219–1220 годах с небольшим гарнизоном героически оборонял Худжандскую крепость от многотысячной армии Чингисхана. Доминанта зала — монументальная бронзовая статуя Тимурмалика высотой 3,5 метра.</p>
+<p data-i18n="expo3.full_p2" style="margin-top: 12px; font-size: 0.95rem;">Экспозиция включает средневековое оружие, доспехи, макет крепости и острова на Сырдарье, где защитники держали последнюю линию обороны.</p>
+<div class="exhibit-card-footer" style="margin-top: 24px;">
+<span class="exhibit-card-items" data-i18n="expo3.full_footer">Бронзовая статуя 3.5 м</span>
+<button type="button" class="btn btn-outline deepzoom-trigger-btn" style="padding: 8px 18px; font-size: 0.85rem;"
+  data-img="../images/exhibits/timur-malik-statue.webp"
+  data-title="Статуя Тимурмалика и средневековые доспехи"
+  data-era="XIII век (реконструкция)"
+  data-mat="Литейная бронза, дамасская сталь"
+  data-inv="ИНВ-ТМ-0034"
+  data-hall="Центральный купольный зал"
+  data-desc="Центральный символ мужества защитников Худжандской крепости. Высота скульптуры 3,5 метра, масса более 2 тонн.">
+  <img src="../images/icons/icon-search-3d.webp" class="clay-icon-3d" alt="Исследовать" width="16" height="16"> <span>Исследовать в 4K</span>
+</button>
+</div>
+</div>
+</div>
+
+<!-- Exposition 4 -->
+<div class="exhibit-card responsive-card reveal" data-category="silkroad">
+<div class="exhibit-card-img">
+<img alt="Нумизматическая коллекция монет Великого Шёлкового пути" class="museum-img" loading="lazy" src="../images/exhibits/silk-road-coins.webp"/>
+<span class="exhibit-card-badge" data-i18n="badge.permanent">Постоянная</span>
+</div>
+<div class="exhibit-card-content">
+<span class="exhibit-card-era" data-i18n="expo4.era">I — XV вв.</span>
+<h3 data-i18n="expo4.title">Великий Шёлковый путь</h3>
+<p data-i18n="expo.silkroad_p1">
+    Худжанд был одним из ключевых торговых узлов на Великом Шёлковом пути. В зале 
+    представлена крупнейшая в регионе нумизматическая коллекция — более 1 800 монет 
+    различных династий и эпох: кушанские, согдийские, тюркские, арабские и саманидские.
+</p>
+<p data-i18n="expo.silkroad_p2" style="margin-top: 12px; font-size: 0.95rem;">
+    Экспозиция также включает образцы шёлковых тканей, стеклянную посуду, китайский фарфор 
+    и торговые грамоты на согдийском языке.
+</p>
+<div class="exhibit-card-footer" style="margin-top: 24px;">
+<span class="exhibit-card-items" data-i18n="expo4.full_footer">1 800+ монет в коллекции</span>
+<button type="button" class="btn btn-outline deepzoom-trigger-btn" style="padding: 8px 18px; font-size: 0.85rem;"
+  data-img="../images/exhibits/silk-road-coins.webp"
+  data-title="Коллекция монет Саманидов и Кушан"
+  data-era="I — X вв. н.э."
+  data-mat="Серебро, электрум, медь"
+  data-inv="ИНВ-НМ-7340"
+  data-hall="Зал 4 (Шёлковый путь)"
+  data-desc="Торговые монеты с кушанскими и согдийскими надписями, свидетельствующие о караванной торговле через Согд.">
+  <img src="../images/icons/icon-search-3d.webp" class="clay-icon-3d" alt="Исследовать" width="16" height="16"> <span>Исследовать в 4K</span>
+</button>
+</div>
+</div>
+</div>
+
+<!-- Exposition 5 -->
+<div class="exhibit-card responsive-card reveal" data-category="gold">
+<div class="exhibit-card-img">
+<img alt="Сакский золотой парадный шлем с чеканными узорами" class="museum-img" loading="lazy" src="../images/exhibits/saka-golden-helmet.webp"/>
+<span class="exhibit-card-badge" data-i18n="badge.unique">Уникальная</span>
+</div>
+<div class="exhibit-card-content">
+<span class="exhibit-card-era" data-i18n="expo5.era">V — IV вв. до н.э.</span>
+<h3 data-i18n="expo5.title">Сакский золотой шлем</h3>
+<p data-i18n="expo.saka_p1">
+    Жемчужина коллекции музея — золотой шлем сакского воина, датируемый V–IV веками до нашей эры. 
+    Шлем украшен чеканными изображениями мифических животных в характерном сакском «зверином стиле». 
+    Находка свидетельствует о высочайшем уровне металлургии и ювелирного мастерства древних народов.
+</p>
+<p data-i18n="expo.saka_p2" style="margin-top: 12px; font-size: 0.95rem;">
+    В витринах также представлены золотые серьги, пекторали, браслеты и ритуальные атрибуты сакских вождей.
+</p>
+<div class="exhibit-card-footer" style="margin-top: 24px;">
+<span class="exhibit-card-items" data-i18n="expo5.full_footer">Главный экспонат музея</span>
+<button type="button" class="btn btn-outline deepzoom-trigger-btn" style="padding: 8px 18px; font-size: 0.85rem;"
+  data-img="../images/exhibits/saka-golden-helmet.webp"
+  data-title="Сакский золотой парадный шлем"
+  data-era="V — IV вв. до н.э."
+  data-mat="Золото 958 пробы, чеканка, филигрань"
+  data-inv="ИНВ-ЗС-0001"
+  data-hall="Особая кладовая (Золото Согда)"
+  data-desc="Уникальный шедевр древнего ювелирного искусства саков с чеканными фигурами крылатых барсов и грифонов.">
+  <img src="../images/icons/icon-search-3d.webp" class="clay-icon-3d" alt="Исследовать" width="16" height="16"> <span>Исследовать в 4K</span>
+</button>
+</div>
+</div>
+</div>
+
+<!-- Exposition 6 -->
+<div class="exhibit-card responsive-card reveal" data-category="crafts">
+<div class="exhibit-card-img">
+<img alt="Таджикский национальный шелковый атлас и вышивка сюзане" class="museum-img" loading="lazy" src="../images/exhibits/tajik-atlas-suzani.webp"/>
+<span class="exhibit-card-badge" data-i18n="badge.permanent">Постоянная</span>
+</div>
+<div class="exhibit-card-content">
+<span class="exhibit-card-era" data-i18n="expo6.era">XVIII — XX вв.</span>
+<h3 data-i18n="expo6.title">Этнография и ремёсла Согда</h3>
+<p data-i18n="expo.ethno_p1">
+    Богатейшая этнографическая коллекция демонстрирует культурное наследие таджикского народа: 
+    редкие ковры ручной работы, вышивка сюзане, расписная керамика, резьба по дереву (ганчевая резьба), 
+    ювелирные украшения и национальные костюмы различных регионов Согдийской области.
+</p>
+<p data-i18n="expo6.full_p2" style="margin-top: 12px; font-size: 0.95rem;">В ремесленных мастерских при музее мастера-керамисты и ткачи демонстрируют традиционные технологии, передаваемые из поколения в поколение.</p>
+<div class="exhibit-card-footer" style="margin-top: 24px;">
+<span class="exhibit-card-items" data-i18n="expo6.full_footer">5 400+ предметов в коллекции</span>
+<button type="button" class="btn btn-outline deepzoom-trigger-btn" style="padding: 8px 18px; font-size: 0.85rem;"
+  data-img="../images/exhibits/tajik-atlas-suzani.webp"
+  data-title="Худжандское шёлковое сюзане"
+  data-era="XIX век"
+  data-mat="Натуральный шёлк, ручное ткачество и вышивка"
+  data-inv="ИНВ-ЭТ-5512"
+  data-hall="Зал 6 (Этнография)"
+  data-desc="Традиционное свадебное настенное покрывало с астральными и цветочными солярными мотивами, вышитое шёлковыми нитями вручную.">
+  <img src="../images/icons/icon-search-3d.webp" class="clay-icon-3d" alt="Исследовать" width="16" height="16"> <span>Исследовать в 4K</span>
+</button>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+<!-- CTA -->
+<section class="cta">
+<div class="container reveal">
+<h2 data-i18n="cta.title">Посетите наши экспозиции</h2>
+<p data-i18n="cta.sub">Аудиоспектакль «Эхо Худжанда» доступен на таджикском, русском и английском языках</p>
+<div class="cta-buttons">
+<a class="btn btn-primary" href="contacts.html#ticket-booking"><img src="../images/icons/icon-ticket-3d.webp" class="clay-icon-3d" alt="Билеты" width="18" height="18"> <span data-i18n="cta.btn_tickets">Купить билеты</span></a>
+<a class="btn btn-white" data-i18n="cta.btn_events" href="events.html">Ближайшие события</a>
+</div>
+</div>
+</section>
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-about">
+<a class="logo" href="../index.html">
+<div class="logo-icon"><img src="../images/icons/icon-museum-3d.webp" class="clay-icon-3d" alt="Музей" width="36" height="36"></div>
+<div class="logo-text">
+<h2 data-i18n="logo.title">Музей Согдийской области</h2>
+<span data-i18n="logo.sub">Худжанд • Таджикистан</span>
+</div>
+</a>
+<p data-i18n="footer.desc">Старейший музей Таджикистана в стенах Худжандской крепости.</p>
+</div>
+<div>
+<h4 data-i18n="footer.museum">Музей</h4>
+<ul class="footer-links">
+<li><a data-i18n="nav.expositions" href="expositions.html">Экспозиции</a></li>
+<li><a data-i18n="nav.history" href="history.html">История</a></li>
+<li><a data-i18n="nav.events" href="events.html">События</a></li>
+<li><a data-i18n="nav.gallery" href="gallery.html">Галерея</a></li>
+<li><a data-i18n="nav.contacts" href="contacts.html">Контакты</a></li>
+</ul>
+</div>
+<div>
+<h4 data-i18n="footer.visitors">Посетителям</h4>
+<ul class="footer-links">
+<li><a data-i18n="nav.tickets" href="contacts.html#ticket-booking">Билеты онлайн</a></li>
+<li><a data-i18n="common.tours_heading" href="contacts.html">Экскурсии</a></li>
+<li><a data-i18n="common.audioguide_btn" href="contacts.html">Аудиогид</a></li>
+</ul>
+</div>
+<div>
+<h4 data-i18n="footer.contacts">Контакты</h4>
+<div class="footer-contact-item"><div class="icon"><img src="../images/icons/icon-pin-3d.webp" class="clay-icon-3d" alt="Адрес" width="18" height="18"></div><p data-i18n="top.address">ул. Раджабовых, 55-59, Худжанд</p></div>
+<div class="footer-contact-item"><div class="icon"><img src="../images/icons/icon-phone-3d.webp" class="clay-icon-3d" alt="Телефон" width="18" height="18"></div><p><span data-i18n="top.phone">+992 (34) 226-42-18</span></p></div>
+</div>
+</div>
+<div class="footer-bottom">
+<p data-i18n="footer.copyright">© 2026 Исторический музей Согдийской области (Худжандская крепость)</p>
+<div class="footer-disclaimer-box">
+  <p><span data-i18n="footer.disclaimer">Неофициальный культурно-образовательный портал. Исторические материалы и экспонаты представлены в некоммерческих просветительских целях.</span></p>
+  <p><span data-i18n="footer.official_entity">Официальный сайт ГУ «Историко-культурный комплекс «Крепость Худжанда»»:</span> <a href="http://www.qalai-khujand.tj/" target="_blank" rel="noopener noreferrer" class="footer-official-link">www.qalai-khujand.tj</a> | <a href="tel:+992342265573" class="footer-official-link">+992 (3422) 6-55-73</a></p>
+</div>
+</div>
+</div>
+</footer>
+<button aria-label="Наверх" class="back-to-top" id="backToTop">↑</button>
+<button aria-label="Включить фоновую музыку" id="audioToggle" title="Фоновая музыка">
+<span id="audioIcon"><img src="../images/icons/icon-audio-off-3d.webp" class="clay-icon-3d" alt="Фоновая музыка" width="24" height="24"></span>
+</button>
+<audio id="bgMusic" loop="" preload="none">
+<source src="../audio/ambient.mp3" type="audio/mpeg"/>
+<source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=ambient-piano-amp-strings-10711.mp3" type="audio/mpeg"/>
+</audio>
+
+<!-- ===== IIIF-STYLE ARTIFACT DEEP ZOOM MODAL ===== -->
+<div class="deepzoom-modal" id="deepzoomModal">
+  <div class="deepzoom-container">
+    <div class="deepzoom-viewport" id="deepzoomViewport">
+      <img id="deepzoomImage" src="" alt="Экспонат в высоком разрешении">
+      <div class="deepzoom-tools">
+        <button class="deepzoom-btn" id="dzZoomOut" title="Отдалить">−</button>
+        <span class="deepzoom-level" id="dzZoomLevel">100%</span>
+        <button class="deepzoom-btn" id="dzZoomIn" title="Приблизить">+</button>
+        <button class="deepzoom-btn" id="dzReset" title="Сбросить масштаб">↺</button>
+        <button class="deepzoom-btn" id="dzFullscreen" title="На весь экран">⛶</button>
+      </div>
+    </div>
+    <div class="deepzoom-sidebar">
+      <button class="deepzoom-close" id="closeDeepzoom" aria-label="Закрыть">✕</button>
+      <span class="deepzoom-badge" id="dzBadge"><img src="../images/icons/icon-museum-3d.webp" class="clay-icon-3d" alt="Музей" width="16" height="16"> <span>Экспонат 4K</span></span>
+      <h3 class="deepzoom-title" id="dzTitle">Название экспоната</h3>
+      <table class="deepzoom-meta-table">
+        <tr><td>Эпоха:</td><td id="dzEra">—</td></tr>
+        <tr><td>Материал:</td><td id="dzMat">—</td></tr>
+        <tr><td>Инв. №:</td><td id="dzInv">—</td></tr>
+        <tr><td>Зал:</td><td id="dzHall">Центральный фонд</td></tr>
+      </table>
+      <h4 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--gold-light);">Научное описание</h4>
+      <p class="deepzoom-desc" id="dzDesc">—</p>
+      <div style="margin-top: 24px;">
+        <span style="font-size: 0.78rem; color: rgba(255,255,255,0.5);"><img src="../images/icons/icon-star-3d.webp" class="clay-icon-3d" alt="Совет" width="14" height="14"> Совет: перетаскивайте мышью для панорамирования или используйте колесико мыши для плавного зума.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script defer="" src="../js/main.js"></script>
+<script defer src="../js/animations.js"></script>
+</body>
+</html>
