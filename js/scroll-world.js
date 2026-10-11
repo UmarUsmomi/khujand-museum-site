@@ -796,6 +796,12 @@
         targetScrollProgress = eraProgress;
         targetVideoProgress = eraProgress;
 
+        isTransitioningToEra = true;
+        if (eraTransitionTimer) clearTimeout(eraTransitionTimer);
+        eraTransitionTimer = setTimeout(() => {
+          isTransitioningToEra = false;
+        }, 1100);
+
         if (isMobile) {
           if (scrollTriggerInstance && scrollTriggerInstance.end > scrollTriggerInstance.start) {
             const targetY = scrollTriggerInstance.start + eraProgress * (scrollTriggerInstance.end - scrollTriggerInstance.start);
@@ -805,11 +811,6 @@
         }
 
         ensureVideoLoaded();
-        isTransitioningToEra = true;
-        if (eraTransitionTimer) clearTimeout(eraTransitionTimer);
-        eraTransitionTimer = setTimeout(() => {
-          isTransitioningToEra = false;
-        }, 1100);
 
         if (EPOCHS[eraIdx] && typeof EPOCHS[eraIdx].videoTime === 'number') {
           applyVideoTime(EPOCHS[eraIdx].videoTime);
@@ -866,7 +867,7 @@
     scrollTriggerInstance = ScrollTrigger.create({
       trigger: '#scroll-world',
       start: 'top top',
-      end: '+=400vh',
+      end: () => '+=' + (window.innerHeight * 4), // 400vh
       pin: true,
       scrub: 1.2,
       anticipatePin: 1,
@@ -875,12 +876,18 @@
         const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
         if (!isMobile) {
           syncVideo(self.progress);
-        } else if (!isTransitioningToEra) {
-          const epochStep = 1 / (EPOCHS.length - 1);
-          const nearestIndex = Math.min(EPOCHS.length - 1, Math.round(self.progress / epochStep));
-          if (nearestIndex !== activeEpochIndex) {
-            activeEpochIndex = nearestIndex;
-            updateUIEpoch(activeEpochIndex);
+        } else {
+          const progressBar = document.getElementById('scroll-world-progress-fill');
+          if (progressBar) {
+            progressBar.style.width = `${Math.round(Math.max(0, Math.min(1, self.progress)) * 100)}%`;
+          }
+          if (!isTransitioningToEra) {
+            const epochStep = 1 / (EPOCHS.length - 1);
+            const nearestIndex = Math.min(EPOCHS.length - 1, Math.round(self.progress / epochStep));
+            if (nearestIndex !== activeEpochIndex) {
+              activeEpochIndex = nearestIndex;
+              updateUIEpoch(activeEpochIndex);
+            }
           }
         }
       }

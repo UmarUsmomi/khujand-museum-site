@@ -2275,6 +2275,7 @@ body[data-page="events"] .page-hero::before {
     display: block !important;
     opacity: 1 !important;
     z-index: 2 !important;
+    transition: none !important;
   }
 }
 .exhibitions-card img { aspect-ratio: 400/260; object-fit: cover; }

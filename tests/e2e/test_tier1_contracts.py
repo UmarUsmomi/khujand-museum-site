@@ -360,7 +360,8 @@ class TestTier1Contracts(unittest.TestCase):
         doc = parse_html_file("index.html")
         video = doc.find_one(id="scroll-world-video")
         self.assertIsNotNone(video, "index.html must contain #scroll-world-video element")
-        self.assertIn("videos/flythrough-epochs.mp4", video.get_attr("src", ""))
+        video_source = video.get_attr("src", "") or video.get_attr("data-src", "")
+        self.assertIn("videos/flythrough-epochs.mp4", video_source)
 
     def test_t1_f42_index_html_has_zero_external_video_iframes(self):
         """F9: index.html contains 0 <iframe> elements pointing to video services."""

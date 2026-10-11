@@ -2838,6 +2838,8 @@ function initVideoTour() {
   }
 
   facade.addEventListener('click', loadIframe);
+  const playBtn = document.getElementById('videoPlayBtn');
+  if (playBtn) playBtn.addEventListener('click', loadIframe);
   facade.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
