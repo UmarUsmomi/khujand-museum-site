@@ -29,8 +29,11 @@
 <link href="favicon.png" rel="icon" type="image/png"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css?v=2.3" rel="stylesheet"/>
+<link crossorigin="" href="https://cdnjs.cloudflare.com" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="preload"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/></noscript>
+<link href="css/style.css?v=2.4" rel="stylesheet"/>
 <!-- Preload Hero LCP Image -->
 <link as="image" fetchpriority="high" href="images/exhibits/timur-malik-statue-mobile.webp" media="(max-width: 640px)" rel="preload"/>
 <link as="image" fetchpriority="high" href="images/exhibits/timur-malik-statue.webp" media="(min-width: 641px)" rel="preload"/>
@@ -68,22 +71,19 @@
 </script>
 </head>
 <body data-page="home">
-<div id="preloader">
+<div id="preloader" style="display: none; opacity: 0; pointer-events: none; visibility: hidden;">
 <div class="preloader-spinner"><img alt="Музей" class="clay-icon-3d" height="48" loading="lazy" src="images/icons/icon-museum-3d.webp" width="48"/></div>
 </div>
 <script>
   (function() {
-    function dismiss() {
-      var p = document.getElementById('preloader');
-      if (p) {
-        p.style.opacity = '0';
-        p.style.visibility = 'hidden';
-        p.style.pointerEvents = 'none';
-        setTimeout(function() { if (p && p.parentNode) p.remove(); }, 180);
-      }
+    var p = document.getElementById('preloader');
+    if (p) {
+      p.style.display = 'none';
+      p.style.opacity = '0';
+      p.style.pointerEvents = 'none';
+      p.style.visibility = 'hidden';
+      setTimeout(function() { if (p && p.parentNode) p.remove(); }, 50);
     }
-    if (document.readyState === 'interactive' || document.readyState === 'complete') dismiss();
-    else document.addEventListener('DOMContentLoaded', dismiss);
   })();
 </script>
 <!-- ===== TOP BAR ===== -->
@@ -171,8 +171,8 @@
 <div class="hero-card-img">
 <picture>
 <source media="(max-width: 640px)" srcset="images/exhibits/timur-malik-statue-mobile.webp" type="image/webp"/>
-<img alt="Бронзовая скульптура Тимурмалика — защитника Худжанда" class="museum-img hero-img" decoding="async" fetchpriority="high" height="848" loading="eager" src="images/exhibits/timur-malik-statue.webp" width="1264">
-</img></picture>
+<img alt="Бронзовая скульптура Тимурмалика — защитника Худжанда" class="museum-img hero-img" decoding="async" fetchpriority="high" height="848" loading="eager" src="images/exhibits/timur-malik-statue.webp" width="1264"/>
+</picture>
 <span class="hero-card-label"><img alt="Главный экспонат" class="clay-icon-3d" height="16" loading="lazy" src="images/icons/icon-star-3d.webp" width="16"/> <span data-i18n="hero.card_label">Главный экспонат</span></span>
 </div>
 <h3 data-i18n="hero.card_title">Статуя Тимурмалика</h3>
@@ -245,7 +245,7 @@
 <!-- ===== 3D SCROLL-WORLD ===== -->
 <section aria-label="3D-путешествие сквозь эпохи Согдианы и Худжандской крепости" class="scroll-world-section" id="scroll-world">
 <div class="scroll-world-sticky">
-<video class="scroll-world-video" id="scroll-world-video" muted="" playsinline="" poster="images/fortress/museum-entrance-facade.webp" preload="none" src="videos/flythrough-epochs.mp4"></video>
+<video class="scroll-world-video" id="scroll-world-video" muted="" playsinline="" poster="images/fortress/museum-entrance-facade.webp" preload="metadata" src="videos/flythrough-epochs.mp4"></video>
 <canvas id="scroll-world-canvas" style="display: none;"></canvas>
 <!-- UI Overlay for Epoch Navigation & Information -->
 <div class="scroll-world-overlay">
@@ -320,9 +320,9 @@
 <!-- Card 1 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Расписная керамика древней Согдианы" class="museum-img" loading="lazy" src="images/exhibits/sogdian-khum-ceramics.webp">
+<img alt="Расписная керамика древней Согдианы" class="museum-img" decoding="async" height="848" loading="lazy" src="images/exhibits/sogdian-khum-ceramics.webp" width="1264"/>
 <span class="exhibit-card-badge" data-i18n="badge.permanent">Постоянная</span>
-</img></div>
+</div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo1.era">VI — IV вв. до н.э.</span>
 <h3 data-i18n="expo1.title">Зал Древней Согдианы</h3>
@@ -336,9 +336,9 @@
 <!-- Card 2 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Монументальная мозаика зала Александра Македонского" class="museum-img" loading="lazy" src="images/exhibits/alexander-mosaics.webp">
+<img alt="Монументальная мозаика зала Александра Македонского" class="museum-img" decoding="async" height="848" loading="lazy" src="images/exhibits/alexander-mosaics.webp" width="1264"/>
 <span class="exhibit-card-badge" data-i18n="badge.popular">Популярная</span>
-</img></div>
+</div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo2.era">IV век до н.э.</span>
 <h3 data-i18n="expo2.title">Зал Александра Македонского</h3>
@@ -352,9 +352,9 @@
 <!-- Card 3 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Средневековое вооружение и доспехи защитников Худжанда эпохи Тимурмалика" class="museum-img" loading="lazy" src="images/exhibits/timur-malik-statue.webp">
+<img alt="Средневековое вооружение и доспехи защитников Худжанда эпохи Тимурмалика" class="museum-img" decoding="async" height="848" loading="lazy" src="images/exhibits/timur-malik-statue.webp" width="1264"/>
 <span class="exhibit-card-badge" data-i18n="badge.unique">Уникальная</span>
-</img></div>
+</div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo3.era">XIII век</span>
 <h3 data-i18n="expo3.title">Экспозиция Тимурмалика</h3>
@@ -368,8 +368,8 @@
 <!-- Card 4 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Золотые и серебряные монеты Великого Шёлкового пути" class="museum-img" loading="lazy" src="images/exhibits/silk-road-coins.webp">
-</img></div>
+<img alt="Золотые и серебряные монеты Великого Шёлкового пути" class="museum-img" decoding="async" height="848" loading="lazy" src="images/exhibits/silk-road-coins.webp" width="1264"/>
+</div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo4.era">I — XV вв.</span>
 <h3 data-i18n="expo4.title">Великий Шёлковый путь</h3>
@@ -383,8 +383,8 @@
 <!-- Card 5 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Сакский золотой парадный шлем с чеканными узорами" class="museum-img" loading="lazy" src="images/exhibits/saka-golden-helmet.webp">
-</img></div>
+<img alt="Сакский золотой парадный шлем с чеканными узорами" class="museum-img" decoding="async" height="848" loading="lazy" src="images/exhibits/saka-golden-helmet.webp" width="1264"/>
+</div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo5.era">V — IV вв. до н.э.</span>
 <h3 data-i18n="expo5.title">Сакский золотой шлем</h3>
@@ -398,8 +398,8 @@
 <!-- Card 6 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Традиционные шелковые ткани и национальные костюмы Согда" class="museum-img" loading="lazy" src="images/exhibits/tajik-atlas-suzani.webp">
-</img></div>
+<img alt="Традиционные шелковые ткани и национальные костюмы Согда" class="museum-img" decoding="async" height="848" loading="lazy" src="images/exhibits/tajik-atlas-suzani.webp" width="1264"/>
+</div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo6.era">XVIII — XX вв.</span>
 <h3 data-i18n="expo6.title">Этнография и ремёсла</h3>
@@ -664,8 +664,8 @@
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script defer="" src="js/scroll-world.js"></script>
-<script defer="" src="js/main.js?v=2.3"></script>
-<script defer="" src="js/animations.js?v=2.3"></script>
+<script defer="" src="js/scroll-world.js?v=2.4"></script>
+<script defer="" src="js/main.js?v=2.4"></script>
+<script defer="" src="js/animations.js?v=2.4"></script>
 </body>
 </html>

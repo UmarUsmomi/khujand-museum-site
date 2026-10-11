@@ -184,6 +184,8 @@ const translations = {
     "events.newsletter_ph": "Ваш email...",
     "page.hist_title": "История Худжанда и музея",
     "page.hist_sub": "От Александрии Эсхаты до наших дней — 2 500 лет непрерывной истории",
+    "hist.badge_est": "Основание",
+    "hist.badge_year": "329 до н.э.",
     "hist.sec1_label": "Древняя история",
     "hist.sec1_title": "Александрия Эсхата — город на краю мира",
     "hist.sec1_p1": "В 329 году до нашей эры Александр Македонский, преследуя скифские племена за рекой Яксарт (ныне Сырдарья), основал на месте древнего поселения город-крепость Александрию Эсхату («Крайнюю»). Это был самый северный и восточный форпост его грандиозной империи.",
@@ -617,6 +619,8 @@ const translations = {
     "events.newsletter_ph": "Email-и шумо...",
     "page.hist_title": "Таърихи Хуҷанд ва осорхона",
     "page.hist_sub": "Аз Искандарияи Эсхата то замони муосир — 2 500 соли таърихи пайваста",
+    "hist.badge_est": "Бунёд",
+    "hist.badge_year": "329 п.м.",
     "hist.sec1_label": "Таърихи қадим",
     "hist.sec1_title": "Искандарияи Эсхата — шаҳр дар канори ҷаҳон",
     "hist.sec1_p1": "Дар соли 329 то милод Искандари Мақдунӣ ҳангоми таъқиби қабилаҳои скифҳо дар канори рӯди Яксарт (ҳоло Сирдарё) дар ҷои маҳаллаи қадимӣ шаҳр-қалъаи Искандарияи Эсхатаро («Ниҳоӣ») бунёд кард. Ин шимолитарин ва шарқитарин истеҳкори империяи бузурги ӯ ба шумор мерафт.",
@@ -1050,6 +1054,8 @@ const translations = {
     "events.newsletter_ph": "Your email...",
     "page.hist_title": "History of Khujand & Museum",
     "page.hist_sub": "From Alexandria Eschate to modern times — 2,500 years of unbroken heritage",
+    "hist.badge_est": "Founded",
+    "hist.badge_year": "329 BC",
     "hist.sec1_label": "Ancient History",
     "hist.sec1_title": "Alexandria Eschate — City at the Edge of the World",
     "hist.sec1_p1": "In 329 BC, Alexander the Great, pursuing nomadic tribes across the Jaxartes (now Syr Darya), founded the fortress-city Alexandria Eschate (\"The Farthest\") on ancient settlement grounds. It marked the northernmost outpost of his vast empire.",
@@ -2372,19 +2378,30 @@ function initAudioGuideDock() {
       bgMusicWasPlayingBefore = true;
       bgMusic.pause();
     }
+    guideAudio.volume = 1.0;
     if (!guideAudio.src || !guideAudio.src.includes('.mp3')) {
       guideAudio.src = voiceSources[currentLang] || voiceSources.ru;
     }
-    guideAudio.play().then(() => {
-      updatePlayState(true);
-    }).catch((err) => {
-      console.warn('Audio play request:', err);
-    });
+    const playPromise = guideAudio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        updatePlayState(true);
+        safeStorage.setItem('museumAgPlaying', 'true');
+      }).catch((err) => {
+        console.warn('Audio play request error:', err);
+        updatePlayState(false);
+        safeStorage.setItem('museumAgPlaying', 'false');
+      });
+    }
   }
 
   function pauseGuide() {
     guideAudio.pause();
     updatePlayState(false);
+    safeStorage.setItem('museumAgPlaying', 'false');
+    if (guideAudio.currentTime) {
+      safeStorage.setItem('museumAgTime', guideAudio.currentTime.toFixed(2));
+    }
     const bgMusic = document.getElementById('bgMusic');
     const isSiteAudioAllowed = safeStorage.getItem('museumAudio') === 'true';
     if (bgMusic && bgMusicWasPlayingBefore && isSiteAudioAllowed) {
@@ -2455,7 +2472,7 @@ function initAudioGuideDock() {
   // Seamless voiceover language transition
   function switchVoiceLanguage(newLang) {
     const normLang = (newLang === 'tg' || newLang === 'tj') ? 'tj' : (newLang === 'en' ? 'en' : 'ru');
-    if (normLang === currentLang && guideAudio.src && guideAudio.src.includes(`${normLang}.mp3`)) {
+    if (normLang === currentLang && guideAudio.src && (guideAudio.src.includes('rus.mp3') || guideAudio.src.includes('taj.mp3') || guideAudio.src.includes('eng.mp3'))) {
       return;
     }
 
@@ -2469,64 +2486,36 @@ function initAudioGuideDock() {
 
     const wasPlaying = !guideAudio.paused && isPlaying;
     currentLang = normLang;
+    safeStorage.setItem('museumAgLang', currentLang);
     const targetSrc = voiceSources[currentLang] || voiceSources.ru;
 
+    guideAudio.src = targetSrc;
+    guideAudio.volume = 1.0;
+
+    const onMeta = () => {
+      guideAudio.removeEventListener('loadedmetadata', onMeta);
+      if (guideAudio.duration && !isNaN(guideAudio.duration) && currentFrac > 0) {
+        guideAudio.currentTime = Math.min(guideAudio.duration - 0.5, currentFrac * guideAudio.duration);
+      }
+      updateTimelineUI();
+    };
+    guideAudio.addEventListener('loadedmetadata', onMeta, { once: true });
+
     if (wasPlaying) {
-      // Smooth crossfade using requestAnimationFrame (60 FPS fluid fade without setInterval)
-      let fadeStart = null;
-      const fadeDuration = 100;
-      const startVol = guideAudio.volume;
-
-      const stepFadeOut = (timestamp) => {
-        if (!fadeStart) fadeStart = timestamp;
-        const elapsed = timestamp - fadeStart;
-        const progress = Math.min(1, elapsed / fadeDuration);
-        guideAudio.volume = Math.max(0, startVol * (1 - progress));
-
-        if (progress < 1) {
-          requestAnimationFrame(stepFadeOut);
-        } else {
-          guideAudio.volume = 0;
-          guideAudio.src = targetSrc;
-          guideAudio.load();
-
-          const onReady = () => {
-            guideAudio.removeEventListener('loadedmetadata', onReady);
-            guideAudio.removeEventListener('canplay', onReady);
-            if (guideAudio.duration && !isNaN(guideAudio.duration)) {
-              guideAudio.currentTime = currentFrac * guideAudio.duration;
-            }
-            guideAudio.play().then(() => {
-              updatePlayState(true);
-              let inStart = null;
-              const stepFadeIn = (inTimestamp) => {
-                if (!inStart) inStart = inTimestamp;
-                const inElapsed = inTimestamp - inStart;
-                const inProgress = Math.min(1, inElapsed / 150);
-                guideAudio.volume = Math.min(1, inProgress);
-                if (inProgress < 1) {
-                  requestAnimationFrame(stepFadeIn);
-                } else {
-                  guideAudio.volume = 1.0;
-                }
-              };
-              requestAnimationFrame(stepFadeIn);
-            }).catch(() => {});
-          };
-
-          guideAudio.addEventListener('canplay', onReady, { once: true });
-        }
-      };
-      requestAnimationFrame(stepFadeOut);
+      const playPromise = guideAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          updatePlayState(true);
+          safeStorage.setItem('museumAgPlaying', 'true');
+        }).catch((err) => {
+          console.warn('Voiceover auto-resume interrupted:', err);
+          updatePlayState(false);
+          safeStorage.setItem('museumAgPlaying', 'false');
+        });
+      }
     } else {
-      guideAudio.src = targetSrc;
-      guideAudio.load();
-      guideAudio.addEventListener('loadedmetadata', () => {
-        if (guideAudio.duration && !isNaN(guideAudio.duration)) {
-          guideAudio.currentTime = currentFrac * guideAudio.duration;
-          updateTimelineUI();
-        }
-      }, { once: true });
+      updatePlayState(false);
+      safeStorage.setItem('museumAgPlaying', 'false');
     }
 
     updateLabelsForLanguage();
@@ -2606,6 +2595,7 @@ function initAudioGuideDock() {
       if (guideAudio.duration && !isNaN(guideAudio.duration) && guideAudio.duration > 0) {
         const progress = guideAudio.currentTime / guideAudio.duration;
         safeStorage.setItem('museumAgProgress', progress.toFixed(4));
+        safeStorage.setItem('museumAgTime', guideAudio.currentTime.toFixed(2));
       }
       updateTimelineUI();
     });
@@ -2617,8 +2607,35 @@ function initAudioGuideDock() {
     });
 
     guideAudio.addEventListener('loadedmetadata', () => {
+      const savedAgTime = parseFloat(safeStorage.getItem('museumAgTime') || '0');
+      if (savedAgTime > 0 && guideAudio.duration && savedAgTime < guideAudio.duration) {
+        guideAudio.currentTime = savedAgTime;
+      }
       updateTimelineUI();
     });
+
+    // Cross-page audio continuation: check if audio was playing prior to navigation
+    const wasAutoPlaying = safeStorage.getItem('museumAgPlaying') === 'true';
+    if (wasAutoPlaying) {
+      guideAudio.volume = 1.0;
+      const autoPlayPromise = guideAudio.play();
+      if (autoPlayPromise !== undefined) {
+        autoPlayPromise.then(() => {
+          updatePlayState(true);
+        }).catch(() => {
+          // If browser restricts unprompted play on page navigation, resume on first user click
+          const resumeOnFirstGesture = () => {
+            if (safeStorage.getItem('museumAgPlaying') === 'true') {
+              playGuide();
+            }
+            window.removeEventListener('click', resumeOnFirstGesture);
+            window.removeEventListener('touchstart', resumeOnFirstGesture);
+          };
+          window.addEventListener('click', resumeOnFirstGesture, { once: true });
+          window.addEventListener('touchstart', resumeOnFirstGesture, { once: true });
+        });
+      }
+    }
 
     // Wire up scrubber slider
     const seekBar = document.getElementById('agSeekBar');
@@ -2728,6 +2745,25 @@ function initAudioGuideDock() {
         e.preventDefault();
         window.openAudioGuide();
       });
+    });
+
+    // Persist audio playback state across page transitions
+    document.querySelectorAll('a[href]').forEach(a => {
+      a.addEventListener('click', () => {
+        if (isPlaying && guideAudio.currentTime) {
+          safeStorage.setItem('museumAgPlaying', 'true');
+          safeStorage.setItem('museumAgTime', guideAudio.currentTime.toFixed(2));
+          safeStorage.setItem('museumAgLang', currentLang);
+        }
+      });
+    });
+
+    window.addEventListener('beforeunload', () => {
+      if (isPlaying && guideAudio.currentTime) {
+        safeStorage.setItem('museumAgPlaying', 'true');
+        safeStorage.setItem('museumAgTime', guideAudio.currentTime.toFixed(2));
+        safeStorage.setItem('museumAgLang', currentLang);
+      }
     });
   }
 }

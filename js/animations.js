@@ -47,37 +47,48 @@
           card.appendChild(glare);
         }
 
+        let isMoving = false;
+        let lastEvent = null;
+
         card.addEventListener('mousemove', function (e) {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const width = rect.width;
-          const height = rect.height;
+          lastEvent = e;
+          if (isMoving) return;
+          isMoving = true;
+          requestAnimationFrame(function () {
+            if (!lastEvent) { isMoving = false; return; }
+            const rect = card.getBoundingClientRect();
+            const x = lastEvent.clientX - rect.left;
+            const y = lastEvent.clientY - rect.top;
+            const width = rect.width;
+            const height = rect.height;
 
-          // Normalized coordinates (-0.5 to 0.5)
-          const normX = (x / width) - 0.5;
-          const normY = (y / height) - 0.5;
+            // Normalized coordinates (-0.5 to 0.5)
+            const normX = (x / width) - 0.5;
+            const normY = (y / height) - 0.5;
 
-          // Calculate 3D tilt angles clamped to MAX_TILT <= 15 deg
-          const rotateX = Math.max(-MAX_TILT, Math.min(MAX_TILT, -normY * MAX_TILT * 2));
-          const rotateY = Math.max(-MAX_TILT, Math.min(MAX_TILT, normX * MAX_TILT * 2));
+            // Calculate 3D tilt angles clamped to MAX_TILT <= 15 deg
+            const rotateX = Math.max(-MAX_TILT, Math.min(MAX_TILT, -normY * MAX_TILT * 2));
+            const rotateY = Math.max(-MAX_TILT, Math.min(MAX_TILT, normX * MAX_TILT * 2));
 
-          card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
 
-          // Specular glare position and opacity (clamped <= 0.5)
-          const glareX = Math.round((x / width) * 100);
-          const glareY = Math.round((y / height) * 100);
-          glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 65%)`;
-          glare.style.opacity = '1';
-        });
+            // Specular glare position and opacity (clamped <= 0.5)
+            const glareX = Math.round((x / width) * 100);
+            const glareY = Math.round((y / height) * 100);
+            glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 65%)`;
+            glare.style.opacity = '1';
+            isMoving = false;
+          });
+        }, { passive: true });
 
         card.addEventListener('mouseleave', function () {
-          // Reset transform matrix and glare smoothly on mouseleave
+          lastEvent = null;
+          isMoving = false;
           card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
           if (glare) {
             glare.style.opacity = '0';
           }
-        });
+        }, { passive: true });
       });
     }
 

@@ -756,6 +756,12 @@
     if (badgeEl) badgeEl.textContent = epoch.badge;
     if (titleEl) titleEl.textContent = epoch.name;
     if (descEl) descEl.textContent = epoch.desc;
+
+    // Update progress bar
+    const progressBar = document.getElementById('scroll-world-progress-fill');
+    if (progressBar) {
+      progressBar.style.width = `${Math.round((index / (EPOCHS.length - 1)) * 100)}%`;
+    }
   }
 
   function setupScrollTrigger() {
@@ -765,8 +771,32 @@
       tab.addEventListener('click', (e) => {
         const eraIdx = parseInt(tab.getAttribute('data-era') || '0', 10);
         updateUIEpoch(eraIdx);
+        const eraProgress = eraIdx / (EPOCHS.length - 1);
+        targetVideoProgress = eraProgress;
+        targetScrollProgress = eraProgress;
+
+        // Smoothly scrub video across epochs on tab click
+        if (typeof gsap !== 'undefined') {
+          gsap.to({ p: currentVideoProgress }, {
+            p: eraProgress,
+            duration: 1.0,
+            ease: "power2.inOut",
+            onUpdate: function () {
+              currentVideoProgress = this.targets()[0].p;
+              if (videoEl && !isNaN(videoEl.duration) && videoEl.duration > 0) {
+                applyVideoTime(currentVideoProgress * videoEl.duration);
+              }
+            }
+          });
+        } else {
+          currentVideoProgress = eraProgress;
+          if (videoEl && !isNaN(videoEl.duration) && videoEl.duration > 0) {
+            applyVideoTime(eraProgress * videoEl.duration);
+          }
+        }
+
         if (scrollTriggerInstance && scrollTriggerInstance.end > scrollTriggerInstance.start) {
-          const targetY = scrollTriggerInstance.start + (eraIdx / (EPOCHS.length - 1)) * (scrollTriggerInstance.end - scrollTriggerInstance.start);
+          const targetY = scrollTriggerInstance.start + eraProgress * (scrollTriggerInstance.end - scrollTriggerInstance.start);
           if (typeof gsap !== 'undefined') {
             const scrollObj = { y: window.scrollY || window.pageYOffset || document.documentElement.scrollTop };
             gsap.to(scrollObj, {
@@ -827,11 +857,16 @@
     videoEl.setAttribute('playsinline', '');
 
     const ensureVideoLoaded = () => {
-      if (videoEl && videoEl.dataset && videoEl.dataset.src && (!videoEl.src || videoEl.src === window.location.href)) {
-        videoEl.src = videoEl.dataset.src;
+      if (!videoEl) return;
+      if (!videoEl.src || videoEl.src === window.location.href) {
+        videoEl.src = (videoEl.dataset && videoEl.dataset.src) || 'videos/flythrough-epochs.mp4';
+      }
+      if (videoEl.readyState === 0) {
         videoEl.load();
       }
     };
+
+    ensureVideoLoaded();
 
     if ('IntersectionObserver' in window && (container || videoEl)) {
       const vObs = new IntersectionObserver((entries) => {
@@ -841,8 +876,6 @@
         }
       }, { rootMargin: '600px 0px' });
       vObs.observe(container || videoEl);
-    } else {
-      ensureVideoLoaded();
     }
 
     videoEl.addEventListener('seeking', () => { isVideoSeeking = true; }, { passive: true });
@@ -867,6 +900,10 @@
   function applyVideoTime(time) {
     if (!videoEl || isNaN(videoEl.duration) || videoEl.duration <= 0) return;
     const clamped = Math.max(0, Math.min(videoEl.duration, time));
+    if (isVideoSeeking) {
+      pendingVideoTime = clamped;
+      return;
+    }
     try {
       videoEl.currentTime = clamped;
     } catch (e) {
