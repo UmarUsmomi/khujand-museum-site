@@ -1271,6 +1271,20 @@
   z-index: 10;
 }
 
+.scroll-world-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
 #scroll-world-canvas,
 #scroll-world-video {
   position: absolute;
@@ -1282,6 +1296,7 @@
   outline: none;
   object-fit: cover;
   pointer-events: none;
+  z-index: 2;
 }
 
 .scroll-world-sticky {
@@ -2241,3 +2256,146 @@ body[data-page="events"] .page-hero::before {
 .exhibitions-card img { aspect-ratio: 400/260; object-fit: cover; }
 .full-gallery-item img { aspect-ratio: 400/280; object-fit: cover; }
 .museum-img { content-visibility: auto; }
+
+/* ==========================================================================
+   VIDEO TOUR SECTION
+   ========================================================================== */
+.video-tour-section {
+  padding: clamp(60px, 8vw, 100px) 0;
+  background: var(--bg-primary, #0c1524);
+  position: relative;
+  overflow: hidden;
+}
+
+.video-tour-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto clamp(24px, 4vw, 44px) auto;
+}
+
+.video-tour-header .section-label {
+  color: var(--gold, #d4af37);
+}
+
+.video-tour-header .section-title {
+  color: #ffffff !important;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.video-tour-header .section-subtitle {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.video-tour-wrapper {
+  max-width: 1040px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: #000000;
+  position: relative;
+}
+
+.video-facade {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+  background: #060b13;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-facade-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.video-facade:hover .video-facade-img,
+.video-facade:focus .video-facade-img {
+  transform: scale(1.025);
+  filter: brightness(0.92);
+}
+
+.video-facade-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 11, 19, 0.25) 0%, rgba(6, 11, 19, 0.75) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1rem, 3vw, 2.25rem);
+  pointer-events: none;
+}
+
+.video-play-btn {
+  align-self: center;
+  margin: auto;
+  width: clamp(60px, 8vw, 84px);
+  height: clamp(60px, 8vw, 84px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4af37, #f39c12);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  color: #0b1523;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5), 0 0 40px rgba(212, 175, 55, 0.3);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.video-play-btn .video-play-icon {
+  margin-left: 4px;
+}
+
+.video-facade:hover .video-play-btn,
+.video-facade:focus .video-play-btn {
+  transform: scale(1.12);
+  box-shadow: 0 14px 40px rgba(212, 175, 55, 0.7), 0 0 60px rgba(212, 175, 55, 0.45);
+}
+
+.video-facade-info {
+  margin-top: auto;
+  pointer-events: auto;
+}
+
+.video-facade-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(212, 175, 55, 0.22);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 999px;
+  color: #f7df8f;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  backdrop-filter: blur(8px);
+}
+
+.video-facade-title {
+  font-family: var(--font-heading, "Playfair Display", Georgia, serif);
+  color: #ffffff;
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}

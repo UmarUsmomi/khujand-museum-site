@@ -29,6 +29,8 @@
       era: 'VI–IV вв. до н.э.',
       badge: 'Эпоха I • VI–IV вв. до н.э.',
       desc: 'Колыбель цивилизации на берегах Сырдарьи. Мощные сырцовые стены цитадели, гончарные печи, изготовление расписных хумов и древние караванные пути Согда.',
+      image: 'images/fortress/epoch-sogdiana.webp',
+      videoTime: 0.0,
       cameraPos: { x: 0, y: 7.5, z: 26 },
       lookAt: { x: 0, y: 2.8, z: 0 },
       fogColor: 0x1a120c,
@@ -42,6 +44,8 @@
       era: '329 г. до н.э.',
       badge: 'Эпоха II • 329 г. до н.э.',
       desc: 'Крайний форпост империи Александра Македонского на реке Яксарт (Сырдарья). Эллинистические мраморные колоннады, монументальные мозаики и серебряные тетрадрахмы.',
+      image: 'images/fortress/epoch-alexandria.webp',
+      videoTime: 2.5,
       cameraPos: { x: 18, y: 9.0, z: -38 },
       lookAt: { x: 0, y: 3.5, z: -62 },
       fogColor: 0x0a1826,
@@ -55,6 +59,8 @@
       era: '1220 г.',
       badge: 'Эпоха III • 1220 г.',
       desc: 'Легендарная битва национального героя Тимурмалика против монгольских туменов. Неприступная каменная крепость, метательные орудия на речном острове и неугасимое пламя свободы.',
+      image: 'images/fortress/epoch-timur.webp',
+      videoTime: 5.0,
       cameraPos: { x: -22, y: 11.0, z: -102 },
       lookAt: { x: 0, y: 4.8, z: -128 },
       fogColor: 0x220c06,
@@ -68,6 +74,8 @@
       era: 'XXI век',
       badge: 'Эпоха IV • Новейшее время',
       desc: 'Возрождённый исторический музей Согдийской области в цитадели Худжандской крепости. Архитектурный ансамбль семи куполов, фонтаны и свыше 28 000 бесценных реликвий.',
+      image: 'images/fortress/epoch-modern.webp',
+      videoTime: 9.8,
       cameraPos: { x: 0, y: 13.0, z: -168 },
       lookAt: { x: 0, y: 5.5, z: -198 },
       fogColor: 0x061420,
@@ -99,6 +107,8 @@
   let currentScrollProgress = 0;
   let targetScrollProgress = 0;
   let activeEpochIndex = 0;
+  let isTransitioningToEra = false;
+  let eraTransitionTimer = null;
 
   // GPU Resource Registry for comprehensive dispose() (Feature 9)
   const disposableGeometries = [];
@@ -721,12 +731,14 @@
       dirLight.position.set(camera.position.x + 10, camera.position.y + 15, camera.position.z + 10);
     }
 
-    // Determine current active epoch for UI
-    const epochStep = 1 / (EPOCHS.length - 1);
-    const nearestIndex = Math.min(EPOCHS.length - 1, Math.round(progress / epochStep));
-    if (nearestIndex !== activeEpochIndex) {
-      activeEpochIndex = nearestIndex;
-      updateUIEpoch(activeEpochIndex);
+    // Determine current active epoch for UI (only when not transitioning via tab click)
+    if (!isTransitioningToEra) {
+      const epochStep = 1 / (EPOCHS.length - 1);
+      const nearestIndex = Math.min(EPOCHS.length - 1, Math.round(progress / epochStep));
+      if (nearestIndex !== activeEpochIndex) {
+        activeEpochIndex = nearestIndex;
+        updateUIEpoch(activeEpochIndex);
+      }
     }
 
     // Update progress bar fill
@@ -739,6 +751,12 @@
   function updateUIEpoch(index) {
     const epoch = EPOCHS[index];
     if (!epoch) return;
+
+    // Update Backdrop image for zero-delay visual change across epochs
+    const backdropEl = document.getElementById('scroll-world-backdrop');
+    if (backdropEl && epoch.image) {
+      backdropEl.style.backgroundImage = `url('${epoch.image}')`;
+    }
 
     // Update Tab active state
     const tabs = document.querySelectorAll('.scroll-world-tab');
@@ -771,11 +789,29 @@
       tab.addEventListener('click', (e) => {
         const eraIdx = parseInt(tab.getAttribute('data-era') || '0', 10);
         ensureVideoLoaded();
+        isTransitioningToEra = true;
+        if (eraTransitionTimer) clearTimeout(eraTransitionTimer);
+        eraTransitionTimer = setTimeout(() => {
+          isTransitioningToEra = false;
+        }, 1100);
         activeEpochIndex = eraIdx;
         updateUIEpoch(eraIdx);
         const eraProgress = eraIdx / (EPOCHS.length - 1);
         targetVideoProgress = eraProgress;
         targetScrollProgress = eraProgress;
+
+        if (EPOCHS[eraIdx] && typeof EPOCHS[eraIdx].videoTime === 'number') {
+          applyVideoTime(EPOCHS[eraIdx].videoTime);
+        }
+
+        // On touch/mobile devices, gently activate video frame decode
+        if (videoEl && typeof videoEl.play === 'function') {
+          videoEl.play().then(() => {
+            setTimeout(() => {
+              if (videoEl && !videoEl.paused) videoEl.pause();
+            }, 100);
+          }).catch(() => {});
+        }
 
         // Smoothly scrub video across epochs on tab click
         if (typeof gsap !== 'undefined') {
@@ -856,7 +892,9 @@
     }
     if (!videoEl) return;
     if (!videoEl.src || videoEl.src === window.location.href) {
-      videoEl.src = (videoEl.dataset && videoEl.dataset.src) || 'videos/flythrough-epochs.mp4';
+      const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+      const defaultSrc = isMobile ? 'videos/flythrough-mobile.mp4' : 'videos/flythrough-epochs.mp4';
+      videoEl.src = (videoEl.dataset && videoEl.dataset.src) || defaultSrc;
     }
     if (videoEl.readyState === 0) {
       videoEl.load();
@@ -942,7 +980,7 @@
     const scrolled = -rect.top;
     targetScrollProgress = Math.max(0, Math.min(1, scrolled / totalDist));
     syncVideo(targetScrollProgress);
-    if (!renderer) {
+    if (!isTransitioningToEra && !renderer) {
       const epochIdx = Math.min(EPOCHS.length - 1, Math.floor(targetScrollProgress * EPOCHS.length));
       updateUIEpoch(epochIdx);
     }
@@ -1182,10 +1220,45 @@
     updateUIEpoch(0);
   }
 
+  function setupMobileGestures() {
+    if (!container) return;
+    let startX = 0;
+    let startY = 0;
+
+    container.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches.length === 1) {
+        const dx = startX - e.changedTouches[0].clientX;
+        const dy = startY - e.changedTouches[0].clientY;
+        // Horizontal swipe across epochs
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+          if (dx > 0 && activeEpochIndex < EPOCHS.length - 1) {
+            const nextTab = document.querySelector(`.scroll-world-tab[data-era="${activeEpochIndex + 1}"]`);
+            if (nextTab) nextTab.click();
+          } else if (dx < 0 && activeEpochIndex > 0) {
+            const prevTab = document.querySelector(`.scroll-world-tab[data-era="${activeEpochIndex - 1}"]`);
+            if (prevTab) prevTab.click();
+          }
+        }
+      }
+    }, { passive: true });
+  }
+
   function init() {
+    container = document.getElementById('scroll-world');
+    canvas = document.getElementById('scroll-world-canvas');
+    videoEl = document.getElementById('scroll-world-video');
+
     initVideoPlayer();
     setupScrollTrigger();
     setupIntersectionObserver();
+    setupMobileGestures();
 
     // Smart Lazy-Mounting: defer Three.js compilation until near-viewport or idle
     if (window.scrollY > 300 || window.location.hash === '#scroll-world') {

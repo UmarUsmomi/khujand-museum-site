@@ -245,7 +245,8 @@
 <!-- ===== 3D SCROLL-WORLD ===== -->
 <section aria-label="3D-путешествие сквозь эпохи Согдианы и Худжандской крепости" class="scroll-world-section" id="scroll-world">
 <div class="scroll-world-sticky">
-<video class="scroll-world-video" data-src="videos/flythrough-epochs.mp4" id="scroll-world-video" muted="" playsinline="" poster="images/fortress/museum-entrance-facade.webp" preload="none" src="videos/flythrough-epochs.mp4"></video>
+<div class="scroll-world-backdrop" id="scroll-world-backdrop" style="background-image: url('images/fortress/epoch-sogdiana.webp');"></div>
+<video class="scroll-world-video" data-src="videos/flythrough-epochs.mp4" id="scroll-world-video" muted="" playsinline="" poster="images/fortress/epoch-sogdiana.webp" preload="none" src="videos/flythrough-epochs.mp4"></video>
 <canvas id="scroll-world-canvas" style="display: none;"></canvas>
 <!-- UI Overlay for Epoch Navigation & Information -->
 <div class="scroll-world-overlay">
@@ -561,6 +562,32 @@
 <img alt="Галерея" class="clay-icon-3d" height="20" loading="lazy" src="images/icons/icon-museum-3d.webp" width="20"/>
 Перейти в полный архив (все 90+ фото по 5 залам) →
 </a>
+</div>
+</div>
+</section>
+<!-- ===== VIDEO TOUR ===== -->
+<section class="video-tour-section" id="video-tour">
+<div class="container">
+<div class="video-tour-header reveal">
+<div class="section-label" data-i18n="videotour.label">Видеоэкскурсия</div>
+<h2 class="section-title" data-i18n="videotour.title">Прогулка по Худжандской крепости</h2>
+<p class="section-subtitle" data-i18n="videotour.subtitle">
+  Погрузитесь в атмосферу древней цитадели: авторский видеообзор музейных залов, оборонительных стен и набережной Сырдарьи.
+</p>
+</div>
+<div class="video-tour-wrapper reveal">
+<div aria-label="Воспроизвести видеоэкскурсию по Худжандской крепости" class="video-facade" data-video-id="HhCveDrEO2I" id="videoFacade" role="button" tabindex="0">
+<img alt="Видеоэкскурсия по Худжандской крепости и залам музея" class="video-facade-img" decoding="async" height="720" loading="lazy" src="images/video-tour-poster.webp" width="1280"/>
+<div class="video-facade-overlay">
+<button aria-label="Смотреть видеоэкскурсию" class="video-play-btn" id="videoPlayBtn" tabindex="-1">
+<span class="video-play-icon">▶</span>
+</button>
+<div class="video-facade-info">
+<span class="video-facade-badge">YouTube 4K • 14 мин</span>
+<h3 class="video-facade-title" data-i18n="videotour.card_title">Khujand Fortress &amp; Historical Museum Tour</h3>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>

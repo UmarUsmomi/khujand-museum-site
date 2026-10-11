@@ -435,7 +435,11 @@ const translations = {
     "hist.art_label": "Ключевой артефакт:",
     "scrollworld.badge": "3D Эпохи Худжанда",
     "scrollworld.title": "Путешествие сквозь тысячелетия",
-    "scrollworld.hint": "Листайте вниз для путешествия сквозь эпохи"
+    "scrollworld.hint": "Листайте вниз для путешествия сквозь эпохи",
+    "videotour.label": "Видеоэкскурсия",
+    "videotour.title": "Прогулка по Худжандской крепости",
+    "videotour.subtitle": "Погрузитесь в атмосферу древней цитадели: авторский видеообзор музейных залов, оборонительных стен и набережной Сырдарьи.",
+    "videotour.card_title": "Khujand Fortress & Historical Museum Tour"
   },
   "tj": {
     "title.home": "Осорхонаи таърихии вилояти Суғд | Хуҷанд",
@@ -870,7 +874,11 @@ const translations = {
     "hist.art_label": "Нигораи калидӣ:",
     "scrollworld.badge": "3D Давраҳои Хуҷанд",
     "scrollworld.title": "Сафар аз умқи ҳазорсолаҳо",
-    "scrollworld.hint": "Барои сафар дар давраҳои таърихӣ ба поён варақ занед"
+    "scrollworld.hint": "Барои сафар дар давраҳои таърихӣ ба поён варақ занед",
+    "videotour.label": "Саёҳати видеоӣ",
+    "videotour.title": "Сайри Қалъаи Хуҷанд",
+    "videotour.subtitle": "Ба фазои таърихии қалъа фурӯ равед: сайри видеоӣ дар деворҳои қалъа, осорхона ва соҳили Сирдарё.",
+    "videotour.card_title": "Саёҳати Қалъаи Хуҷанд ва Осорхонаи таърихӣ"
   },
   "en": {
     "title.home": "Historical Museum of Sughd Region | Khujand",
@@ -1305,7 +1313,11 @@ const translations = {
     "hist.art_label": "Key Artifact:",
     "scrollworld.badge": "3D Eras of Khujand",
     "scrollworld.title": "Journey Through Millennia",
-    "scrollworld.hint": "Scroll down to journey through historical eras"
+    "scrollworld.hint": "Scroll down to journey through historical eras",
+    "videotour.label": "Video Excursion",
+    "videotour.title": "Khujand Fortress Walking Tour",
+    "videotour.subtitle": "Immerse yourself in the ancient citadel: an authentic video walkthrough of museum halls, fortified walls, and the Syr Darya embankment.",
+    "videotour.card_title": "Khujand Fortress & Historical Museum Tour"
   }
 };
 
@@ -2345,7 +2357,7 @@ function initAudioGuideDock() {
     }
   };
 
-  let currentLang = safeStorage.getItem('museumLang') || 'ru';
+  let currentLang = safeStorage.getItem('museumAgLang') || safeStorage.getItem('museumLang') || 'ru';
   if (currentLang === 'tg') currentLang = 'tj';
   let isPlaying = false;
   let bgMusicWasPlayingBefore = false;
@@ -2502,16 +2514,26 @@ function initAudioGuideDock() {
     guideAudio.addEventListener('loadedmetadata', onMeta, { once: true });
 
     if (wasPlaying) {
-      const playPromise = guideAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          updatePlayState(true);
-          safeStorage.setItem('museumAgPlaying', 'true');
-        }).catch((err) => {
-          console.warn('Voiceover auto-resume interrupted:', err);
-          updatePlayState(false);
-          safeStorage.setItem('museumAgPlaying', 'false');
-        });
+      updatePlayState(true);
+      safeStorage.setItem('museumAgPlaying', 'true');
+      const startPlayback = () => {
+        guideAudio.removeEventListener('canplay', startPlayback);
+        const playPromise = guideAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            updatePlayState(true);
+            safeStorage.setItem('museumAgPlaying', 'true');
+          }).catch((err) => {
+            console.warn('Voiceover resume caught error:', err);
+          });
+        }
+      };
+
+      if (guideAudio.readyState >= 3) {
+        startPlayback();
+      } else {
+        guideAudio.addEventListener('canplay', startPlayback, { once: true });
+        guideAudio.load();
       }
     } else {
       updatePlayState(false);
@@ -2616,25 +2638,38 @@ function initAudioGuideDock() {
 
     // Cross-page audio continuation: check if audio was playing prior to navigation
     const wasAutoPlaying = safeStorage.getItem('museumAgPlaying') === 'true';
-    if (wasAutoPlaying) {
-      guideAudio.volume = 1.0;
-      const autoPlayPromise = guideAudio.play();
-      if (autoPlayPromise !== undefined) {
-        autoPlayPromise.then(() => {
-          updatePlayState(true);
-        }).catch(() => {
-          // If browser restricts unprompted play on page navigation, resume on first user click
-          const resumeOnFirstGesture = () => {
-            if (safeStorage.getItem('museumAgPlaying') === 'true') {
-              playGuide();
-            }
-            window.removeEventListener('click', resumeOnFirstGesture);
-            window.removeEventListener('touchstart', resumeOnFirstGesture);
-          };
-          window.addEventListener('click', resumeOnFirstGesture, { once: true });
-          window.addEventListener('touchstart', resumeOnFirstGesture, { once: true });
-        });
+    const savedAgTime = parseFloat(safeStorage.getItem('museumAgTime') || '0');
+
+    const tryResumePlay = () => {
+      if (savedAgTime > 0 && guideAudio.duration && savedAgTime < guideAudio.duration) {
+        try { guideAudio.currentTime = savedAgTime; } catch(e) {}
       }
+      if (wasAutoPlaying) {
+        guideAudio.volume = 1.0;
+        const autoPlayPromise = guideAudio.play();
+        if (autoPlayPromise !== undefined) {
+          autoPlayPromise.then(() => {
+            updatePlayState(true);
+          }).catch(() => {
+            updatePlayState(false);
+            const resumeOnFirstGesture = () => {
+              if (safeStorage.getItem('museumAgPlaying') === 'true') {
+                playGuide();
+              }
+              window.removeEventListener('click', resumeOnFirstGesture);
+              window.removeEventListener('touchstart', resumeOnFirstGesture);
+            };
+            window.addEventListener('click', resumeOnFirstGesture, { once: true });
+            window.addEventListener('touchstart', resumeOnFirstGesture, { once: true });
+          });
+        }
+      }
+    };
+
+    if (guideAudio.readyState >= 1) {
+      tryResumePlay();
+    } else {
+      guideAudio.addEventListener('loadedmetadata', tryResumePlay, { once: true });
     }
 
     // Wire up scrubber slider
@@ -2758,14 +2793,43 @@ function initAudioGuideDock() {
       });
     });
 
-    window.addEventListener('beforeunload', () => {
-      if (isPlaying && guideAudio.currentTime) {
-        safeStorage.setItem('museumAgPlaying', 'true');
+    const saveAgState = () => {
+      safeStorage.setItem('museumAgPlaying', isPlaying ? 'true' : 'false');
+      if (guideAudio && !isNaN(guideAudio.currentTime)) {
         safeStorage.setItem('museumAgTime', guideAudio.currentTime.toFixed(2));
-        safeStorage.setItem('museumAgLang', currentLang);
       }
-    });
+      safeStorage.setItem('museumAgLang', currentLang);
+    };
+    window.addEventListener('beforeunload', saveAgState);
+    window.addEventListener('pagehide', saveAgState);
   }
+}
+
+// ===== VIDEO TOUR EXCURSION =====
+function initVideoTour() {
+  const facade = document.getElementById('videoFacade');
+  if (!facade) return;
+
+  function loadIframe() {
+    if (facade.querySelector('iframe')) return;
+    const videoId = facade.getAttribute('data-video-id') || 'HhCveDrEO2I';
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    iframe.title = 'Khujand Fortress Video Tour';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    iframe.className = 'video-iframe';
+    facade.innerHTML = '';
+    facade.appendChild(iframe);
+  }
+
+  facade.addEventListener('click', loadIframe);
+  facade.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      loadIframe();
+    }
+  });
 }
 
 // ===== INITIALIZE ALL MODULES =====
@@ -2785,4 +2849,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initDeepZoom();
   initInteractiveTimeline();
   initAudioGuideDock();
+  initVideoTour();
 });
