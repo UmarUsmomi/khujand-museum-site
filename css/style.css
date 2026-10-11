@@ -2224,7 +2224,17 @@ body[data-page="events"] .page-hero::before {
 
 /* Performance & CLS Optimizations */
 .about-images { aspect-ratio: 500/400; overflow: visible; }
-.about-year { border-radius: 50% !important; }
+.about-year {
+  border-radius: 50% !important;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 4px;
+}
+.about-year span {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
 @media (max-width: 768px) {
   .about-images {
     width: 100% !important;
@@ -2241,16 +2251,30 @@ body[data-page="events"] .page-hero::before {
     height: 170px !important;
   }
   .about-year {
-    width: 70px !important;
-    height: 70px !important;
+    width: 76px !important;
+    height: 76px !important;
     top: -12px !important;
     right: 36px !important;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 4px;
   }
   .about-year span:first-child {
     font-size: 0.5rem !important;
+    line-height: 1.1;
   }
   .about-year span:last-child {
-    font-size: 1.15rem !important;
+    font-size: 0.95rem !important;
+    line-height: 1.05 !important;
+    font-weight: 700;
+  }
+  #scroll-world-video {
+    display: none !important;
+  }
+  .scroll-world-backdrop {
+    display: block !important;
+    opacity: 1 !important;
+    z-index: 2 !important;
   }
 }
 .exhibitions-card img { aspect-ratio: 400/260; object-fit: cover; }

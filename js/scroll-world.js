@@ -788,29 +788,31 @@
     tabs.forEach((tab) => {
       tab.addEventListener('click', (e) => {
         const eraIdx = parseInt(tab.getAttribute('data-era') || '0', 10);
+        const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+        activeEpochIndex = eraIdx;
+        updateUIEpoch(eraIdx);
+        const eraProgress = eraIdx / (EPOCHS.length - 1);
+        targetScrollProgress = eraProgress;
+        targetVideoProgress = eraProgress;
+
+        if (isMobile) {
+          if (scrollTriggerInstance && scrollTriggerInstance.end > scrollTriggerInstance.start) {
+            const targetY = scrollTriggerInstance.start + eraProgress * (scrollTriggerInstance.end - scrollTriggerInstance.start);
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+          return;
+        }
+
         ensureVideoLoaded();
         isTransitioningToEra = true;
         if (eraTransitionTimer) clearTimeout(eraTransitionTimer);
         eraTransitionTimer = setTimeout(() => {
           isTransitioningToEra = false;
         }, 1100);
-        activeEpochIndex = eraIdx;
-        updateUIEpoch(eraIdx);
-        const eraProgress = eraIdx / (EPOCHS.length - 1);
-        targetVideoProgress = eraProgress;
-        targetScrollProgress = eraProgress;
 
         if (EPOCHS[eraIdx] && typeof EPOCHS[eraIdx].videoTime === 'number') {
           applyVideoTime(EPOCHS[eraIdx].videoTime);
-        }
-
-        // On touch/mobile devices, gently activate video frame decode
-        if (videoEl && typeof videoEl.play === 'function') {
-          videoEl.play().then(() => {
-            setTimeout(() => {
-              if (videoEl && !videoEl.paused) videoEl.pause();
-            }, 100);
-          }).catch(() => {});
         }
 
         // Smoothly scrub video across epochs on tab click
@@ -870,7 +872,17 @@
       anticipatePin: 1,
       onUpdate: (self) => {
         targetScrollProgress = self.progress;
-        syncVideo(self.progress);
+        const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+        if (!isMobile) {
+          syncVideo(self.progress);
+        } else if (!isTransitioningToEra) {
+          const epochStep = 1 / (EPOCHS.length - 1);
+          const nearestIndex = Math.min(EPOCHS.length - 1, Math.round(self.progress / epochStep));
+          if (nearestIndex !== activeEpochIndex) {
+            activeEpochIndex = nearestIndex;
+            updateUIEpoch(activeEpochIndex);
+          }
+        }
       }
     });
   }
@@ -887,14 +899,14 @@
   let seekSafetyTimer = null;
 
   function ensureVideoLoaded() {
+    const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    if (isMobile) return;
     if (!videoEl) {
       videoEl = document.getElementById('scroll-world-video');
     }
     if (!videoEl) return;
     if (!videoEl.src || videoEl.src === window.location.href) {
-      const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-      const defaultSrc = isMobile ? 'videos/flythrough-mobile.mp4' : 'videos/flythrough-epochs.mp4';
-      videoEl.src = (videoEl.dataset && videoEl.dataset.src) || defaultSrc;
+      videoEl.src = (videoEl.dataset && videoEl.dataset.src) || 'videos/flythrough-epochs.mp4';
     }
     if (videoEl.readyState === 0) {
       videoEl.load();
@@ -904,6 +916,14 @@
   function initVideoPlayer() {
     videoEl = document.getElementById('scroll-world-video');
     if (!videoEl) return;
+
+    const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    if (isMobile) {
+      videoEl.style.display = 'none';
+      videoEl.removeAttribute('src');
+      try { videoEl.load(); } catch (e) {}
+      return;
+    }
 
     videoEl.muted = true;
     videoEl.playsInline = true;
@@ -975,12 +995,15 @@
 
   function onFallbackScroll() {
     if (!container) return;
+    const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
     const rect = container.getBoundingClientRect();
     const totalDist = window.innerHeight * 4; // 400vh
     const scrolled = -rect.top;
     targetScrollProgress = Math.max(0, Math.min(1, scrolled / totalDist));
-    syncVideo(targetScrollProgress);
-    if (!isTransitioningToEra && !renderer) {
+    if (!isMobile) {
+      syncVideo(targetScrollProgress);
+    }
+    if (!isTransitioningToEra && (!renderer || isMobile)) {
       const epochIdx = Math.min(EPOCHS.length - 1, Math.floor(targetScrollProgress * EPOCHS.length));
       updateUIEpoch(epochIdx);
     }
@@ -1148,6 +1171,11 @@
       return;
     }
 
+    // Skip procedural Three.js initScene when the canvas is hidden (display: none)
+    if (canvas.style.display === 'none' || (window.getComputedStyle && window.getComputedStyle(canvas).display === 'none')) {
+      return;
+    }
+
     if (typeof THREE === 'undefined') {
       console.warn('Three.js (r128) is not loaded.');
       return;
@@ -1259,6 +1287,11 @@
     setupScrollTrigger();
     setupIntersectionObserver();
     setupMobileGestures();
+
+    // Skip Three.js scene creation entirely if canvas is hidden
+    if (canvas && (canvas.style.display === 'none' || (window.getComputedStyle && window.getComputedStyle(canvas).display === 'none'))) {
+      return;
+    }
 
     // Smart Lazy-Mounting: defer Three.js compilation until near-viewport or idle
     if (window.scrollY > 300 || window.location.hash === '#scroll-world') {

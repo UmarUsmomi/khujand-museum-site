@@ -2364,8 +2364,14 @@ function initAudioGuideDock() {
   let isUserScrubbing = false;
 
   const guideAudio = new Audio();
-  guideAudio.preload = 'metadata';
-  guideAudio.src = voiceSources[currentLang] || voiceSources.ru;
+  guideAudio.preload = 'none';
+
+  function ensureAudioSrc() {
+    if (!guideAudio.src || !guideAudio.src.includes('.mp3')) {
+      guideAudio.src = voiceSources[currentLang] || voiceSources.ru;
+      guideAudio.load();
+    }
+  }
 
   function formatSeconds(sec) {
     if (isNaN(sec) || sec < 0) return '00:00';
@@ -2391,9 +2397,7 @@ function initAudioGuideDock() {
       bgMusic.pause();
     }
     guideAudio.volume = 1.0;
-    if (!guideAudio.src || !guideAudio.src.includes('.mp3')) {
-      guideAudio.src = voiceSources[currentLang] || voiceSources.ru;
-    }
+    ensureAudioSrc();
     const playPromise = guideAudio.play();
     if (playPromise !== undefined) {
       playPromise.then(() => {
@@ -2501,39 +2505,44 @@ function initAudioGuideDock() {
     safeStorage.setItem('museumAgLang', currentLang);
     const targetSrc = voiceSources[currentLang] || voiceSources.ru;
 
-    guideAudio.src = targetSrc;
-    guideAudio.volume = 1.0;
+    if (guideAudio.src && guideAudio.src.includes('.mp3')) {
+      guideAudio.src = targetSrc;
+      guideAudio.volume = 1.0;
 
-    const onMeta = () => {
-      guideAudio.removeEventListener('loadedmetadata', onMeta);
-      if (guideAudio.duration && !isNaN(guideAudio.duration) && currentFrac > 0) {
-        guideAudio.currentTime = Math.min(guideAudio.duration - 0.5, currentFrac * guideAudio.duration);
-      }
-      updateTimelineUI();
-    };
-    guideAudio.addEventListener('loadedmetadata', onMeta, { once: true });
-
-    if (wasPlaying) {
-      updatePlayState(true);
-      safeStorage.setItem('museumAgPlaying', 'true');
-      const startPlayback = () => {
-        guideAudio.removeEventListener('canplay', startPlayback);
-        const playPromise = guideAudio.play();
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            updatePlayState(true);
-            safeStorage.setItem('museumAgPlaying', 'true');
-          }).catch((err) => {
-            console.warn('Voiceover resume caught error:', err);
-          });
+      const onMeta = () => {
+        guideAudio.removeEventListener('loadedmetadata', onMeta);
+        if (guideAudio.duration && !isNaN(guideAudio.duration) && currentFrac > 0) {
+          guideAudio.currentTime = Math.min(guideAudio.duration - 0.5, currentFrac * guideAudio.duration);
         }
+        updateTimelineUI();
       };
+      guideAudio.addEventListener('loadedmetadata', onMeta, { once: true });
 
-      if (guideAudio.readyState >= 3) {
-        startPlayback();
+      if (wasPlaying) {
+        updatePlayState(true);
+        safeStorage.setItem('museumAgPlaying', 'true');
+        const startPlayback = () => {
+          guideAudio.removeEventListener('canplay', startPlayback);
+          const playPromise = guideAudio.play();
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              updatePlayState(true);
+              safeStorage.setItem('museumAgPlaying', 'true');
+            }).catch((err) => {
+              console.warn('Voiceover resume caught error:', err);
+            });
+          }
+        };
+
+        if (guideAudio.readyState >= 3) {
+          startPlayback();
+        } else {
+          guideAudio.addEventListener('canplay', startPlayback, { once: true });
+          guideAudio.load();
+        }
       } else {
-        guideAudio.addEventListener('canplay', startPlayback, { once: true });
-        guideAudio.load();
+        updatePlayState(false);
+        safeStorage.setItem('museumAgPlaying', 'false');
       }
     } else {
       updatePlayState(false);
@@ -2666,10 +2675,13 @@ function initAudioGuideDock() {
       }
     };
 
-    if (guideAudio.readyState >= 1) {
-      tryResumePlay();
-    } else {
-      guideAudio.addEventListener('loadedmetadata', tryResumePlay, { once: true });
+    if (wasAutoPlaying) {
+      ensureAudioSrc();
+      if (guideAudio.readyState >= 1) {
+        tryResumePlay();
+      } else {
+        guideAudio.addEventListener('loadedmetadata', tryResumePlay, { once: true });
+      }
     }
 
     // Wire up scrubber slider
@@ -2730,6 +2742,7 @@ function initAudioGuideDock() {
           playGuide();
         }
       } else {
+        ensureAudioSrc();
         modal.classList.add('active');
       }
     });
@@ -2813,8 +2826,9 @@ function initVideoTour() {
   function loadIframe() {
     if (facade.querySelector('iframe')) return;
     const videoId = facade.getAttribute('data-video-id') || 'HhCveDrEO2I';
+    const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
     const iframe = document.createElement('iframe');
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0' + (isMobile ? '&mute=1' : '');
     iframe.title = 'Khujand Fortress Video Tour';
     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
     iframe.allowFullscreen = true;
