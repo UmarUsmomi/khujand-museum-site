@@ -770,6 +770,8 @@
     tabs.forEach((tab) => {
       tab.addEventListener('click', (e) => {
         const eraIdx = parseInt(tab.getAttribute('data-era') || '0', 10);
+        ensureVideoLoaded();
+        activeEpochIndex = eraIdx;
         updateUIEpoch(eraIdx);
         const eraProgress = eraIdx / (EPOCHS.length - 1);
         targetVideoProgress = eraProgress;
@@ -779,7 +781,7 @@
         if (typeof gsap !== 'undefined') {
           gsap.to({ p: currentVideoProgress }, {
             p: eraProgress,
-            duration: 1.0,
+            duration: 0.9,
             ease: "power2.inOut",
             onUpdate: function () {
               currentVideoProgress = this.targets()[0].p;
@@ -801,7 +803,7 @@
             const scrollObj = { y: window.scrollY || window.pageYOffset || document.documentElement.scrollTop };
             gsap.to(scrollObj, {
               y: targetY,
-              duration: 1.0,
+              duration: 0.9,
               ease: "power2.inOut",
               onUpdate: () => {
                 window.scrollTo(0, scrollObj.y);
@@ -846,6 +848,20 @@
   let currentVideoProgress = 0;
   let isVideoSeeking = false;
   let pendingVideoTime = null;
+  let seekSafetyTimer = null;
+
+  function ensureVideoLoaded() {
+    if (!videoEl) {
+      videoEl = document.getElementById('scroll-world-video');
+    }
+    if (!videoEl) return;
+    if (!videoEl.src || videoEl.src === window.location.href) {
+      videoEl.src = (videoEl.dataset && videoEl.dataset.src) || 'videos/flythrough-epochs.mp4';
+    }
+    if (videoEl.readyState === 0) {
+      videoEl.load();
+    }
+  }
 
   function initVideoPlayer() {
     videoEl = document.getElementById('scroll-world-video');
@@ -856,31 +872,24 @@
     videoEl.setAttribute('muted', '');
     videoEl.setAttribute('playsinline', '');
 
-    const ensureVideoLoaded = () => {
-      if (!videoEl) return;
-      if (!videoEl.src || videoEl.src === window.location.href) {
-        videoEl.src = (videoEl.dataset && videoEl.dataset.src) || 'videos/flythrough-epochs.mp4';
-      }
-      if (videoEl.readyState === 0) {
-        videoEl.load();
-      }
-    };
-
-    ensureVideoLoaded();
-
+    // Lazy load video only when approaching #scroll-world (500px margin)
     if ('IntersectionObserver' in window && (container || videoEl)) {
       const vObs = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
           ensureVideoLoaded();
           vObs.disconnect();
         }
-      }, { rootMargin: '600px 0px' });
+      }, { rootMargin: '500px 0px' });
       vObs.observe(container || videoEl);
     }
 
     videoEl.addEventListener('seeking', () => { isVideoSeeking = true; }, { passive: true });
     videoEl.addEventListener('seeked', () => {
       isVideoSeeking = false;
+      if (seekSafetyTimer) {
+        clearTimeout(seekSafetyTimer);
+        seekSafetyTimer = null;
+      }
       if (pendingVideoTime !== null) {
         const nextTime = pendingVideoTime;
         pendingVideoTime = null;
@@ -905,9 +914,19 @@
       return;
     }
     try {
+      isVideoSeeking = true;
       videoEl.currentTime = clamped;
+      if (seekSafetyTimer) clearTimeout(seekSafetyTimer);
+      seekSafetyTimer = setTimeout(() => {
+        isVideoSeeking = false;
+        if (pendingVideoTime !== null) {
+          const nextTime = pendingVideoTime;
+          pendingVideoTime = null;
+          applyVideoTime(nextTime);
+        }
+      }, 50);
     } catch (e) {
-      // fallback
+      isVideoSeeking = false;
     }
   }
 
@@ -953,6 +972,9 @@
       entries.forEach((entry) => {
         isIntersecting = entry.isIntersecting;
         if (isIntersecting) {
+          if (!renderer) {
+            initScene();
+          }
           if (!animationFrameId && clock && renderer) {
             clock.start();
             tick();
@@ -1079,6 +1101,7 @@
   // 10. Initialization & Mount
   // ---------------------------------------------------------------------------
   function initScene() {
+    if (renderer) return;
     container = document.getElementById('scroll-world');
     canvas = document.getElementById('scroll-world-canvas');
 
@@ -1161,9 +1184,17 @@
 
   function init() {
     initVideoPlayer();
-    initScene();
     setupScrollTrigger();
     setupIntersectionObserver();
+
+    // Smart Lazy-Mounting: defer Three.js compilation until near-viewport or idle
+    if (window.scrollY > 300 || window.location.hash === '#scroll-world') {
+      initScene();
+    } else if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => { initScene(); }, { timeout: 2000 });
+    } else {
+      setTimeout(initScene, 800);
+    }
   }
 
   // Public disposal API for lifecycle management & testing

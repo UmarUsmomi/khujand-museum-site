@@ -2208,7 +2208,36 @@ body[data-page="events"] .page-hero::before {
 
 
 /* Performance & CLS Optimizations */
-.about-images { aspect-ratio: 500/400; overflow: hidden; }
+.about-images { aspect-ratio: 500/400; overflow: visible; }
+.about-year { border-radius: 50% !important; }
+@media (max-width: 768px) {
+  .about-images {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 300px !important;
+    overflow: visible !important;
+  }
+  .about-img-main {
+    width: 82% !important;
+    height: 250px !important;
+  }
+  .about-img-secondary {
+    width: 55% !important;
+    height: 170px !important;
+  }
+  .about-year {
+    width: 70px !important;
+    height: 70px !important;
+    top: -12px !important;
+    right: 36px !important;
+  }
+  .about-year span:first-child {
+    font-size: 0.5rem !important;
+  }
+  .about-year span:last-child {
+    font-size: 1.15rem !important;
+  }
+}
 .exhibitions-card img { aspect-ratio: 400/260; object-fit: cover; }
 .full-gallery-item img { aspect-ratio: 400/280; object-fit: cover; }
 .museum-img { content-visibility: auto; }
