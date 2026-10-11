@@ -18,3 +18,5 @@ Thumbs.db
 # Agent logs & scratch
 .agents/
 scratch/
+
+.vercel

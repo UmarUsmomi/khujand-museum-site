@@ -1418,16 +1418,18 @@ function initPreloader() {
     const hide = () => {
       preloader.style.opacity = '0';
       preloader.style.visibility = 'hidden';
+      preloader.style.pointerEvents = 'none';
       setTimeout(() => {
         preloader.style.display = 'none';
-      }, 350);
+      }, 200);
     };
 
-    if (document.readyState === 'complete') {
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
       hide();
     } else {
-      window.addEventListener('load', hide);
-      setTimeout(hide, 700);
+      document.addEventListener('DOMContentLoaded', hide, { once: true });
+      window.addEventListener('load', hide, { once: true });
+      setTimeout(hide, 250);
     }
   }
 }
@@ -2470,13 +2472,20 @@ function initAudioGuideDock() {
     const targetSrc = voiceSources[currentLang] || voiceSources.ru;
 
     if (wasPlaying) {
-      // Smooth crossfade: fade out volume, swap source, restore relative time, fade in volume
-      let fadeVol = guideAudio.volume;
-      const fadeStep = 0.2;
-      const fadeOut = setInterval(() => {
-        fadeVol -= fadeStep;
-        if (fadeVol <= 0.05) {
-          clearInterval(fadeOut);
+      // Smooth crossfade using requestAnimationFrame (60 FPS fluid fade without setInterval)
+      let fadeStart = null;
+      const fadeDuration = 100;
+      const startVol = guideAudio.volume;
+
+      const stepFadeOut = (timestamp) => {
+        if (!fadeStart) fadeStart = timestamp;
+        const elapsed = timestamp - fadeStart;
+        const progress = Math.min(1, elapsed / fadeDuration);
+        guideAudio.volume = Math.max(0, startVol * (1 - progress));
+
+        if (progress < 1) {
+          requestAnimationFrame(stepFadeOut);
+        } else {
           guideAudio.volume = 0;
           guideAudio.src = targetSrc;
           guideAudio.load();
@@ -2489,24 +2498,26 @@ function initAudioGuideDock() {
             }
             guideAudio.play().then(() => {
               updatePlayState(true);
-              let inVol = 0;
-              const fadeIn = setInterval(() => {
-                inVol += 0.2;
-                if (inVol >= 1.0) {
-                  guideAudio.volume = 1.0;
-                  clearInterval(fadeIn);
+              let inStart = null;
+              const stepFadeIn = (inTimestamp) => {
+                if (!inStart) inStart = inTimestamp;
+                const inElapsed = inTimestamp - inStart;
+                const inProgress = Math.min(1, inElapsed / 150);
+                guideAudio.volume = Math.min(1, inProgress);
+                if (inProgress < 1) {
+                  requestAnimationFrame(stepFadeIn);
                 } else {
-                  guideAudio.volume = inVol;
+                  guideAudio.volume = 1.0;
                 }
-              }, 30);
+              };
+              requestAnimationFrame(stepFadeIn);
             }).catch(() => {});
           };
 
           guideAudio.addEventListener('canplay', onReady, { once: true });
-        } else {
-          guideAudio.volume = Math.max(0, fadeVol);
         }
-      }, 20);
+      };
+      requestAnimationFrame(stepFadeOut);
     } else {
       guideAudio.src = targetSrc;
       guideAudio.load();

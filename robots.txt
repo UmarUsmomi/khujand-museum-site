@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://khujand-museum.vercel.app/sitemap.xml
+Sitemap: https://khujand-museum.com/sitemap.xml

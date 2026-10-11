@@ -4,12 +4,36 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Исторический музей Согдийской области — Худжанд</title>
-<meta content="Официальный сайт Исторического музея Согдийской области в Худжанде. Более 28 000 экспонатов, охватывающих историю от древних согдийцев до наших дней." name="description"/>
+<title>Исторический музей Согдийской области — Худжанд | Официальный сайт</title>
+<meta content="Официальный сайт Исторического музея Согдийской области в Худжандской крепости. Более 28 000 уникальных экспонатов, 2500 лет истории Согда, аудиогид «Эхо Худжанда» и билеты онлайн." name="description"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="#1A2744" name="theme-color"/>
+<!-- Canonical & Language -->
+<link href="https://khujand-museum.com/" rel="canonical"/>
+<link href="https://khujand-museum.com/" hreflang="x-default" rel="alternate"/>
+<link href="https://khujand-museum.com/" hreflang="ru" rel="alternate"/>
+<!-- Open Graph / Facebook -->
+<meta content="website" property="og:type"/>
+<meta content="Исторический музей Согдийской области" property="og:site_name"/>
+<meta content="Исторический музей Согдийской области — Худжанд" property="og:title"/>
+<meta content="Официальный сайт музея в Худжандской крепости. 28 000+ экспонатов, 2500 лет истории Согда, аудиогид «Эхо Худжанда» и билеты." property="og:description"/>
+<meta content="https://khujand-museum.com/" property="og:url"/>
+<meta content="https://khujand-museum.com/images/fortress/museum-entrance-facade.webp" property="og:image"/>
+<meta content="ru_RU" property="og:locale"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Исторический музей Согдийской области — Худжанд" name="twitter:title"/>
+<meta content="Официальный сайт музея в Худжандской крепости. 28 000+ экспонатов, 2500 лет истории Согда." name="twitter:description"/>
+<meta content="https://khujand-museum.com/images/fortress/museum-entrance-facade.webp" name="twitter:image"/>
+<!-- Favicon & Styles -->
 <link href="favicon.png" rel="icon" type="image/png"/>
-<link href="css/style.css?v=2.2" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="css/style.css?v=2.3" rel="stylesheet"/>
+<!-- Preload Hero LCP Image -->
+<link as="image" fetchpriority="high" href="images/exhibits/timur-malik-statue-mobile.webp" media="(max-width: 640px)" rel="preload"/>
+<link as="image" fetchpriority="high" href="images/exhibits/timur-malik-statue.webp" media="(min-width: 641px)" rel="preload"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -17,7 +41,7 @@
   "name": "Исторический музей Согдийской области",
   "alternateName": "Осорхонаи таърихии вилояти Суғд",
   "description": "Официальный сайт Исторического музея Согдийской области в Худжандской крепости. Более 28 000 уникальных экспонатов, 2500 лет истории Согда.",
-  "url": "https://khujand-museum.vercel.app/",
+  "url": "https://khujand-museum.com/",
   "telephone": "+992342264218",
   "email": "info@muzey-sugd.tj",
   "address": {
@@ -45,15 +69,30 @@
 </head>
 <body data-page="home">
 <div id="preloader">
-<div class="preloader-spinner"><img src="images/icons/icon-museum-3d.webp" class="clay-icon-3d" loading="lazy" alt="Музей" width="48" height="48"></div>
+<div class="preloader-spinner"><img alt="Музей" class="clay-icon-3d" height="48" loading="lazy" src="images/icons/icon-museum-3d.webp" width="48"/></div>
 </div>
+<script>
+  (function() {
+    function dismiss() {
+      var p = document.getElementById('preloader');
+      if (p) {
+        p.style.opacity = '0';
+        p.style.visibility = 'hidden';
+        p.style.pointerEvents = 'none';
+        setTimeout(function() { if (p && p.parentNode) p.remove(); }, 180);
+      }
+    }
+    if (document.readyState === 'interactive' || document.readyState === 'complete') dismiss();
+    else document.addEventListener('DOMContentLoaded', dismiss);
+  })();
+</script>
 <!-- ===== TOP BAR ===== -->
 <div class="top-bar">
 <div class="container">
 <div class="top-bar-left">
-<span><img src="images/icons/icon-pin-3d.webp" class="clay-icon-3d" loading="lazy" alt="Адрес" width="16" height="16"> <span data-i18n="top.address">ул. Раджабовых, 55-59, Худжанд</span></span>
-<span><img src="images/icons/icon-phone-3d.webp" class="clay-icon-3d" loading="lazy" alt="Телефон" width="16" height="16"> <a href="tel:+992342264218"><span data-i18n="top.phone">+992 (34) 226-42-18</span></a></span>
-<span><img src="images/icons/icon-clock-3d.webp" class="clay-icon-3d" loading="lazy" alt="Режим работы" width="16" height="16"> <span data-i18n="top.hours">Пн–Вс: 08:00 — 17:00</span></span>
+<span><img alt="Адрес" class="clay-icon-3d" height="16" loading="lazy" src="images/icons/icon-pin-3d.webp" width="16"/> <span data-i18n="top.address">ул. Раджабовых, 55-59, Худжанд</span></span>
+<span><img alt="Телефон" class="clay-icon-3d" height="16" loading="lazy" src="images/icons/icon-phone-3d.webp" width="16"/> <a href="tel:+992342264218"><span data-i18n="top.phone">+992 (34) 226-42-18</span></a></span>
+<span><img alt="Режим работы" class="clay-icon-3d" height="16" loading="lazy" src="images/icons/icon-clock-3d.webp" width="16"/> <span data-i18n="top.hours">Пн–Вс: 08:00 — 17:00</span></span>
 </div>
 <div class="top-bar-right">
 <div class="lang-switch">
@@ -61,7 +100,7 @@
 <a data-lang="tj" href="#">TJ</a>
 <a data-lang="en" href="#">EN</a>
 </div>
-<a href="mailto:info@muzey-sugd.tj"><img src="images/icons/icon-email-3d.webp" class="clay-icon-3d" loading="lazy" alt="Email" width="16" height="16"> <span data-i18n="top.email">info@muzey-sugd.tj</span></a>
+<a href="mailto:info@muzey-sugd.tj"><img alt="Email" class="clay-icon-3d" height="16" loading="lazy" src="images/icons/icon-email-3d.webp" width="16"/> <span data-i18n="top.email">info@muzey-sugd.tj</span></a>
 </div>
 </div>
 </div>
@@ -69,7 +108,7 @@
 <header class="header" id="header">
 <div class="container">
 <a class="logo" href="index.html">
-<div class="logo-icon"><img src="images/icons/icon-museum-3d.webp" class="clay-icon-3d" loading="lazy" alt="Музей" width="36" height="36"></div>
+<div class="logo-icon"><img alt="Музей" class="clay-icon-3d" height="36" loading="lazy" src="images/icons/icon-museum-3d.webp" width="36"/></div>
 <div class="logo-text">
 <h2 data-i18n="logo.title">Музей Согдийской области</h2>
 <span data-i18n="logo.sub">Худжанд • Таджикистан</span>
@@ -82,7 +121,7 @@
 <a data-i18n="nav.events" href="pages/events.html">События</a>
 <a data-i18n="nav.gallery" href="pages/gallery.html">Галерея</a>
 <a data-i18n="nav.contacts" href="pages/contacts.html">Контакты</a>
-<a class="btn btn-primary nav-ticket" href="pages/contacts.html#ticket-booking"><img src="images/icons/icon-ticket-3d.webp" class="clay-icon-3d" loading="lazy" alt="Билеты" width="18" height="18"> <span data-i18n="nav.tickets">Билеты</span></a>
+<a class="btn btn-primary nav-ticket" href="pages/contacts.html#ticket-booking"><img alt="Билеты" class="clay-icon-3d" height="18" loading="lazy" src="images/icons/icon-ticket-3d.webp" width="18"/> <span data-i18n="nav.tickets">Билеты</span></a>
 </nav>
 <button aria-label="Меню" class="hamburger" id="hamburger">
 <span></span>
@@ -130,14 +169,17 @@
 <div class="hero-visual float-animation">
 <div class="hero-card">
 <div class="hero-card-img">
-<img alt="Бронзовая скульптура Тимурмалика — защитника Худжанда" class="museum-img hero-img" loading="lazy" src="images/exhibits/timur-malik-statue.webp"/>
-<span class="hero-card-label"><img src="images/icons/icon-star-3d.webp" class="clay-icon-3d" loading="lazy" alt="Главный экспонат" width="16" height="16"> <span data-i18n="hero.card_label">Главный экспонат</span></span>
+<picture>
+<source media="(max-width: 640px)" srcset="images/exhibits/timur-malik-statue-mobile.webp" type="image/webp"/>
+<img alt="Бронзовая скульптура Тимурмалика — защитника Худжанда" class="museum-img hero-img" decoding="async" fetchpriority="high" height="848" loading="eager" src="images/exhibits/timur-malik-statue.webp" width="1264">
+</img></picture>
+<span class="hero-card-label"><img alt="Главный экспонат" class="clay-icon-3d" height="16" loading="lazy" src="images/icons/icon-star-3d.webp" width="16"/> <span data-i18n="hero.card_label">Главный экспонат</span></span>
 </div>
 <h3 data-i18n="hero.card_title">Статуя Тимурмалика</h3>
 <p data-i18n="hero.card_desc">Бронзовая скульптура героя сопротивления монгольскому нашествию высотой 3,5 метра</p>
 <div class="hero-card-meta">
-<span><img src="images/icons/icon-trophy-3d.webp" class="clay-icon-3d" loading="lazy" alt="Эпоха" width="16" height="16"> <span data-i18n="hero.card_era">XIII век</span></span>
-<span><img src="images/icons/icon-pin-3d.webp" class="clay-icon-3d" loading="lazy" alt="Зал" width="16" height="16"> <span data-i18n="hero.card_loc">Центральный зал</span></span>
+<span><img alt="Эпоха" class="clay-icon-3d" height="16" loading="lazy" src="images/icons/icon-trophy-3d.webp" width="16"/> <span data-i18n="hero.card_era">XIII век</span></span>
+<span><img alt="Зал" class="clay-icon-3d" height="16" loading="lazy" src="images/icons/icon-pin-3d.webp" width="16"/> <span data-i18n="hero.card_loc">Центральный зал</span></span>
 </div>
 </div>
 </div>
@@ -169,28 +211,28 @@
       </p>
 <div class="about-features">
 <div class="about-feature">
-<div class="about-feature-icon"><img src="images/icons/icon-amphora-3d.webp" class="clay-icon-3d" loading="lazy" alt="Артефакты и экспонаты" width="28" height="28"></div>
+<div class="about-feature-icon"><img alt="Артефакты и экспонаты" class="clay-icon-3d" height="28" loading="lazy" src="images/icons/icon-amphora-3d.webp" width="28"/></div>
 <div>
 <h4 data-i18n="about.feat1_title">28 000+ экспонатов</h4>
 <p data-i18n="about.feat1_desc">Археология, этнография, нумизматика</p>
 </div>
 </div>
 <div class="about-feature">
-<div class="about-feature-icon"><img src="images/icons/icon-audioguide-3d.webp" class="clay-icon-3d" loading="lazy" alt="Аудиогид музея" width="28" height="28"></div>
+<div class="about-feature-icon"><img alt="Аудиогид музея" class="clay-icon-3d" height="28" loading="lazy" src="images/icons/icon-audioguide-3d.webp" width="28"/></div>
 <div>
 <h4 data-i18n="about.feat2_title">Аудиогид</h4>
 <p data-i18n="about.feat2_desc">На таджикском, русском и английском</p>
 </div>
 </div>
 <div class="about-feature">
-<div class="about-feature-icon"><img src="images/icons/icon-fortress-3d.webp" class="clay-icon-3d" loading="lazy" alt="Худжандская крепость" width="28" height="28"></div>
+<div class="about-feature-icon"><img alt="Худжандская крепость" class="clay-icon-3d" height="28" loading="lazy" src="images/icons/icon-fortress-3d.webp" width="28"/></div>
 <div>
 <h4 data-i18n="index.about_feat3_title">В стенах крепости</h4>
 <p data-i18n="index.about_feat3_desc">Историческая цитадель VI–V вв. до н.э.</p>
 </div>
 </div>
 <div class="about-feature">
-<div class="about-feature-icon"><img src="images/icons/icon-mountain-3d.webp" class="clay-icon-3d" loading="lazy" alt="Панорамные виды" width="28" height="28"></div>
+<div class="about-feature-icon"><img alt="Панорамные виды" class="clay-icon-3d" height="28" loading="lazy" src="images/icons/icon-mountain-3d.webp" width="28"/></div>
 <div>
 <h4 data-i18n="index.about_feat4_title">Панорамные виды</h4>
 <p data-i18n="index.about_feat4_desc">Вид на Сырдарью и горы с крепости</p>
@@ -200,76 +242,69 @@
 </div>
 </div>
 </section>
-
 <!-- ===== 3D SCROLL-WORLD ===== -->
-<section class="scroll-world-section" id="scroll-world" aria-label="3D-путешествие сквозь эпохи Согдианы и Худжандской крепости">
-  <div class="scroll-world-sticky">
-    <video id="scroll-world-video" class="scroll-world-video" src="videos/flythrough-epochs.mp4" playsinline muted preload="auto" poster="images/fortress/museum-entrance-facade.webp"></video>
-    <canvas id="scroll-world-canvas" style="display: none;"></canvas>
-
-    <!-- UI Overlay for Epoch Navigation & Information -->
-    <div class="scroll-world-overlay">
-      <div class="scroll-world-header">
-        <span class="scroll-world-badge" data-i18n="scrollworld.badge">3D Эпохи Худжанда</span>
-        <h2 class="scroll-world-title" data-i18n="scrollworld.title">Путешествие сквозь тысячелетия</h2>
-      </div>
-
-      <!-- Navigation tabs between 4 eras -->
-      <div class="scroll-world-nav" role="tablist" aria-label="Исторические эпохи">
-        <button class="scroll-world-tab active" data-era="0" role="tab" aria-selected="true" aria-controls="era-card">
-          <span class="tab-dot"></span>
-          <span class="tab-label">Согдиана</span>
-          <span class="tab-date">VI–IV вв. до н.э.</span>
-        </button>
-        <button class="scroll-world-tab" data-era="1" role="tab" aria-selected="false" aria-controls="era-card">
-          <span class="tab-dot"></span>
-          <span class="tab-label">Александрия</span>
-          <span class="tab-date">329 г. до н.э.</span>
-        </button>
-        <button class="scroll-world-tab" data-era="2" role="tab" aria-selected="false" aria-controls="era-card">
-          <span class="tab-dot"></span>
-          <span class="tab-label">Тимурмалик</span>
-          <span class="tab-date">1220 г.</span>
-        </button>
-        <button class="scroll-world-tab" data-era="3" role="tab" aria-selected="false" aria-controls="era-card">
-          <span class="tab-dot"></span>
-          <span class="tab-label">Современность</span>
-          <span class="tab-date">XXI век</span>
-        </button>
-      </div>
-
-      <!-- Active Epoch Floating Card -->
-      <div class="scroll-world-card" id="era-card">
-        <div class="card-era-badge" id="scroll-world-epoch-badge">Эпоха I • VI–IV вв. до н.э.</div>
-        <h3 class="card-era-title" id="scroll-world-epoch-title">Древняя Согдиана</h3>
-        <p class="card-era-desc" id="scroll-world-epoch-desc">
+<section aria-label="3D-путешествие сквозь эпохи Согдианы и Худжандской крепости" class="scroll-world-section" id="scroll-world">
+<div class="scroll-world-sticky">
+<video class="scroll-world-video" id="scroll-world-video" muted="" playsinline="" poster="images/fortress/museum-entrance-facade.webp" preload="none" src="videos/flythrough-epochs.mp4"></video>
+<canvas id="scroll-world-canvas" style="display: none;"></canvas>
+<!-- UI Overlay for Epoch Navigation & Information -->
+<div class="scroll-world-overlay">
+<div class="scroll-world-header">
+<span class="scroll-world-badge" data-i18n="scrollworld.badge">3D Эпохи Худжанда</span>
+<h2 class="scroll-world-title" data-i18n="scrollworld.title">Путешествие сквозь тысячелетия</h2>
+</div>
+<!-- Navigation tabs between 4 eras -->
+<div aria-label="Исторические эпохи" class="scroll-world-nav" role="tablist">
+<button aria-controls="era-card" aria-selected="true" class="scroll-world-tab active" data-era="0" role="tab">
+<span class="tab-dot"></span>
+<span class="tab-label">Согдиана</span>
+<span class="tab-date">VI–IV вв. до н.э.</span>
+</button>
+<button aria-controls="era-card" aria-selected="false" class="scroll-world-tab" data-era="1" role="tab">
+<span class="tab-dot"></span>
+<span class="tab-label">Александрия</span>
+<span class="tab-date">329 г. до н.э.</span>
+</button>
+<button aria-controls="era-card" aria-selected="false" class="scroll-world-tab" data-era="2" role="tab">
+<span class="tab-dot"></span>
+<span class="tab-label">Тимурмалик</span>
+<span class="tab-date">1220 г.</span>
+</button>
+<button aria-controls="era-card" aria-selected="false" class="scroll-world-tab" data-era="3" role="tab">
+<span class="tab-dot"></span>
+<span class="tab-label">Современность</span>
+<span class="tab-date">XXI век</span>
+</button>
+</div>
+<!-- Active Epoch Floating Card -->
+<div class="scroll-world-card" id="era-card">
+<div class="card-era-badge" id="scroll-world-epoch-badge">Эпоха I • VI–IV вв. до н.э.</div>
+<h3 class="card-era-title" id="scroll-world-epoch-title">Древняя Согдиана</h3>
+<p class="card-era-desc" id="scroll-world-epoch-desc">
           Колыбель цивилизации на берегах Сырдарьи. Мощные сырцовые стены цитадели, гончарные мастерские и древнейшие караванные пути Согда.
         </p>
-        <div class="scroll-world-progress-bar">
-          <div class="scroll-world-progress-fill" id="scroll-world-progress-fill"></div>
-        </div>
-      </div>
-
-      <!-- Scroll prompt -->
-      <div class="scroll-world-hint">
-        <span class="hint-mouse"></span>
-        <span class="hint-text" data-i18n="scrollworld.hint">Листайте вниз для путешествия сквозь эпохи</span>
-      </div>
-    </div>
-
-    <!-- Accessible text fallback for screen readers and search engines -->
-    <noscript>
-      <div class="scroll-world-fallback">
-        <h3>Исторические эпохи Худжандской крепости</h3>
-        <p>1. Древняя Согдиана (VI–IV вв. до н.э.) — возникновение укреплённого поселения на Сырдарье.</p>
-        <p>2. Александрия Эсхата (329 г. до н.э.) — основание Александром Македонским крайней крепости Империи.</p>
-        <p>3. Оборона Тимурмалика (1220 г.) — героическое сопротивление монгольским завоевателям на речном острове.</p>
-        <p>4. Современный музей (2006–настоящее время) — возрождение цитадели с семью куполами и 28 000 экспонатов.</p>
-      </div>
-    </noscript>
-  </div>
+<div class="scroll-world-progress-bar">
+<div class="scroll-world-progress-fill" id="scroll-world-progress-fill"></div>
+</div>
+</div>
+<!-- Scroll prompt -->
+<div class="scroll-world-hint">
+<span class="hint-mouse"></span>
+<span class="hint-text" data-i18n="scrollworld.hint">Листайте вниз для путешествия сквозь эпохи</span>
+</div>
+</div>
+<!-- Accessible text fallback for screen readers and search engines -->
+<noscript>
+<div class="scroll-world-fallback">
+<h3>Исторические эпохи Худжандской крепости</h3>
+<p>1. Древняя Согдиана (VI–IV вв. до н.э.) — возникновение укреплённого поселения на Сырдарье.</p>
+<p>2. Александрия Эсхата (329 г. до н.э.) — основание Александром Македонским крайней крепости Империи.</p>
+<p>3. Оборона Тимурмалика (1220 г.) — героическое сопротивление монгольским завоевателям на речном острове.</p>
+<p>4. Современный музей (2006–настоящее время) — возрождение цитадели с семью куполами и 28 000 экспонатов.</p>
+</div>
+</noscript>
+</div>
 </section>
-
 <!-- ===== EXHIBITIONS ===== -->
 <section class="exhibitions" id="exhibitions">
 <div class="container">
@@ -285,9 +320,9 @@
 <!-- Card 1 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Расписная керамика древней Согдианы" class="museum-img" loading="lazy" src="images/exhibits/sogdian-khum-ceramics.webp"/>
+<img alt="Расписная керамика древней Согдианы" class="museum-img" loading="lazy" src="images/exhibits/sogdian-khum-ceramics.webp">
 <span class="exhibit-card-badge" data-i18n="badge.permanent">Постоянная</span>
-</div>
+</img></div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo1.era">VI — IV вв. до н.э.</span>
 <h3 data-i18n="expo1.title">Зал Древней Согдианы</h3>
@@ -301,9 +336,9 @@
 <!-- Card 2 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Монументальная мозаика зала Александра Македонского" class="museum-img" loading="lazy" src="images/exhibits/alexander-mosaics.webp"/>
+<img alt="Монументальная мозаика зала Александра Македонского" class="museum-img" loading="lazy" src="images/exhibits/alexander-mosaics.webp">
 <span class="exhibit-card-badge" data-i18n="badge.popular">Популярная</span>
-</div>
+</img></div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo2.era">IV век до н.э.</span>
 <h3 data-i18n="expo2.title">Зал Александра Македонского</h3>
@@ -317,9 +352,9 @@
 <!-- Card 3 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Средневековое вооружение и доспехи защитников Худжанда эпохи Тимурмалика" class="museum-img" loading="lazy" src="images/exhibits/timur-malik-statue.webp"/>
+<img alt="Средневековое вооружение и доспехи защитников Худжанда эпохи Тимурмалика" class="museum-img" loading="lazy" src="images/exhibits/timur-malik-statue.webp">
 <span class="exhibit-card-badge" data-i18n="badge.unique">Уникальная</span>
-</div>
+</img></div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo3.era">XIII век</span>
 <h3 data-i18n="expo3.title">Экспозиция Тимурмалика</h3>
@@ -333,8 +368,8 @@
 <!-- Card 4 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Золотые и серебряные монеты Великого Шёлкового пути" class="museum-img" loading="lazy" src="images/exhibits/silk-road-coins.webp"/>
-</div>
+<img alt="Золотые и серебряные монеты Великого Шёлкового пути" class="museum-img" loading="lazy" src="images/exhibits/silk-road-coins.webp">
+</img></div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo4.era">I — XV вв.</span>
 <h3 data-i18n="expo4.title">Великий Шёлковый путь</h3>
@@ -348,8 +383,8 @@
 <!-- Card 5 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Сакский золотой парадный шлем с чеканными узорами" class="museum-img" loading="lazy" src="images/exhibits/saka-golden-helmet.webp"/>
-</div>
+<img alt="Сакский золотой парадный шлем с чеканными узорами" class="museum-img" loading="lazy" src="images/exhibits/saka-golden-helmet.webp">
+</img></div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo5.era">V — IV вв. до н.э.</span>
 <h3 data-i18n="expo5.title">Сакский золотой шлем</h3>
@@ -363,8 +398,8 @@
 <!-- Card 6 -->
 <div class="exhibit-card reveal">
 <div class="exhibit-card-img">
-<img alt="Традиционные шелковые ткани и национальные костюмы Согда" class="museum-img" loading="lazy" src="images/exhibits/tajik-atlas-suzani.webp"/>
-</div>
+<img alt="Традиционные шелковые ткани и национальные костюмы Согда" class="museum-img" loading="lazy" src="images/exhibits/tajik-atlas-suzani.webp">
+</img></div>
 <div class="exhibit-card-content">
 <span class="exhibit-card-era" data-i18n="expo6.era">XVIII — XX вв.</span>
 <h3 data-i18n="expo6.title">Этнография и ремёсла</h3>
@@ -461,69 +496,69 @@
 <h2 class="section-title" data-i18n="gallery.title">Фотогалерея музея</h2>
 <p class="section-subtitle" data-i18n="gallery.desc">Подлинные залы, сокровища Согдианы и панорамные виды Худжанда (90+ экспонатов)</p>
 </div>
-<a class="btn btn-primary reveal-right" data-i18n="gallery.view_all" href="pages/gallery.html"><img src="images/icons/icon-ticket-3d.webp" class="clay-icon-3d" loading="lazy" alt="Галерея" width="18" height="18"> Все 90+ фотографий →</a>
+<a class="btn btn-primary reveal-right" data-i18n="gallery.view_all" href="pages/gallery.html"><img alt="Галерея" class="clay-icon-3d" height="18" loading="lazy" src="images/icons/icon-ticket-3d.webp" width="18"/> Все 90+ фотографий →</a>
 </div>
 <div class="gallery-grid">
 <div class="gallery-item reveal">
-<img alt="Северные стены цитадели" class="museum-img" decoding="async" loading="lazy" src="images/gallery/photo-01.webp"/>
+<img alt="Северные стены цитадели" class="museum-img" decoding="async" height="250" loading="lazy" src="images/gallery/photo-01.webp" width="400">
 <div class="gallery-item-caption">
 <h4>Северные стены цитадели</h4>
 <p>Фортификационные башни Худжанда</p>
 </div>
-</div>
+</img></div>
 <div class="gallery-item reveal">
-<img alt="Зал древней истории Согда" class="museum-img" decoding="async" loading="lazy" src="images/gallery/photo-02.webp"/>
+<img alt="Зал древней истории Согда" class="museum-img" decoding="async" height="250" loading="lazy" src="images/gallery/photo-02.webp" width="400">
 <div class="gallery-item-caption">
 <h4>Зал истории Согда</h4>
 <p>Экспозиция согдийской культуры</p>
 </div>
-</div>
+</img></div>
 <div class="gallery-item reveal">
-<img alt="Лазуритовые залы Александра Македонского" class="museum-img" decoding="async" loading="lazy" src="images/gallery/photo-03.webp"/>
+<img alt="Лазуритовые залы Александра Македонского" class="museum-img" decoding="async" height="250" loading="lazy" src="images/gallery/photo-03.webp" width="400">
 <div class="gallery-item-caption">
 <h4>Зал Александра Македонского</h4>
 <p>Мозаики Александрии Эсхаты</p>
 </div>
-</div>
+</img></div>
 <div class="gallery-item reveal">
-<img alt="Оборона Худжанда и Темурмалик" class="museum-img" decoding="async" loading="lazy" src="images/gallery/photo-04.webp"/>
+<img alt="Оборона Худжанда и Темурмалик" class="museum-img" decoding="async" height="250" loading="lazy" src="images/gallery/photo-04.webp" width="400">
 <div class="gallery-item-caption">
 <h4>Оборона крепости 1220 г.</h4>
 <p>Подвиг Темурмалика</p>
 </div>
-</div>
+</img></div>
 <div class="gallery-item reveal">
-<img alt="Археологические находки и оружие бронзового века" class="museum-img" decoding="async" loading="lazy" src="images/gallery/photo-08.webp"/>
+<img alt="Археологические находки и оружие бронзового века" class="museum-img" decoding="async" height="250" loading="lazy" src="images/gallery/photo-08.webp" width="400">
 <div class="gallery-item-caption">
 <h4>Оружие бронзового века</h4>
 <p>Наконечники стрел и топоры</p>
 </div>
-</div>
+</img></div>
 <div class="gallery-item reveal">
-<img alt="Шелковый путь и нумизматика" class="museum-img" decoding="async" loading="lazy" src="images/gallery/photo-15.webp"/>
+<img alt="Шелковый путь и нумизматика" class="museum-img" decoding="async" height="250" loading="lazy" src="images/gallery/photo-15.webp" width="400">
 <div class="gallery-item-caption">
 <h4>Нумизматика Шелкового пути</h4>
 <p>Золотые и серебряные монеты</p>
 </div>
-</div>
+</img></div>
 <div class="gallery-item reveal">
-<img alt="Средневековая керамика и хумы" class="museum-img" decoding="async" loading="lazy" src="images/gallery/photo-22.webp"/>
+<img alt="Средневековая керамика и хумы" class="museum-img" decoding="async" height="250" loading="lazy" src="images/gallery/photo-22.webp" width="400">
 <div class="gallery-item-caption">
 <h4>Керамика и кувшины-хумы</h4>
 <p>Глазурованная посуда XI–XII вв.</p>
 </div>
-</div>
+</img></div>
 <div class="gallery-item reveal">
-<img alt="Традиционное согдийское сюзане" class="museum-img" decoding="async" loading="lazy" src="images/gallery/photo-30.webp"/>
+<img alt="Традиционное согдийское сюзане" class="museum-img" decoding="async" height="250" loading="lazy" src="images/gallery/photo-30.webp" width="400">
 <div class="gallery-item-caption">
 <h4>Согдийское сюзане</h4>
 <p>Шелковая вышивка мастеров Согда</p>
 </div>
-</div>
+</img></div>
 </div>
 <div style="text-align:center;margin-top:36px;">
 <a class="btn btn-outline reveal" href="pages/gallery.html" style="font-size:1.05rem;padding:14px 28px;">
-<img src="images/icons/icon-museum-3d.webp" class="clay-icon-3d" loading="lazy" alt="Галерея" width="20" height="20">
+<img alt="Галерея" class="clay-icon-3d" height="20" loading="lazy" src="images/icons/icon-museum-3d.webp" width="20"/>
 Перейти в полный архив (все 90+ фото по 5 залам) →
 </a>
 </div>
@@ -541,7 +576,7 @@
 </div>
 <div class="visit-grid">
 <div class="visit-card reveal">
-<div class="visit-card-icon"><img src="images/icons/icon-clock-3d.webp" class="clay-icon-3d" loading="lazy" alt="Режим работы" width="44" height="44"></div>
+<div class="visit-card-icon"><img alt="Режим работы" class="clay-icon-3d" height="44" loading="lazy" src="images/icons/icon-clock-3d.webp" width="44"/></div>
 <h3 data-i18n="common.hours_title">Часы работы</h3>
 <p>
 <strong data-i18n="common.days_mon_sun">Понедельник — Воскресенье</strong><br/>
@@ -551,7 +586,7 @@
         </p>
 </div>
 <div class="visit-card reveal">
-<div class="visit-card-icon"><img src="images/icons/icon-ticket-3d.webp" class="clay-icon-3d" loading="lazy" alt="Билеты" width="44" height="44"></div>
+<div class="visit-card-icon"><img alt="Билеты" class="clay-icon-3d" height="44" loading="lazy" src="images/icons/icon-ticket-3d.webp" width="44"/></div>
 <h3 data-i18n="common.tickets_title">Стоимость билетов</h3>
 <div class="price" data-i18n="common.price_5tjs">5 сомони</div>
 <p class="price-note" data-i18n="common.adult_ticket">Взрослый билет</p>
@@ -560,7 +595,7 @@
         </p>
 </div>
 <div class="visit-card reveal">
-<div class="visit-card-icon"><img src="images/icons/icon-audioguide-3d.webp" class="clay-icon-3d" loading="lazy" alt="Экскурсии" width="44" height="44"></div>
+<div class="visit-card-icon"><img alt="Экскурсии" class="clay-icon-3d" height="44" loading="lazy" src="images/icons/icon-audioguide-3d.webp" width="44"/></div>
 <h3 data-i18n="common.tours_heading">Экскурсии</h3>
 <p>
           Индивидуальные и групповые туры на таджикском, русском и английском языках.<br/><br/>
@@ -576,7 +611,7 @@
 <div class="footer-grid">
 <div class="footer-about">
 <a class="logo" href="index.html">
-<div class="logo-icon"><img src="images/icons/icon-museum-3d.webp" class="clay-icon-3d" loading="lazy" alt="Музей" width="36" height="36"></div>
+<div class="logo-icon"><img alt="Музей" class="clay-icon-3d" height="36" loading="lazy" src="images/icons/icon-museum-3d.webp" width="36"/></div>
 <div class="logo-text">
 <h2 data-i18n="logo.title">Музей Согдийской области</h2>
 <span data-i18n="logo.sub">Худжанд • Таджикистан</span>
@@ -604,33 +639,33 @@
 </div>
 <div>
 <h4 data-i18n="footer.contacts">Контакты</h4>
-<div class="footer-contact-item"><div class="icon"><img src="images/icons/icon-pin-3d.webp" class="clay-icon-3d" loading="lazy" alt="Адрес" width="18" height="18"></div><p data-i18n="top.address">ул. Раджабовых, 55-59, Худжанд</p></div>
-<div class="footer-contact-item"><div class="icon"><img src="images/icons/icon-phone-3d.webp" class="clay-icon-3d" loading="lazy" alt="Телефон" width="18" height="18"></div><p><span data-i18n="top.phone">+992 (34) 226-42-18</span></p></div>
+<div class="footer-contact-item"><div class="icon"><img alt="Адрес" class="clay-icon-3d" height="18" loading="lazy" src="images/icons/icon-pin-3d.webp" width="18"/></div><p data-i18n="top.address">ул. Раджабовых, 55-59, Худжанд</p></div>
+<div class="footer-contact-item"><div class="icon"><img alt="Телефон" class="clay-icon-3d" height="18" loading="lazy" src="images/icons/icon-phone-3d.webp" width="18"/></div><p><span data-i18n="top.phone">+992 (34) 226-42-18</span></p></div>
 </div>
 </div>
 <div class="footer-bottom">
 <p data-i18n="footer.copyright">© 2026 Исторический музей Согдийской области (Худжандская крепость)</p>
 <div class="footer-disclaimer-box">
-  <p><span data-i18n="footer.disclaimer">Неофициальный культурно-образовательный портал. Исторические материалы и экспонаты представлены в некоммерческих просветительских целях.</span></p>
-  <p><span data-i18n="footer.official_entity">Официальный сайт ГУ «Историко-культурный комплекс «Крепость Худжанда»»:</span> <a href="http://www.qalai-khujand.tj/" target="_blank" rel="noopener noreferrer" class="footer-official-link">www.qalai-khujand.tj</a> | <a href="tel:+992342265573" class="footer-official-link">+992 (3422) 6-55-73</a></p>
-  <p><span style="font-size:0.8rem; opacity:0.85;">🎙️ Озвучка аудиогида «Эхо Худжанда» создана с использованием технологий ElevenLabs Studio.</span></p>
+<p><span data-i18n="footer.disclaimer">Неофициальный культурно-образовательный портал. Исторические материалы и экспонаты представлены в некоммерческих просветительских целях.</span></p>
+<p><span data-i18n="footer.official_entity">Официальный сайт ГУ «Историко-культурный комплекс «Крепость Худжанда»»:</span> <a class="footer-official-link" href="http://www.qalai-khujand.tj/" rel="noopener noreferrer" target="_blank">www.qalai-khujand.tj</a> | <a class="footer-official-link" href="tel:+992342265573">+992 (3422) 6-55-73</a></p>
+<p><span style="font-size:0.8rem; opacity:0.85;">🎙️ Озвучка аудиогида «Эхо Худжанда» создана с использованием технологий ElevenLabs Studio.</span></p>
 </div>
 </div>
 </div>
 </footer>
 <button aria-label="Наверх" class="back-to-top" id="backToTop">↑</button>
 <button aria-label="Включить фоновую музыку" id="audioToggle" title="Фоновая музыка">
-<span id="audioIcon"><img src="images/icons/icon-audio-off-3d.webp" class="clay-icon-3d" loading="lazy" alt="Фоновая музыка" width="24" height="24"></span>
+<span id="audioIcon"><img alt="Фоновая музыка" class="clay-icon-3d" height="24" loading="lazy" src="images/icons/icon-audio-off-3d.webp" width="24"/></span>
 </button>
 <audio id="bgMusic" loop="" preload="none">
 <source src="audio/ambient.mp3" type="audio/mpeg"/>
 <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=ambient-piano-amp-strings-10711.mp3" type="audio/mpeg"/>
 </audio>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script defer src="js/scroll-world.js"></script>
-<script defer="" src="js/main.js?v=2.2"></script>
-<script defer src="js/animations.js?v=2.2"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer="" src="js/scroll-world.js"></script>
+<script defer="" src="js/main.js?v=2.3"></script>
+<script defer="" src="js/animations.js?v=2.3"></script>
 </body>
 </html>

@@ -826,6 +826,25 @@
     videoEl.setAttribute('muted', '');
     videoEl.setAttribute('playsinline', '');
 
+    const ensureVideoLoaded = () => {
+      if (videoEl && videoEl.dataset && videoEl.dataset.src && (!videoEl.src || videoEl.src === window.location.href)) {
+        videoEl.src = videoEl.dataset.src;
+        videoEl.load();
+      }
+    };
+
+    if ('IntersectionObserver' in window && (container || videoEl)) {
+      const vObs = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          ensureVideoLoaded();
+          vObs.disconnect();
+        }
+      }, { rootMargin: '600px 0px' });
+      vObs.observe(container || videoEl);
+    } else {
+      ensureVideoLoaded();
+    }
+
     videoEl.addEventListener('seeking', () => { isVideoSeeking = true; }, { passive: true });
     videoEl.addEventListener('seeked', () => {
       isVideoSeeking = false;
