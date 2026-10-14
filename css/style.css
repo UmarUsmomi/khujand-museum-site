@@ -416,16 +416,17 @@
   position: fixed;
   inset: 0;
   background: rgba(11, 14, 20, 0.85);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 10px;
+  padding: 16px;
   overflow-y: auto;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 .ticket-modal-backdrop.active {
   opacity: 1;
@@ -434,46 +435,64 @@
 .ticket-pass {
   background: #FFFFFF;
   width: 100%;
-  max-width: 560px;
+  max-width: 520px;
+  max-height: 92vh;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
   position: relative;
-  animation: ticketPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  animation: ticketPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 @keyframes ticketPop {
-  0% { transform: scale(0.9) translateY(30px); opacity: 0; }
+  0% { transform: scale(0.92) translateY(24px); opacity: 0; }
   100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 .ticket-pass-header {
   background: linear-gradient(135deg, var(--deep-blue) 0%, var(--burgundy) 100%);
   color: #FFFFFF;
-  padding: 28px;
+  padding: 18px 24px;
   text-align: center;
   position: relative;
+  flex-shrink: 0;
 }
 .ticket-pass-header h3 {
   color: #FFFFFF;
-  font-size: 1.35rem;
-  margin-bottom: 4px;
+  font-size: 1.15rem;
+  margin: 2px 0;
+  letter-spacing: 0.5px;
 }
 .ticket-pass-header p {
   color: var(--gold-light);
-  font-size: 0.82rem;
-  letter-spacing: 1.5px;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
   text-transform: uppercase;
+  margin: 0;
+}
+.ticket-pass-type-badge {
+  display: inline-block;
+  background: rgba(200, 169, 110, 0.25);
+  color: #FFFFFF;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(200, 169, 110, 0.4);
 }
 .ticket-pass-close {
   position: absolute;
-  top: 16px;
-  right: 18px;
+  top: 14px;
+  right: 16px;
   background: rgba(255, 255, 255, 0.2);
   border: none;
   color: #FFFFFF;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -484,18 +503,20 @@
   background: rgba(255, 255, 255, 0.4);
 }
 .ticket-pass-body {
-  padding: 30px;
+  padding: 18px 24px 22px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .ticket-meta-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 2px dashed #E0D9CD;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px dashed #E0D9CD;
 }
 .ticket-meta-item label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--text-light);
@@ -503,7 +524,7 @@
   margin-bottom: 2px;
 }
 .ticket-meta-item span {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--deep-blue);
 }
@@ -512,33 +533,43 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 12px;
   background: var(--cream);
-  border-radius: 16px;
+  border-radius: 14px;
   border: 1px solid var(--border-light);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 #ticketQrCanvas {
   background: #FFFFFF;
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  padding: 6px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 .ticket-code-id {
   font-family: monospace;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--deep-blue);
-  letter-spacing: 2px;
-  margin-top: 10px;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
 }
 .ticket-pass-actions {
-  display: flex;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
 }
 .ticket-pass-actions .btn {
-  flex: 1;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 10px;
+  width: 100%;
+  white-space: nowrap;
 }
 
 /* ===== FACET SEARCH & FILTERS (EXPOSITIONS & GALLERY) ===== */
@@ -2476,45 +2507,100 @@ body[data-page="events"] .page-hero::before {
 }
 
 /* ===== CHECKOUT UI & PAYMENT TABS ===== */
+/* Студенческий дисклеймер (Educational Demo Banner) */
+.student-disclaimer-card {
+  background: linear-gradient(135deg, #FFFDF8 0%, #F9F5EC 100%);
+  border: 1.5px solid rgba(200, 169, 110, 0.45);
+  border-left: 5px solid var(--gold, #C8A96E);
+  border-radius: 16px;
+  padding: 18px 22px;
+  margin-bottom: 26px;
+  box-shadow: 0 4px 18px rgba(200, 169, 110, 0.12);
+}
+.disclaimer-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.disclaimer-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--deep-blue, #1A2744);
+  color: #FFFFFF !important;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.disclaimer-subtag {
+  background: rgba(200, 169, 110, 0.22);
+  color: var(--gold-dark, #8A6D3B);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.disclaimer-text {
+  font-size: 0.88rem;
+  color: var(--text-dark, #2D3748);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Payment Tabs & Switcher */
 .payment-tabs-wrapper {
   margin: 16px 0 20px;
 }
 .payment-tabs {
   display: flex;
-  gap: 10px;
-  background: var(--cream, #F7F4EE);
+  gap: 8px;
+  background: #F4EFE6;
   padding: 6px;
   border-radius: 14px;
-  border: 1px solid var(--border-light, #E2DACB);
+  border: 1.5px solid rgba(200, 169, 110, 0.35);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.04);
 }
 .payment-tab {
   flex: 1;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 14px;
+  padding: 11px 14px;
   background: transparent;
-  border: none;
+  border: 1.5px solid transparent;
   border-radius: 10px;
+  font-family: 'Inter', sans-serif;
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-medium, #4A5568);
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  line-height: 1.3;
 }
 .payment-tab:hover {
   color: var(--deep-blue, #1A2B4C);
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.7);
 }
 .payment-tab.active {
   background: #FFFFFF;
   color: var(--deep-blue, #1A2B4C);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(200, 169, 110, 0.6);
+  box-shadow: 0 4px 14px rgba(26, 39, 68, 0.1);
+  font-weight: 700;
 }
 .payment-tab .clay-icon-3d {
   width: 18px;
   height: 18px;
+  flex-shrink: 0;
 }
 
 .payment-panel {
@@ -2550,6 +2636,96 @@ body[data-page="events"] .page-hero::before {
   margin-top: 2px;
 }
 
+/* Прямой донат автору (Author Support Box) */
+.author-support-box {
+  margin: 18px 0 14px;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(200, 169, 110, 0.4);
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 3px 12px rgba(200, 169, 110, 0.08);
+}
+.author-support-header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.author-support-header .support-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.author-support-header strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--deep-blue, #1A2744);
+  margin-bottom: 4px;
+}
+.author-support-header p {
+  font-size: 0.82rem;
+  color: var(--text-medium, #4A5568);
+  margin: 0;
+  line-height: 1.45;
+}
+.author-support-details {
+  background: var(--cream, #FAF7F2);
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(200, 169, 110, 0.25);
+}
+.support-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.support-detail-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted, #718096);
+}
+.copy-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.copy-field code {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light, #E2DACB);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--deep-blue, #1A2744);
+  letter-spacing: 0.5px;
+  font-family: monospace;
+}
+.btn-copy-support {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--gold, #C8A96E);
+  border: none;
+  color: #1A2744;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(200, 169, 110, 0.3);
+}
+.btn-copy-support:hover {
+  background: var(--gold-dark, #8A6D3B);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+.support-note {
+  font-size: 0.75rem;
+  color: #2E7D32;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
 /* Sandbox Quick-fill Chips */
 .sandbox-quickfill-strip {
   background: rgba(200, 169, 110, 0.1);
@@ -2574,6 +2750,8 @@ body[data-page="events"] .page-hero::before {
   gap: 6px;
 }
 .sandbox-chip {
+  appearance: none;
+  -webkit-appearance: none;
   background: #FFFFFF;
   border: 1px solid var(--border-light, #E2DACB);
   border-radius: 20px;
@@ -2623,39 +2801,50 @@ body[data-page="events"] .page-hero::before {
   margin-top: 4px;
 }
 
-/* Currency Converter Buttons */
+/* Currency Converter Buttons (Claymorphic Pill Style) */
 .currency-converter-box {
-  background: rgba(26, 43, 76, 0.03);
+  background: var(--cream, #FAF7F2);
   padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(200, 169, 110, 0.25);
+  border-radius: 14px;
+  border: 1px solid rgba(200, 169, 110, 0.35);
+  margin: 18px 0 14px;
 }
 .currency-toggle-group {
   display: flex;
-  gap: 6px;
+  gap: 8px;
+  background: #EDE6D8;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(200, 169, 110, 0.3);
 }
 .currency-btn {
   flex: 1;
-  padding: 6px 8px;
-  background: #FFFFFF;
-  border: 1px solid var(--border-light, #E2DACB);
-  border-radius: 8px;
-  font-size: 0.8rem;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  border: 1px solid transparent;
+  padding: 7px 10px;
+  background: transparent;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-medium, #4A5568);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
+  box-shadow: none;
 }
 .currency-btn:hover {
-  border-color: var(--gold, #C8A96E);
-  color: var(--deep-blue, #1A2B4C);
+  color: var(--deep-blue, #1A2744);
+  background: rgba(255, 255, 255, 0.7);
 }
 .currency-btn.active {
-  background: var(--deep-blue, #1A2B4C);
-  color: #FFFFFF;
-  border-color: var(--deep-blue, #1A2B4C);
-  box-shadow: 0 2px 6px rgba(26, 43, 76, 0.2);
+  background: var(--deep-blue, #1A2744);
+  color: #FFFFFF !important;
+  border-color: var(--deep-blue, #1A2744);
+  box-shadow: 0 3px 8px rgba(26, 39, 68, 0.25);
+  font-weight: 700;
 }
 
 /* Ticket Status Pill & Pulse */
@@ -2695,9 +2884,11 @@ body[data-page="events"] .page-hero::before {
 @media (max-width: 600px) {
   .ticket-modal-backdrop {
     align-items: flex-start;
+    padding: 12px;
   }
   .ticket-pass {
     margin: auto;
+    max-height: 94vh;
   }
   .local-gateways-info {
     grid-template-columns: 1fr;
@@ -2706,7 +2897,12 @@ body[data-page="events"] .page-hero::before {
     grid-template-columns: 1fr !important;
   }
   .ticket-pass-actions {
-    flex-direction: column;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 }
-
+@media (max-width: 380px) {
+  .ticket-pass-actions {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2367,7 +2367,7 @@ function initTicketBooking() {
 
     let result = null;
     try {
-      const resp = await fetch('/api/checkout.js', {
+      const resp = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -2427,7 +2427,7 @@ function initTicketBooking() {
         if (counts.child > 0) parts.push(`Школьник (${counts.child})`);
         passCategories.textContent = parts.join(', ');
       }
-      if (passStatus) passStatus.textContent = "ОПЛАЧЕНО • " + grandTotal + " TJS";
+      if (passStatus) passStatus.textContent = "ОПЛАЧЕНО (ДЕМО) • " + grandTotal + " TJS";
       if (statusPill) statusPill.classList.add('status-paid');
       if (passCodeId) passCodeId.textContent = bCode;
       if (passSignature) passSignature.textContent = "SIG: " + sig;
@@ -2444,7 +2444,7 @@ function initTicketBooking() {
 
       // Dispatch receipt email asynchronously
       try {
-        fetch('/api/send-ticket.js', {
+        fetch('/api/send-ticket', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -2461,6 +2461,24 @@ function initTicketBooking() {
       } catch (_) {}
     }
   });
+
+  // Copy Author Phone for Direct Support
+  const btnCopyAuthor = document.getElementById('btnCopyAuthorPhone');
+  if (btnCopyAuthor) {
+    btnCopyAuthor.addEventListener('click', () => {
+      const phoneText = document.getElementById('authorPhoneCode')?.textContent || '+992 92 777 88 99';
+      navigator.clipboard?.writeText(phoneText.trim());
+      const orig = btnCopyAuthor.textContent;
+      btnCopyAuthor.textContent = '✓ Скопировано!';
+      btnCopyAuthor.style.background = '#2E7D32';
+      btnCopyAuthor.style.color = '#FFFFFF';
+      setTimeout(() => {
+        btnCopyAuthor.textContent = orig;
+        btnCopyAuthor.style.background = '';
+        btnCopyAuthor.style.color = '';
+      }, 2000);
+    });
+  }
 
   // Modal Buttons
   if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
