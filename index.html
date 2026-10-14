@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Исторический музей Согдийской области — Худжанд | Официальный сайт</title>
-<meta content="Официальный сайт Исторического музея Согдийской области в Худжандской крепости. Более 28 000 уникальных экспонатов, 2500 лет истории Согда, аудиогид «Эхо Худжанда» и билеты онлайн." name="description"/>
+<title>Исторический музей Согдийской области — Худжанд | Информационный портал</title>
+<meta content="Информационно-образовательный портал Исторического музея Согдийской области в Худжандской крепости. Более 28 000 экспонатов, история Согда, аудиогид «Эхо Худжанда» и планирование визита." name="description"/>
 <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
 <meta content="#1A2744" name="theme-color"/>
 <!-- Canonical & Language -->
@@ -16,24 +16,26 @@
 <meta content="website" property="og:type"/>
 <meta content="Исторический музей Согдийской области" property="og:site_name"/>
 <meta content="Исторический музей Согдийской области — Худжанд" property="og:title"/>
-<meta content="Официальный сайт музея в Худжандской крепости. 28 000+ экспонатов, 2500 лет истории Согда, аудиогид «Эхо Худжанда» и билеты." property="og:description"/>
+<meta content="Информационно-образовательный портал музея в Худжандской крепости. 28 000+ экспонатов, история Согда и аудиогид «Эхо Худжанда»." property="og:description"/>
 <meta content="https://khujand-museum.com/" property="og:url"/>
 <meta content="https://khujand-museum.com/images/fortress/museum-entrance-facade.webp" property="og:image"/>
 <meta content="ru_RU" property="og:locale"/>
 <!-- Twitter Card -->
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Исторический музей Согдийской области — Худжанд" name="twitter:title"/>
-<meta content="Официальный сайт музея в Худжандской крепости. 28 000+ экспонатов, 2500 лет истории Согда." name="twitter:description"/>
+<meta content="Информационно-образовательный портал музея в Худжандской крепости. 28 000+ экспонатов и история Согда." name="twitter:description"/>
 <meta content="https://khujand-museum.com/images/fortress/museum-entrance-facade.webp" name="twitter:image"/>
 <!-- Favicon & Styles -->
 <link href="favicon.png" rel="icon" type="image/png"/>
+<link href="manifest.json" rel="manifest"/>
+<meta content="yes" name="mobile-web-app-capable"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link crossorigin="" href="https://cdnjs.cloudflare.com" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="preload"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/></noscript>
-<link href="css/style.css?v=2.7" rel="stylesheet"/>
+<link href="css/style.css?v=3.2" rel="stylesheet"/>
 <!-- Preload Hero LCP Background Image -->
 <link as="image" fetchpriority="high" href="images/fortress/citadel-gates.webp" rel="preload"/>
 <script type="application/ld+json">
@@ -42,7 +44,7 @@
   "@type": "Museum",
   "name": "Исторический музей Согдийской области",
   "alternateName": "Осорхонаи таърихии вилояти Суғд",
-  "description": "Официальный сайт Исторического музея Согдийской области в Худжандской крепости. Более 28 000 уникальных экспонатов, 2500 лет истории Согда.",
+  "description": "Информационно-образовательный портал Исторического музея Согдийской области в Худжандской крепости. Более 28 000 экспонатов и история Согда.",
   "url": "https://khujand-museum.com/",
   "telephone": "+992342264218",
   "email": "info@muzey-sugd.tj",
@@ -64,6 +66,16 @@
       "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
       "opens": "08:00",
       "closes": "17:00"
+    }
+  ],
+  "hasPart": [
+    {
+      "@type": "AudioObject",
+      "name": "Эхо Худжанда — аудиогид по музею",
+      "description": "Многоязычный аудиогид по залам Исторического музея Согдийской области.",
+      "contentUrl": "https://khujand-museum.com/voices/rus.mp3",
+      "encodingFormat": "audio/mpeg",
+      "inLanguage": ["ru", "tg", "en"]
     }
   ]
 }
@@ -129,6 +141,8 @@
 </button>
 </div>
 </header>
+<a class="skip-link" href="#main-content">Перейти к содержимому</a>
+<main id="main-content">
 <!-- ===== HERO ===== -->
 <section class="hero">
 <div class="hero-bg"></div>
@@ -632,6 +646,30 @@
 </div>
 </section>
 <!-- ===== FOOTER ===== -->
+<section class="museum-map-section" aria-labelledby="museum-map-title">
+<div class="container">
+<div class="section-label" data-i18n="map.title">Карта музея и крепости</div>
+<h2 class="section-title" id="museum-map-title">12 залов Худжандской крепости</h2>
+<p class="section-subtitle" data-i18n="map.subtitle">Выберите зал, чтобы открыть его коллекцию и аудиогид.</p>
+<div data-museum-map>
+  <div class="museum-map-fallback" role="list" aria-label="Список залов музея">
+    <button type="button" class="museum-hall" role="listitem" data-hall="1"><span>01</span><strong>Зал 1</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="2"><span>02</span><strong>Зал 2</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="3"><span>03</span><strong>Зал 3</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="4"><span>04</span><strong>Зал 4</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="5"><span>05</span><strong>Зал 5</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="6"><span>06</span><strong>Зал 6</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="7"><span>07</span><strong>Зал 7</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="8"><span>08</span><strong>Зал 8</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="9"><span>09</span><strong>Зал 9</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="10"><span>10</span><strong>Зал 10</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="11"><span>11</span><strong>Зал 11</strong></button>
+    <button type="button" class="museum-hall" role="listitem" data-hall="12"><span>12</span><strong>Зал 12</strong></button>
+  </div>
+</div>
+</div>
+</section>
+</main>
 <footer class="footer">
 <div class="container">
 <div class="footer-grid">
@@ -690,7 +728,8 @@
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script defer="" src="js/scroll-world.js?v=2.7"></script>
-<script defer="" src="js/main.js?v=2.7"></script>
-<script defer="" src="js/animations.js?v=2.7"></script>
+<script defer="" src="js/main.js?v=3.2"></script>
+<script defer="" src="js/animations.js?v=2.8"></script>
+<script type="module" src="js/app-enhancements.js"></script>
 </body>
 </html>

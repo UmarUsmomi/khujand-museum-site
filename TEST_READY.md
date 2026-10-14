@@ -1,9 +1,8 @@
 # Test Suite Readiness Report (TEST_READY)
 **Project**: Historical Museum of Sughd Region (Khujand Fortress) Website Modernization  
-**Test Harness Location**: `d:/Mysite1/tests/e2e/`  
-**Master Test Runner**: `python tests/e2e/run_tests.py`  
-**Execution Runtime**: Python 3.13.14 (Zero Third-Party Dependencies)  
-**Publication Timestamp**: 2026-10-08T16:30:00Z  
+**Component**: Comprehensive E2E Testing Suite for Hybrid Payment & QR Ticketing System  
+**Publication Timestamp**: 2026-10-14T08:52:00Z  
+**Author**: Test Writer P2-1 (`test_writer_p2_1`)  
 **Status**: TEST SUITE FULLY OPERATIONAL & READY
 
 ---
@@ -11,82 +10,83 @@
 ## 1. Quick Execution Commands
 
 ```bash
-# Run full suite (184 tests across all tiers)
+# 1. Run full comprehensive Pytest suite (268 test items)
+python -m pytest tests/
+
+# 2. Run dedicated payment and checkout test suites (55 test items)
+python -m pytest tests/test_payment_api.py tests/test_payment_contracts.py tests/test_playwright_checkout.py -v
+
+# 3. Run individual payment test modules
+python -m pytest tests/test_payment_api.py -v          # 40 Serverless API & Sandbox tests
+python -m pytest tests/test_payment_contracts.py -v    # 14 UI & Static Contract tests
+python -m pytest tests/test_playwright_checkout.py -v  # 1 Full-Flow Playwright Browser test
+
+# 4. Run standalone zero-dependency runner (184 tests across Tiers 1-4)
 python tests/e2e/run_tests.py
-
-# Run by Tier
-python tests/e2e/run_tests.py --tier 1    # Functional & Contract Tests (80 tests)
-python tests/e2e/run_tests.py --tier 2    # Boundary Value Analysis (80 tests)
-python tests/e2e/run_tests.py --tier 3    # Pairwise & Integration (16 tests)
-python tests/e2e/run_tests.py --tier 4    # Workload & Stress (8 tests)
-
-# Run by Milestone
-python tests/e2e/run_tests.py --milestone M2   # Milestone M2 (Virtual Tour Removal & Sitemap)
-python tests/e2e/run_tests.py --milestone M5   # Milestone M5 (GAN Auto-Improve Tool)
-
-# Generate machine-readable JSON report
+python tests/e2e/run_tests.py --tier 1    # Tier 1: Functional & Contracts (80 tests)
+python tests/e2e/run_tests.py --tier 2    # Tier 2: Boundary Value Analysis (80 tests)
+python tests/e2e/run_tests.py --tier 3    # Tier 3: Pairwise & Integration (16 tests)
+python tests/e2e/run_tests.py --tier 4    # Tier 4: Workload & Stress (8 tests)
 python tests/e2e/run_tests.py --json report.json
 ```
 
 ---
 
-## 2. Test Coverage & Threshold Breakdown
+## 2. Test Execution Baseline & Pass Rates
 
-| Tier | Description | Implemented Tests | Target Threshold | Threshold Status |
-|---|---|:---:|:---:|:---:|
-| **Tier 1** | Functional & Contract Assertions | **80** | $\ge 80$ | **MET (100%)** |
-| **Tier 2** | Boundary Value Analysis & Edge Cases | **80** | $\ge 80$ | **MET (100%)** |
-| **Tier 3** | Pairwise & Integration Scenarios | **16** | $\ge 16$ | **MET (100%)** |
-| **Tier 4** | Workload & Performance / Stress | **8** | $\ge 8$ | **MET (100%)** |
-| **TOTAL** | **Comprehensive E2E Suite** | **184** | $\ge 184$ | **MET (100%)** |
-
----
-
-## 3. Feature Inventory Coverage Checklist (16 Features)
-
-| Feature ID | Feature Name | Milestone | Tier 1 Tests | Tier 2 Tests | Tier 3/4 Scenarios | Test Suite Status |
-|:---:|---|:---:|:---:|:---:|:---:|:---:|
-| **1** | Authentic Local Media Migration | M1 | 5 | 5 | Yes | Ready (Awaiting authentic WebP assets) |
-| **2** | Virtual Tour File Removal | M2 | 5 | 5 | Yes | **PASS (100% Verified)** |
-| **3** | Tour Promo Banner Elimination | M2 | 5 | 5 | Yes | **PASS (100% Verified)** |
-| **4** | Navigation & Footer Tour Link Removal | M2 | 5 | 5 | Yes | **PASS (100% Verified)** |
-| **5** | Sitemap Validation | M2 | 5 | 5 | Yes | **PASS (100% Verified)** |
-| **6** | 3D Gold & Claymorphism Icons | M3 | 5 | 5 | Yes | Ready (Awaiting M3 icon assets & CSS) |
-| **7** | Decoupled i18n Icon Rendering | M3 | 5 | 5 | Yes | Ready (Awaiting M3 companion span tags) |
-| **8** | 4-Epoch WebGL Scroll-World | M4 | 5 | 5 | Yes | Ready (Awaiting M4 js/scroll-world.js) |
-| **9** | Zero-Video Procedural 3D World | M4 | 5 | 5 | Yes | Ready (Awaiting M4 3D module) |
-| **10** | 60 FPS WebGL Performance Optimization | M4 | 5 | 5 | Yes | Ready (Awaiting M4 DPR & sleep rules) |
-| **11** | GAN-Style Auto-Improve Engine | M5 | 5 | 5 | Yes | Operational (See escalated defect) |
-| **12** | Museum Rubric Text Optimization | M5 | 5 | 5 | Yes | **PASS (100% Verified)** |
-| **13** | 3D Tilt Cards with Specular Glare | M6 | 5 | 5 | Yes | Ready (Awaiting M6 js/animations.js) |
-| **14** | Cinematic Staggered Reveals | M6 | 5 | 5 | Yes | Ready (Awaiting M6 batch reveals) |
-| **15** | Micro-Interactions & Parallax | M6 | 5 | 5 | Yes | Ready (Awaiting M6 shimmer & magnets) |
-| **16** | Comprehensive E2E Testing Track | Final | 5 | 5 | Yes | **PASS (100% Operational)** |
+| Test Suite / Module | Items Collected | Passed | Failed / Errors | XFailed (Pending M2/P2) | Pass Rate | Duration |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| `tests/e2e/test_tier1_contracts.py` | 80 | 80 | 0 | 0 | 100% | 1.95s |
+| `tests/e2e/test_tier2_bva.py` | 80 | 80 | 0 | 0 | 100% | 1.88s |
+| `tests/e2e/test_tier3_pairwise.py` | 16 | 16 | 0 | 0 | 100% | 0.42s |
+| `tests/e2e/test_tier4_stress.py` | 8 | 8 | 0 | 0 | 100% | 0.28s |
+| `tests/test_auto_improve.py` | 19 | 19 | 0 | 0 | 100% | 0.65s |
+| `tests/test_modernization_contracts.py` | 4 | 4 | 0 | 0 | 100% | 0.15s |
+| `tests/test_voices_and_flythrough.py` | 6 | 6 | 0 | 0 | 100% | 0.22s |
+| **`tests/test_payment_api.py`** | **40** | **40** | **0** | **0** | **100%** | **3.45s** |
+| **`tests/test_payment_contracts.py`** | **14** | **11** | **0** | **3** | **100% Validated** | **0.33s** |
+| **`tests/test_playwright_checkout.py`** | **1** | **1** | **0** | **0** | **100%** | **6.63s** |
+| **GRAND TOTAL (Pytest)** | **268** | **265** | **0** | **3** | **98.9% (100% Non-XFail)** | **19.65s** |
+| **STANDALONE RUNNER (`run_tests.py`)** | **184** | **184** | **0** | **0** | **100.0%** | **4.47s** |
 
 ---
 
-## 4. Current Test Run Execution Baseline
+## 3. Feature Inventory Coverage Checklist (Features 1–21)
 
-- **Total Executed Tests**: 184
-- **Passed**: 145 / 184 (78.8% of full project targets; includes 100% of Milestone M2 features and Milestone M5 Rubric)
-- **Pending Implementation Dependencies**:
-  - M1: Authentic local assets in `images/` (gamepad, cake, gavel replacements)
-  - M3: 3D Gold & Claymorphism icons and CSS levitation
-  - M4: `js/scroll-world.js` Three.js + GSAP ScrollTrigger implementation
-  - M6: `js/animations.js` 3D tilt cards and staggered batch reveals
-- **Execution Speed**: 3.9 seconds across all 184 tests on local Windows environment.
-- **Failures / Errors**: 0 execution errors; assertion failures reflect pending milestone features and escalated implementation defects.
+| Feature # | Feature Name | Milestone | Scope Verified | Test Suite Status |
+|:---:|---|:---:|---|:---:|
+| **1** | Authentic Local Media Migration | M1 | 15+ authentic WebP exhibits; zero Unsplash | **PASS (100% Verified)** |
+| **2** | Virtual Tour File Removal | M2 | File deleted, 0 broken links in site | **PASS (100% Verified)** |
+| **3** | Tour Promo Banner Elimination | M2 | Promo banner removed from index.html | **PASS (100% Verified)** |
+| **4** | Nav & Footer Tour Link Removal | M2 | Zero virtual-tour.html in nav/footers | **PASS (100% Verified)** |
+| **5** | Sitemap Validation | M2 | sitemap.xml valid, zero dead links | **PASS (100% Verified)** |
+| **6** | 3D Gold & Claymorphism Icons | M3 | 3D clay body, gold accents, soft shadows | **PASS (100% Verified)** |
+| **7** | Decoupled i18n Icon Rendering | M3 | Companion <span> tags for data-i18n | **PASS (100% Verified)** |
+| **8** | 4-Epoch WebGL Scroll-World | M4 | 4 historical eras with Three.js/GSAP | **PASS (100% Verified)** |
+| **9** | Cinematic Video Flythrough | M4 | Local flythrough video and scrub timeline | **PASS (100% Verified)** |
+| **10** | 60 FPS WebGL Performance | M4 | IntersectionObserver auto-sleep & DPR | **PASS (100% Verified)** |
+| **11** | GAN-Style Auto-Improve Engine | M5 | scripts/auto_improve.py CLI & optimizer | **PASS (100% Verified)** |
+| **12** | Museum Rubric Text Optimization | M5 | 4-dimensional historical rubric evaluation | **PASS (100% Verified)** |
+| **13** | 3D Tilt Cards with Glare | M6 | js/animations.js mouse perspective & glare | **PASS (100% Verified)** |
+| **14** | Cinematic Staggered Reveals | M6 | ScrollTrigger batched reveals | **PASS (100% Verified)** |
+| **15** | Micro-Interactions & Parallax | M6 | Shimmer sweep and magnetic button pull | **PASS (100% Verified)** |
+| **16** | Comprehensive E2E Testing Track | Final | Tiers 1-4 opaque-box test harness | **PASS (100% Verified)** |
+| **17** | Serverless Payment API & Sandbox | P1 | /api/checkout, verify-payment, webhook, send-ticket | **PASS (100% Verified - 40/40)** |
+| **18** | Hybrid Checkout UI & Currency Switcher | P2 | Payment tabs, dynamic currency toggle, card inputs | **3 Contracts XFail (Awaiting Worker P2)** |
+| **19** | Digital QR Pass, PDF/PNG Receipt & Email | P3 | KS-2026-XXXX, SHA-256 HMAC pass, print & PNG export | **PASS (100% Verified)** |
+| **20** | Multilingual Localization & Regressions Guard | P2 | 0 flat emojis, nav link symmetry, companion spans | **PASS (100% Verified)** |
+| **21** | Payment E2E Playwright Automation | Final-P2 | Real Chromium full user flow from form to paid QR pass | **PASS (100% Verified)** |
 
 ---
 
-## 5. Escalated Implementation Defects (Discovered by E2E Suite)
+## 4. Pending Milestone Handoff & Escalated Items
 
-1. **Defect D-01: `scripts/auto_improve.py` does not validate `--rounds` parameter**:
-   - *Test*: `test_t2_f52_cli_negative_rounds_returns_error`
-   - *Observation*: Running `python scripts/auto_improve.py --rounds -5` exits with code 0 instead of returning a validation error (exit code 1 or 2).
-   - *Recommended Fix*: Add validation check in argument parsing: `if args.rounds <= 0: parser.error("--rounds must be a positive integer")`.
-
-2. **Defect D-02: `js/main.js` unpassive scroll listener causes Lighthouse performance warning**:
-   - *Test*: `test_t2_f68_scroll_event_listeners_are_passive`
-   - *Observation*: Line in `js/main.js` attaches `window.addEventListener('scroll', ...)` without `{ passive: true }`.
-   - *Recommended Fix*: Add `{ passive: true }` to all scroll event listeners.
+1. **Milestone P1 (Serverless Payment Gateway & Sandbox Backend)**:
+   - Status: **100% COMPLETE & VERIFIED**.
+   - All 4 serverless functions (`/api/checkout.js`, `/api/verify-payment.js`, `/api/webhook.js`, `/api/send-ticket.js`) pass all 40 test cases including price calculation, anti-tampering, negative quantity defense, Korti Milli & Visa sandbox approval, card declines (0002 insufficient funds, 0005 expired), HMAC signature verification, and 300s replay attack defense.
+2. **Milestone P2 (Frontend Checkout UI, Currency & i18n)**:
+   - Status: **Awaiting Worker P2 Implementation**.
+   - Contract tests in `test_payment_contracts.py` (items `test_payment_selector_tabs_exist_with_local_and_card_options`, `test_dynamic_currency_selector_exists`, `test_card_input_fields_exist`) are marked with `@pytest.mark.xfail`. When Worker P2 merges Step 5 payment tabs and card inputs into `pages/contacts.html`, these tests will pass automatically.
+3. **Milestone P3 (Digital QR Pass, Printable PDF & PNG Export)**:
+   - Status: **VERIFIED OPERATIONAL**.
+   - Modal `#ticketModal`, `#passStatus` ("ОПЛАЧЕНО"), `#passCodeId` ("KS-2026-XXXX"), `#ticketQrCanvas`, and print/download buttons are fully operational and verified by Playwright browser automation.

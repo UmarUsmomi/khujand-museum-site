@@ -9,7 +9,7 @@
 <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
 <meta content="#1A2744" name="theme-color"/>
 <!-- Canonical & Language -->
-<link href="https://khujand-museum.com/pages/expositions.html" rel="canonical"/>
+<link href="https://khujand-museum.com/pages/expositions" rel="canonical"/>
 <link href="https://khujand-museum.com/pages/expositions.html" hreflang="x-default" rel="alternate"/>
 <link href="https://khujand-museum.com/pages/expositions.html" hreflang="ru" rel="alternate"/>
 <!-- Open Graph / Facebook -->
@@ -17,7 +17,7 @@
 <meta content="Исторический музей Согдийской области" property="og:site_name"/>
 <meta content="Экспозиции и залы музея — Худжанд" property="og:title"/>
 <meta content="Постоянные и тематические экспозиции Исторического музея в Худжандской крепости: 28 000+ экспонатов." property="og:description"/>
-<meta content="https://khujand-museum.com/pages/expositions.html" property="og:url"/>
+<meta content="https://khujand-museum.com/pages/expositions" property="og:url"/>
 <meta content="https://khujand-museum.com/images/fortress/museum-seven-domes.webp" property="og:image"/>
 <meta content="ru_RU" property="og:locale"/>
 <!-- Twitter Card -->
@@ -27,12 +27,13 @@
 <meta content="https://khujand-museum.com/images/fortress/museum-seven-domes.webp" name="twitter:image"/>
 <!-- Favicon & Styles -->
 <link href="../favicon.png" rel="icon" type="image/png"/>
+<link href="../manifest.json" rel="manifest"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="preload"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/></noscript>
-<link href="../css/style.css?v=2.7" rel="stylesheet"/>
+<link href="../css/style.css?v=3.2" rel="stylesheet"/>
 </head>
 <body data-page="expositions">
 <div id="preloader" style="display: none; opacity: 0; pointer-events: none; visibility: hidden;">
@@ -82,6 +83,8 @@
 </button>
 </div>
 </header>
+<a class="skip-link" href="#main-content">Перейти к содержимому</a>
+<main id="main-content">
 <!-- PAGE HERO -->
 <section class="page-hero">
 <div class="container">
@@ -101,7 +104,8 @@
 <div class="facet-search-container reveal">
 <div class="search-input-wrapper">
 <span class="search-icon-btn"><img alt="Поиск" class="clay-icon-3d" height="18" src="../images/icons/icon-search-3d.webp" width="18"/></span>
-<input data-i18n-placeholder="search.expo_placeholder" id="expoSearchInput" placeholder="Поиск по залам, эпохам и экспонатам..." type="text"/>
+<label class="sr-only" for="expoSearchInput">Поиск по экспозициям</label>
+<input data-i18n-placeholder="search.expo_placeholder" id="expoSearchInput" placeholder="Поиск по залам, эпохам и экспонатам..." type="search"/>
 </div>
 <div class="facet-filter-chips" id="expoFilterChips">
 <button class="filter-chip active" data-filter="all" data-i18n="filter.all_halls">Все залы (12)</button>
@@ -248,6 +252,13 @@
 </div>
 </div>
 </section>
+<section class="official-exhibits-section" aria-labelledby="official-exhibits-title">
+<div class="container">
+<div class="section-label">Проверенный источник</div>
+<h2 class="section-title" id="official-exhibits-title">Фотоархив музея из источника учреждения</h2>
+<div data-official-exhibits></div>
+</div>
+</section>
 <!-- CTA -->
 <section class="cta">
 <div class="container reveal">
@@ -260,6 +271,7 @@
 </div>
 </section>
 <!-- ===== FOOTER ===== -->
+</main>
 <footer class="footer">
 <div class="container">
 <div class="footer-grid">
@@ -346,7 +358,8 @@
 </div>
 </div>
 </div>
-<script defer="" src="../js/main.js?v=2.7"></script>
-<script defer="" src="../js/animations.js?v=2.7"></script>
+<script defer="" src="../js/main.js?v=3.2"></script>
+<script defer="" src="../js/animations.js?v=2.8"></script>
+<script type="module" src="../js/app-enhancements.js"></script>
 </body>
 </html>

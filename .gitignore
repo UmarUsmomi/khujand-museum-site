@@ -17,6 +17,9 @@ Thumbs.db
 
 # Agent logs & scratch
 .agents/
+.omo/
+.opencode/
 scratch/
 
 .vercel
+.env

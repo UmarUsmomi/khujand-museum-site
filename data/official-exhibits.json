@@ -1,0 +1,19 @@
+{
+  "source": {
+    "institution": "Маҷмааи фарҳангию таърихии «Қалъаи Хуҷанд»",
+    "url": "http://www.qalai-khujand.tj/index.php/ru/qala/muzey",
+    "accessed": "2026-10-12",
+    "license": "Официальный фотоархив учреждения; публикация на стороннем сайте требует подтверждения прав перед коммерческим использованием."
+  },
+  "items": [
+    { "id": "official-museum-01", "title": "Фотоархив экспозиции музея — снимок 1", "image": "../images/official/museum-1.jpg", "sourceImage": "http://www.qalai-khujand.tj/images/stories/qala/muzey/1.jpg" },
+    { "id": "official-museum-02", "title": "Фотоархив экспозиции музея — снимок 2", "image": "../images/official/museum-2.jpg", "sourceImage": "http://www.qalai-khujand.tj/images/stories/qala/muzey/2.jpg" },
+    { "id": "official-museum-03", "title": "Фотоархив экспозиции музея — снимок 3", "image": "../images/official/museum-3.jpg", "sourceImage": "http://www.qalai-khujand.tj/images/stories/qala/muzey/3.jpg" },
+    { "id": "official-museum-04", "title": "Фотоархив экспозиции музея — снимок 4", "image": "../images/official/museum-4.jpg", "sourceImage": "http://www.qalai-khujand.tj/images/stories/qala/muzey/4.jpg" },
+    { "id": "official-museum-05", "title": "Фотоархив экспозиции музея — снимок 5", "image": "../images/official/museum-5.jpg", "sourceImage": "http://www.qalai-khujand.tj/images/stories/qala/muzey/5.jpg" },
+    { "id": "official-museum-06", "title": "Фотоархив экспозиции музея — снимок 6", "image": "../images/official/museum-6.jpg", "sourceImage": "http://www.qalai-khujand.tj/images/stories/qala/muzey/6.jpg" },
+    { "id": "official-museum-07", "title": "Фотоархив экспозиции музея — снимок 7", "image": "../images/official/museum-7.jpg", "sourceImage": "http://www.qalai-khujand.tj/images/stories/qala/muzey/7.jpg" },
+    { "id": "official-museum-08", "title": "Фотоархив экспозиции музея — снимок 8", "image": "../images/official/museum-8.jpg", "sourceImage": "http://www.qalai-khujand.tj/images/stories/qala/muzey/8.jpg" },
+    { "id": "official-museum-09", "title": "Фотоархив экспозиции музея — снимок 9", "image": "../images/official/museum-9.jpg", "sourceImage": "http://www.qalai-khujand.tj/images/stories/qala/muzey/9.jpg" }
+  ]
+}

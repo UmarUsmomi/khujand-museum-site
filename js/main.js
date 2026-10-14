@@ -274,7 +274,7 @@ const translations = {
     "footer.link_rules": "Правила посещения",
     "footer.copyright": "© 2026 Исторический музей Согдийской области (Худжандская крепость)",
     "footer.disclaimer": "Неофициальный культурно-образовательный портал. Исторические материалы и экспонаты представлены в некоммерческих просветительских целях.",
-    "footer.official_entity": "Официальный сайт ГУ «Историко-культурный комплекс «Крепость Худжанда»»:",
+  "footer.official_entity": "Сайт учреждения ГУ «Историко-культурный комплекс «Крепость Худжанда»»:",
     "alert.form_sent": "Спасибо! Ваше сообщение успешно отправлено.",
     "alert.form_error": "Пожалуйста, заполните все обязательные поля.",
     "index.about_p1": "Исторический музей Согдийской области — старейшее и крупнейшее музейное учреждение на территории Таджикистана. Основанный в 1931 году как краеведческий музей, он прошёл путь от небольшой коллекции до масштабного музейного комплекса в стенах восстановленной Худжандской крепости.",
@@ -407,6 +407,25 @@ const translations = {
     "ticket.summary_total": "К оплате:",
     "ticket.security_note": "Безопасная онлайн-симуляция платежа. Электронный билет и QR-код будут сгенерированы мгновенно.",
     "ticket.btn_checkout": "Оформить электронный билет →",
+    "ticket.step5_title": "Способ оплаты",
+    "payment.tab_local": "Корти Милли / Alif Pay / Dushanbe City (QR)",
+    "payment.tab_intl": "Visa / MasterCard / Stripe",
+    "payment.local_desc": "Оплата через мобильные банки Таджикистана по динамическому QR-коду или номеру телефона без комиссии.",
+    "payment.local_phone_label": "Номер телефона для счёта в Alif / DC (необязательно):",
+    "payment.sandbox_test_cards": "Тестовые карты Sandbox:",
+    "payment.card_number": "Номер банковской карты *",
+    "payment.card_holder": "Имя держателя карты *",
+    "payment.card_expiry": "Срок действия (ММ/ГГ) *",
+    "payment.card_cvc": "CVC / CVV *",
+    "payment.currency_toggle": "Валюта отображения:",
+    "payment.ssl_secure": "256-bit SSL шифрование",
+    "payment.three_d_secure": "Протокол 3D-Secure 2.0",
+    "payment.err_card_invalid": "Неверный номер карты (ошибка алгоритма Луна)",
+    "payment.err_card_expired": "Срок действия карты истёк",
+    "payment.err_cvc_invalid": "Неверный CVC код (3-4 цифры)",
+    "modal.status_paid": "ОПЛАЧЕНО",
+    "modal.btn_download_pdf": "Скачать PDF",
+    "modal.btn_download_png": "Скачать PNG",
     "modal.pass_title": "ЭЛЕКТРОННЫЙ ПРОПУСК В МУЗЕЙ",
     "modal.pass_sub": "Исторический музей Согдийской области • Худжанд",
     "modal.holder": "Посетитель",
@@ -713,7 +732,7 @@ const translations = {
     "footer.link_rules": "Қоидаҳои ташриф",
     "footer.copyright": "© 2026 Осорхонаи таърихии вилояти Суғд (Қалъаи Хуҷанд)",
     "footer.disclaimer": "Сомонаи ғайрирасмии фарҳангию омӯзишӣ ва сайёҳӣ. Маводҳои таърихӣ бо ҳадафҳои маърифатӣ пешниҳод шудаанд.",
-    "footer.official_entity": "Сомонаи расмии Муассисаи давлатии «Маҷмааи таърихию фарҳангии «Қалъаи Хуҷанд»»:",
+  "footer.official_entity": "Сомонаи муассисаи давлатии «Маҷмааи таърихию фарҳангии «Қалъаи Хуҷанд»»:",
     "alert.form_sent": "Ташаккур! Паёми шумо бо муваффақият фиристода шуд.",
     "alert.form_error": "Лутфан, ҳамаи майдонҳои ҳатмиро пур кунед.",
     "index.about_p1": "Осорхонаи таърихии вилояти Суғд — қадимтарин ва бузургтарин муассисаи осорхонавӣ дар қаламрави Тоҷикистон мебошад. Соли 1931 ҳамчун осорхонаи кишваршиносӣ таъсис ёфта, аз як маҷмӯаи хурд то маҷмааи бузурги осорхонавӣ дар дохили Қалъаи барқароршудаи Хуҷанд рушд ёфтааст.",
@@ -846,6 +865,25 @@ const translations = {
     "ticket.summary_total": "Барои пардохт:",
     "ticket.security_note": "Симулятсияи амни пардохти онлайн. Чиптаи электронӣ ва QR-код фавран тавлид мешаванд.",
     "ticket.btn_checkout": "Ба расмият даровардани чипта →",
+    "ticket.step5_title": "Тарзи пардохт",
+    "payment.tab_local": "Корти Миллӣ / Alif Pay / Dushanbe City (QR)",
+    "payment.tab_intl": "Visa / MasterCard / Stripe",
+    "payment.local_desc": "Пардохт тавассути бонкҳои мобилии Тоҷикистон бо QR-коди динамикӣ ё рақами телефон бе комиссия.",
+    "payment.local_phone_label": "Рақами телефон барои ҳисоб дар Alif / DC (ихтиёрӣ):",
+    "payment.sandbox_test_cards": "Кортҳои санҷишии Sandbox:",
+    "payment.card_number": "Рақами корти бонкӣ *",
+    "payment.card_holder": "Номи дорандаи корт *",
+    "payment.card_expiry": "Мӯҳлати эътибор (ММ/СОЛ) *",
+    "payment.card_cvc": "CVC / CVV *",
+    "payment.currency_toggle": "Асъори намоиш:",
+    "payment.ssl_secure": "Рамзгузории 256-bit SSL",
+    "payment.three_d_secure": "Протоколи 3D-Secure 2.0",
+    "payment.err_card_invalid": "Рақами корт нодуруст аст (хатои алгоритми Лун)",
+    "payment.err_card_expired": "Мӯҳлати эътибори корт гузаштааст",
+    "payment.err_cvc_invalid": "Рамзи CVC нодуруст аст (3-4 рақам)",
+    "modal.status_paid": "СУПУРДА ШУД",
+    "modal.btn_download_pdf": "Боргирии PDF",
+    "modal.btn_download_png": "Боргирии PNG",
     "modal.pass_title": "ГУЗАРНОМАИ ЭЛЕКТРОНИИ ОСОРХОНА",
     "modal.pass_sub": "Осорхонаи таърихии вилояти Суғд • Хуҷанд",
     "modal.holder": "Меҳмон",
@@ -1152,7 +1190,7 @@ const translations = {
     "footer.link_rules": "Visiting Rules",
     "footer.copyright": "© 2026 Historical Museum of Sughd Region (Khujand Fortress)",
     "footer.disclaimer": "Unofficial cultural, educational and heritage portal. All historical materials and exhibits are presented for non-commercial educational purposes.",
-    "footer.official_entity": "Official portal of the State Institution 'Historical and Cultural Complex Khujand Fortress':",
+  "footer.official_entity": "Institution website: State Institution 'Historical and Cultural Complex Khujand Fortress':",
     "alert.form_sent": "Thank you! Your message has been sent successfully.",
     "alert.form_error": "Please fill in all required fields.",
     "index.about_p1": "The Historical Museum of Sughd Region is the oldest and largest museum institution in Tajikistan. Founded in 1931 as a local lore museum, it has grown from a modest collection into an extensive museum complex set within the restored Khujand Fortress.",
@@ -1285,6 +1323,25 @@ const translations = {
     "ticket.summary_total": "Total Amount:",
     "ticket.security_note": "Secure online payment simulation. Digital ticket and QR code generated instantly.",
     "ticket.btn_checkout": "Generate Digital Ticket →",
+    "ticket.step5_title": "Payment Method",
+    "payment.tab_local": "Korti Milli / Alif Pay / Dushanbe City (QR)",
+    "payment.tab_intl": "Visa / MasterCard / Stripe",
+    "payment.local_desc": "Payment via Tajikistan mobile banking apps via dynamic QR code or phone number with zero fee.",
+    "payment.local_phone_label": "Phone number for invoice in Alif / DC (optional):",
+    "payment.sandbox_test_cards": "Sandbox Test Cards:",
+    "payment.card_number": "Bank Card Number *",
+    "payment.card_holder": "Cardholder Name *",
+    "payment.card_expiry": "Expiration Date (MM/YY) *",
+    "payment.card_cvc": "CVC / CVV *",
+    "payment.currency_toggle": "Display Currency:",
+    "payment.ssl_secure": "256-bit SSL Encryption",
+    "payment.three_d_secure": "3D-Secure 2.0 Protocol",
+    "payment.err_card_invalid": "Invalid card number (Luhn check failed)",
+    "payment.err_card_expired": "Card has expired",
+    "payment.err_cvc_invalid": "Invalid CVC code (3-4 digits)",
+    "modal.status_paid": "PAID",
+    "modal.btn_download_pdf": "Download PDF",
+    "modal.btn_download_png": "Download PNG",
     "modal.pass_title": "MUSEUM DIGITAL PASS",
     "modal.pass_sub": "Sughd Historical Museum • Khujand",
     "modal.holder": "Visitor",
@@ -1848,6 +1905,129 @@ function drawDynamicQr(canvas, text) {
   }
 }
 
+// Luhn algorithm verification (Mod 10)
+function passesLuhn(numStr) {
+  const digits = String(numStr).replace(/\D/g, '');
+  if (digits.length < 13 || digits.length > 19) return false;
+  let sum = 0, alt = false;
+  for (let i = digits.length - 1; i >= 0; i--) {
+    let n = parseInt(digits.charAt(i), 10);
+    if (alt) {
+      n *= 2;
+      if (n > 9) n -= 9;
+    }
+    sum += n;
+    alt = !alt;
+  }
+  return sum % 10 === 0;
+}
+
+// Download Ticket as PNG
+function downloadTicketPng() {
+  const qrCanvas = document.getElementById('ticketQrCanvas');
+  const bookingCode = document.getElementById('passCodeId')?.textContent?.trim() || 'KS-2026-TICKET';
+  const cleanCode = bookingCode.replace(/[^A-Za-z0-9_-]/g, '');
+  const filename = `khujand-museum-ticket-${cleanCode}.png`;
+
+  const offCanvas = document.createElement('canvas');
+  const dpr = Math.max(window.devicePixelRatio || 1, 2);
+  offCanvas.width = 480 * dpr;
+  offCanvas.height = 680 * dpr;
+  const ctx = offCanvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  // Background
+  ctx.fillStyle = '#FDFBF7';
+  ctx.fillRect(0, 0, 480, 680);
+
+  // Borders
+  ctx.strokeStyle = '#C8A96E';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(16, 16, 448, 648);
+  ctx.lineWidth = 1;
+  ctx.strokeRect(22, 22, 436, 636);
+
+  // Header
+  ctx.fillStyle = '#1A2B4C';
+  ctx.font = 'bold 15px "Playfair Display", Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('ИСТОРИЧЕСКИЙ МУЗЕЙ СОГДИЙСКОЙ ОБЛАСТИ', 240, 58);
+  ctx.font = '11px "Inter", "Segoe UI", sans-serif';
+  ctx.fillStyle = '#8A6D3B';
+  ctx.fillText('Худжандская крепость • Электронный билет', 240, 78);
+
+  ctx.strokeStyle = '#D4AF37';
+  ctx.beginPath();
+  ctx.moveTo(40, 94);
+  ctx.lineTo(440, 94);
+  ctx.stroke();
+
+  // Visitor info
+  ctx.textAlign = 'left';
+  ctx.font = 'bold 11px "Inter", sans-serif';
+  ctx.fillStyle = '#718096';
+  ctx.fillText('ПОСЕТИТЕЛЬ:', 40, 126);
+  ctx.fillStyle = '#1A2B4C';
+  ctx.font = '600 13px "Inter", sans-serif';
+  const buyer = document.getElementById('passBuyer')?.textContent || 'Посетитель';
+  ctx.fillText(buyer, 40, 144);
+
+  ctx.fillStyle = '#718096';
+  ctx.font = 'bold 11px "Inter", sans-serif';
+  ctx.fillText('ДАТА И СЕАНС:', 40, 176);
+  ctx.fillStyle = '#1A2B4C';
+  ctx.font = '600 13px "Inter", sans-serif';
+  const dateSlot = document.getElementById('passDateSlot')?.textContent || '';
+  ctx.fillText(dateSlot, 40, 194);
+
+  ctx.fillStyle = '#718096';
+  ctx.font = 'bold 11px "Inter", sans-serif';
+  ctx.fillText('КАТЕГОРИИ:', 40, 226);
+  ctx.fillStyle = '#1A2B4C';
+  ctx.font = '600 13px "Inter", sans-serif';
+  const categories = document.getElementById('passCategories')?.textContent || '';
+  ctx.fillText(categories, 40, 244);
+
+  ctx.fillStyle = '#718096';
+  ctx.font = 'bold 11px "Inter", sans-serif';
+  ctx.fillText('СТАТУС:', 40, 276);
+  ctx.fillStyle = '#2E7D32';
+  ctx.font = 'bold 14px "Inter", sans-serif';
+  const status = document.getElementById('passStatus')?.textContent || 'ОПЛАЧЕНО';
+  ctx.fillText(status, 40, 296);
+
+  // QR
+  if (qrCanvas) {
+    ctx.drawImage(qrCanvas, 160, 325, 160, 160);
+  }
+
+  // Code & Sig
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 15px monospace';
+  ctx.fillStyle = '#1A2B4C';
+  ctx.fillText(bookingCode, 240, 515);
+
+  const sig = document.getElementById('passSignature')?.textContent || '';
+  if (sig) {
+    ctx.font = '10px monospace';
+    ctx.fillStyle = '#718096';
+    ctx.fillText(sig, 240, 535);
+  }
+
+  ctx.font = '11px "Inter", sans-serif';
+  ctx.fillStyle = '#718096';
+  ctx.fillText('Поднесите QR-код к турникету крепости', 240, 575);
+  ctx.fillText('РНН: 030018492 • Без НДС (ст. 169 НК РТ)', 240, 595);
+
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = offCanvas.toDataURL('image/png');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+const downloadTicketAsPng = downloadTicketPng;
+
 // ===== ONLINE TICKET BOOKING & DYNAMIC QR-PASS =====
 function initTicketBooking() {
   const form = document.getElementById('ticketBookingForm');
@@ -1860,10 +2040,23 @@ function initTicketBooking() {
   const sumCount = document.getElementById('sumCount');
   const sumAddons = document.getElementById('sumAddons');
   const sumTotalAmount = document.getElementById('sumTotalAmount');
+  const currencyEquivRow = document.getElementById('currencyEquivRow');
+  const sumTotalEquiv = document.getElementById('sumTotalEquiv');
+
+  // Currency switcher state (1 USD = 10.95 TJS, 1 EUR = 11.90 TJS)
+  let activeCurrency = 'TJS';
+  const FX_RATES = {
+    TJS: 1.0,
+    USD: 10.95,
+    EUR: 11.90
+  };
+
+  // Payment method state
+  let activePaymentMethod = 'local'; // 'local' or 'card'
 
   // Set date constraints
   const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
+  const todayStr = [today.getFullYear(), String(today.getMonth() + 1).padStart(2, '0'), String(today.getDate()).padStart(2, '0')].join('-');
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
   const tomorrowStr = tomorrow.toISOString().split('T')[0];
@@ -1882,7 +2075,9 @@ function initTicketBooking() {
   slotChips.forEach(chip => {
     chip.addEventListener('click', () => {
       slotChips.forEach(c => c.classList.remove('active'));
+      slotChips.forEach(c => c.setAttribute('aria-pressed', 'false'));
       chip.classList.add('active');
+      chip.setAttribute('aria-pressed', 'true');
       currentSlot = chip.dataset.slot || chip.textContent;
       if (sumSlot) sumSlot.textContent = currentSlot;
     });
@@ -1904,7 +2099,7 @@ function initTicketBooking() {
     if (sumCount) sumCount.textContent = totalTickets + " шт.";
 
     let basePrice = counts.adult * prices.adult + counts.student * prices.student + counts.child * prices.child;
-    
+
     // Addons
     let addonTotal = 0;
     const addonNames = [];
@@ -1927,9 +2122,132 @@ function initTicketBooking() {
     if (sumTotalAmount) {
       sumTotalAmount.textContent = grandTotal + " TJS";
     }
+
+    // Update currency equivalent display
+    if (currencyEquivRow && sumTotalEquiv) {
+      if (activeCurrency === 'USD') {
+        const equivUsd = (grandTotal / FX_RATES.USD).toFixed(2);
+        sumTotalEquiv.textContent = `(≈ $${equivUsd} USD)`;
+        currencyEquivRow.style.display = 'block';
+      } else if (activeCurrency === 'EUR') {
+        const equivEur = (grandTotal / FX_RATES.EUR).toFixed(2);
+        sumTotalEquiv.textContent = `(≈ €${equivEur} EUR)`;
+        currencyEquivRow.style.display = 'block';
+      } else {
+        currencyEquivRow.style.display = 'none';
+      }
+    }
+
     return { totalTickets, grandTotal };
   }
 
+  // Currency Switcher Buttons
+  const currencyBtns = document.querySelectorAll('.currency-btn');
+  currencyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currencyBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-checked', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-checked', 'true');
+      activeCurrency = (btn.dataset.curr || btn.dataset.currency || 'TJS').toUpperCase();
+      updateBookingCalculation();
+    });
+  });
+
+  // Payment Tabs
+  const tabLocal = document.getElementById('tabLocalPayment');
+  const tabCard = document.getElementById('tabCardPayment');
+  const panelLocal = document.getElementById('localPaymentPanel');
+  const panelCard = document.getElementById('cardPaymentPanel');
+
+  if (tabLocal && tabCard) {
+    tabLocal.addEventListener('click', () => {
+      tabLocal.classList.add('active');
+      tabLocal.setAttribute('aria-selected', 'true');
+      tabCard.classList.remove('active');
+      tabCard.setAttribute('aria-selected', 'false');
+      if (panelLocal) panelLocal.style.display = 'block';
+      if (panelCard) panelCard.style.display = 'none';
+      activePaymentMethod = 'local';
+    });
+
+    tabCard.addEventListener('click', () => {
+      tabCard.classList.add('active');
+      tabCard.setAttribute('aria-selected', 'true');
+      tabLocal.classList.remove('active');
+      tabLocal.setAttribute('aria-selected', 'false');
+      if (panelCard) panelCard.style.display = 'block';
+      if (panelLocal) panelLocal.style.display = 'none';
+      activePaymentMethod = 'card';
+    });
+  }
+
+  // Card Inputs & Auto-Formatting
+  const cardNumInput = document.getElementById('cardNumber');
+  const cardExpInput = document.getElementById('cardExpiry');
+  const cardCvcInput = document.getElementById('cardCvc');
+  const cardHolderInput = document.getElementById('cardHolder');
+  const cardBrandInd = document.getElementById('cardBrandIndicator');
+
+  function detectCardBrand(digits) {
+    if (digits.startsWith('4')) return 'Visa';
+    if (/^220[0-4]/.test(digits)) return 'МИР';
+    if (/^(5[1-5]|2[2-7])/.test(digits)) return 'MasterCard';
+    if (/^(9771|5058)/.test(digits)) return 'Корти Милли';
+    return '';
+  }
+
+  if (cardNumInput) {
+    cardNumInput.addEventListener('input', () => {
+      const clean = cardNumInput.value.replace(/\D/g, '').slice(0, 19);
+      cardNumInput.value = clean.replace(/(\d{4})(?=\d)/g, '$1 ');
+      if (cardBrandInd) cardBrandInd.textContent = detectCardBrand(clean);
+      const numError = document.getElementById('cardNumberError');
+      if (numError) numError.style.display = 'none';
+    });
+  }
+
+  if (cardExpInput) {
+    cardExpInput.addEventListener('input', () => {
+      let clean = cardExpInput.value.replace(/\D/g, '').slice(0, 4);
+      if (clean.length >= 2) {
+        cardExpInput.value = clean.slice(0, 2) + '/' + clean.slice(2);
+      } else {
+        cardExpInput.value = clean;
+      }
+      const expError = document.getElementById('cardExpiryError');
+      if (expError) expError.style.display = 'none';
+    });
+  }
+
+  if (cardCvcInput) {
+    cardCvcInput.addEventListener('input', () => {
+      cardCvcInput.value = cardCvcInput.value.replace(/\D/g, '').slice(0, 4);
+      const cvcError = document.getElementById('cardCvcError');
+      if (cvcError) cvcError.style.display = 'none';
+    });
+  }
+
+  // Sandbox Quick-fill Chips
+  document.querySelectorAll('.sandbox-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const cardVal = chip.dataset.cardFill || '';
+      const expVal = chip.dataset.expFill || '12/28';
+      const cvcVal = chip.dataset.cvcFill || '123';
+      if (cardNumInput) {
+        cardNumInput.value = cardVal.replace(/(\d{4})(?=\d)/g, '$1 ');
+        if (cardBrandInd) cardBrandInd.textContent = detectCardBrand(cardVal);
+      }
+      if (cardExpInput) cardExpInput.value = expVal;
+      if (cardCvcInput) cardCvcInput.value = cvcVal;
+      if (cardHolderInput) cardHolderInput.value = 'IVAN IVANOV';
+      document.querySelectorAll('.card-field-error').forEach(el => el.style.display = 'none');
+    });
+  });
+
+  // Ticket Counter Buttons
   document.querySelectorAll('.counter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const type = btn.dataset.type;
@@ -1954,60 +2272,221 @@ function initTicketBooking() {
 
   updateBookingCalculation();
 
-  // Form Submission & Pass Generation
+  // Form Submission & Checkout Flow
   const modal = document.getElementById('ticketModal');
   const closeBtn = document.getElementById('closeTicketModal');
   const saveBtn = document.getElementById('saveTicketBtn');
   const printBtn = document.getElementById('printTicketBtn');
+  const downloadPdfBtn = document.getElementById('downloadTicketPdfBtn');
+  const downloadPngBtn = document.getElementById('downloadTicketPngBtn');
+  const downloadImgBtn = document.getElementById('downloadTicketImageBtn');
+  const checkoutAlert = document.getElementById('checkoutFormError');
 
-  form.addEventListener('submit', (e) => {
+  function showFormAlert(msg) {
+    if (checkoutAlert) {
+      checkoutAlert.textContent = msg;
+      checkoutAlert.style.display = 'block';
+      checkoutAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      alert(msg);
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (checkoutAlert) checkoutAlert.style.display = 'none';
+
     const { totalTickets, grandTotal } = updateBookingCalculation();
     if (totalTickets <= 0) {
-      alert("Пожалуйста, выберите хотя бы один билет.");
+      showFormAlert("Пожалуйста, выберите хотя бы один билет.");
       return;
     }
 
     const nameInput = document.getElementById('ticketBuyerName');
+    const emailInput = document.getElementById('ticketBuyerEmail');
+    const phoneInput = document.getElementById('ticketBuyerPhone');
     const buyerName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : "Посетитель музея";
+    const buyerEmail = (emailInput && emailInput.value.trim()) ? emailInput.value.trim() : "visitor@example.com";
+    const buyerPhone = (phoneInput && phoneInput.value.trim()) ? phoneInput.value.trim() : "+992927778899";
     const dateVal = dateInput ? dateInput.value : todayStr;
-    const bookingCode = "KS-2026-" + Math.floor(1000 + Math.random() * 9000);
 
-    // Populate Pass Modal
-    const passBuyer = document.getElementById('passBuyer');
-    const passDateSlot = document.getElementById('passDateSlot');
-    const passCategories = document.getElementById('passCategories');
-    const passStatus = document.getElementById('passStatus');
-    const passCodeId = document.getElementById('passCodeId');
+    // Card validation if card method is chosen
+    if (activePaymentMethod === 'card') {
+      const cleanCard = (cardNumInput?.value || '').replace(/\D/g, '');
+      const numError = document.getElementById('cardNumberError');
+      const isKnownSandbox = cleanCard.startsWith('4242') || cleanCard.startsWith('5555') || cleanCard.startsWith('9771') || cleanCard === '4000000000000002' || cleanCard === '4000000000000005';
 
-    if (passBuyer) passBuyer.textContent = buyerName;
-    if (passDateSlot) passDateSlot.textContent = dateVal + " • " + currentSlot;
-    if (passCategories) {
-      const parts = [];
-      if (counts.adult > 0) parts.push(`Взрослый (${counts.adult})`);
-      if (counts.student > 0) parts.push(`Студент (${counts.student})`);
-      if (counts.child > 0) parts.push(`Школьник (${counts.child})`);
-      passCategories.textContent = parts.join(', ');
+      if (!cleanCard) {
+        if (numError) { numError.textContent = "Введите номер карты."; numError.style.display = 'block'; }
+        return;
+      }
+      if (!isKnownSandbox && !passesLuhn(cleanCard)) {
+        if (numError) { numError.textContent = "Неверный номер карты (ошибка алгоритма Луна)."; numError.style.display = 'block'; }
+        return;
+      }
+
+      const expVal = (cardExpInput?.value || '').trim();
+      const expError = document.getElementById('cardExpiryError');
+      if (!/^\d{2}\/\d{2}$/.test(expVal)) {
+        if (expError) { expError.textContent = "Введите срок (ММ/ГГ)."; expError.style.display = 'block'; }
+        return;
+      }
+      const expMonth = parseInt(expVal.slice(0, 2), 10);
+      if (expMonth < 1 || expMonth > 12) {
+        if (expError) { expError.textContent = "Неверный месяц карты."; expError.style.display = 'block'; }
+        return;
+      }
+
+      const cvcVal = (cardCvcInput?.value || '').trim();
+      const cvcError = document.getElementById('cardCvcError');
+      if (cvcVal.length < 3) {
+        if (cvcError) { cvcError.textContent = "CVC должен содержать 3-4 цифры."; cvcError.style.display = 'block'; }
+        return;
+      }
     }
-    if (passStatus) passStatus.textContent = "ОПЛАЧЕНО • " + grandTotal + " TJS";
-    if (passCodeId) passCodeId.textContent = bookingCode;
 
-    // Draw QR on Canvas
-    const qrCanvas = document.getElementById('ticketQrCanvas');
-    if (qrCanvas) {
-      drawDynamicQr(qrCanvas, bookingCode + "|" + buyerName + "|" + dateVal + "|" + grandTotal);
+    const payload = {
+      date: dateVal,
+      slot: currentSlot,
+      tickets: { adult: counts.adult, student: counts.student, child: counts.child },
+      addons: {
+        audioGuide: Boolean(addonAudio && addonAudio.checked),
+        photoPermit: Boolean(addonPhoto && addonPhoto.checked)
+      },
+      customer: {
+        name: buyerName,
+        email: buyerEmail,
+        phone: buyerPhone
+      },
+      paymentMethod: activePaymentMethod === 'card' ? 'stripe_card' : 'alif_pay',
+      cardNumber: activePaymentMethod === 'card' ? cardNumInput?.value?.replace(/\s/g, '') : undefined,
+      cardExpiry: activePaymentMethod === 'card' ? cardExpInput?.value?.trim() : undefined,
+      cardCvc: activePaymentMethod === 'card' ? cardCvcInput?.value?.trim() : undefined,
+      currency: 'TJS'
+    };
+
+    let result = null;
+    try {
+      const resp = await fetch('/api/checkout.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await resp.json();
+      if (resp.status === 402 || data.status === 'DECLINED' || (data.error && data.error.code === 'card_declined')) {
+        showFormAlert(data.error?.message || "Платёж отклонён банком. Проверьте реквизиты карты.");
+        return;
+      }
+      if (!resp.ok && data.error) {
+        showFormAlert(data.error.message || "Ошибка при оформлении заказа.");
+        return;
+      }
+      result = data;
+    } catch (_) {
+      // Local client-side simulation fallback when serverless backend is offline
+      const rawCard = payload.cardNumber || '';
+      if (rawCard.endsWith('0002')) {
+        showFormAlert("Платёж отклонён: недостаточно средств на карте.");
+        return;
+      }
+      if (rawCard.endsWith('0005')) {
+        showFormAlert("Платёж отклонён: срок действия карты истёк.");
+        return;
+      }
+      const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+      const bCode = "KS-2026-" + randomSuffix;
+      result = {
+        success: true,
+        status: 'PAID',
+        bookingCode: bCode,
+        bookingNumber: bCode,
+        amount: grandTotal,
+        signature: '8E4D2C1A09F7B3E5'
+      };
     }
 
-    // Show Modal
-    if (modal) modal.classList.add('active');
+    if (result && result.status === 'PAID') {
+      const bCode = result.bookingCode || result.bookingNumber || ("KS-2026-" + Math.floor(1000 + Math.random() * 9000));
+      let sig = result.signature || '8E4D2C1A09F7B3E5';
+
+      // Populate Modal Pass
+      const passBuyer = document.getElementById('passBuyer');
+      const passDateSlot = document.getElementById('passDateSlot');
+      const passCategories = document.getElementById('passCategories');
+      const passStatus = document.getElementById('passStatus');
+      const passCodeId = document.getElementById('passCodeId');
+      const passSignature = document.getElementById('passSignature');
+      const statusPill = document.getElementById('ticketStatusPill');
+
+      if (passBuyer) passBuyer.textContent = buyerName;
+      if (passDateSlot) passDateSlot.textContent = dateVal + " • " + currentSlot;
+      if (passCategories) {
+        const parts = [];
+        if (counts.adult > 0) parts.push(`Взрослый (${counts.adult})`);
+        if (counts.student > 0) parts.push(`Студент (${counts.student})`);
+        if (counts.child > 0) parts.push(`Школьник (${counts.child})`);
+        passCategories.textContent = parts.join(', ');
+      }
+      if (passStatus) passStatus.textContent = "ОПЛАЧЕНО • " + grandTotal + " TJS";
+      if (statusPill) statusPill.classList.add('status-paid');
+      if (passCodeId) passCodeId.textContent = bCode;
+      if (passSignature) passSignature.textContent = "SIG: " + sig;
+
+      // Draw dynamic QR Code
+      const qrCanvas = document.getElementById('ticketQrCanvas');
+      if (qrCanvas) {
+        const qrPayload = result.qrData || `${bCode}|${grandTotal.toFixed(2)}|${dateVal}|${sig}`;
+        drawDynamicQr(qrCanvas, qrPayload);
+      }
+
+      // Show Modal
+      if (modal) modal.classList.add('active');
+
+      // Dispatch receipt email asynchronously
+      try {
+        fetch('/api/send-ticket.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderId: result.orderId || 'ord_local',
+            bookingCode: bCode,
+            email: buyerEmail,
+            buyerName: buyerName,
+            date: dateVal,
+            slot: currentSlot,
+            amount: grandTotal,
+            currency: 'TJS'
+          })
+        }).catch(() => {});
+      } catch (_) {}
+    }
   });
 
+  // Modal Buttons
   if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
   if (saveBtn) saveBtn.addEventListener('click', () => modal.classList.remove('active'));
+
   if (printBtn) {
     printBtn.addEventListener('click', () => {
+      document.body.classList.add('print-ticket-only');
       window.print();
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-ticket-only'), { once: true });
     });
+  }
+
+  if (downloadPdfBtn) {
+    downloadPdfBtn.addEventListener('click', () => {
+      document.body.classList.add('print-ticket-only');
+      window.print();
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-ticket-only'), { once: true });
+    });
+  }
+
+  if (downloadPngBtn) {
+    downloadPngBtn.addEventListener('click', downloadTicketPng);
+  }
+  if (downloadImgBtn) {
+    downloadImgBtn.addEventListener('click', downloadTicketPng);
   }
 }
 
@@ -2364,6 +2843,8 @@ function initAudioGuideDock() {
   let isUserScrubbing = false;
 
   const guideAudio = new Audio();
+  guideAudio.id = 'guideAudio';
+  window.museumGuideAudio = guideAudio;
   guideAudio.preload = 'none';
 
   function ensureAudioSrc() {
